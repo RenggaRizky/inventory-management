@@ -1,1 +1,1 @@
-# management-inventory
+# inventory-management
