@@ -1,7 +1,11 @@
+import BtnPrimary from "./components/button";
+
 function App() {
     return (
         <div className="App">
-            <h1>hallo</h1>
+            <div>
+                <BtnPrimary />
+            </div>
         </div>
     );
 }

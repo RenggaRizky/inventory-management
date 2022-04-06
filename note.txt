@@ -1,2 +1,4 @@
 git config --global user.name "RenggaRizky"
 git config --global user.email "renggarizkys@gmail.com"
+
+cd Users/rengga/OneDrive/Documents/College/Program/Web/inventory-management
