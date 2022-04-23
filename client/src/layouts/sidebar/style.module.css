@@ -1,0 +1,30 @@
+nav {
+    background-color: rgb(255, 255, 255);
+    font-family: "Poppins", sans-serif;
+    height: 100%;
+    line-height: 1.66;
+    margin: 0px;
+    position: fixed;
+    top: 84px;
+    overflow: auto;
+    width: 260px;
+}
+
+.nav_container {
+    padding: 0 12px;
+}
+
+.nav_wrapper {
+    padding-left: 12px;
+}
+
+.icon {
+    font-size: 1rem;
+    margin: 0 15px 3px 0;
+}
+
+.arrow_nav {
+    font-size: 16px;
+    text-align: right;
+    align-self: center;
+}

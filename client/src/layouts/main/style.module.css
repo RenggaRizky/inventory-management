@@ -1,0 +1,12 @@
+.wrapper {
+    background-color: #fff;
+    margin: 84px 24px 0 260px;
+}
+.container {
+    padding: 0 12px;
+    background-color: #e3f2fd;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    width: 100%;
+    min-height: 100vh;
+}

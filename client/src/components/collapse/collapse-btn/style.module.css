@@ -1,0 +1,35 @@
+.button {
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    color: #616161;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    font-weight: 400;
+    text-align: left;
+    text-decoration: none;
+    user-select: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    vertical-align: middle;
+    padding: 0.625rem 1.5rem;
+    -webkit-user-select: none;
+
+    /* padding: .375rem .75rem; */
+}
+
+.button:hover {
+    color: #5e35b1;
+    background-color: #ede7f6;
+}
+
+.button:active {
+    color: #5e35b1;
+    background-color: #b39ddb;
+}
+
+.button:focus {
+    outline: none;
+    box-shadow: none;
+}
