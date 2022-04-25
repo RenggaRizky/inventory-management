@@ -1,0 +1,8 @@
+.card {
+    border: 1px solid transparent !important;
+    border-radius: 0.75rem !important;
+}
+
+.card_body {
+    flex: 1 1 auto;
+}

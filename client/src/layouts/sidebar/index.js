@@ -81,40 +81,18 @@ const Sidebar = () => {
                 <div className={nav_wrapper}>
                     <SidebarTitle style={mb1}>Produk</SidebarTitle>
                     <SidebarSubtitle>Atur Produk</SidebarSubtitle>
-                    <CollapseWrapper>
-                        <CollapseBtn target="produk" onClick={onClickArrowNavigation.produk}>
-                            <div>
-                                <FiBox className={icon} />
-                                Produk
-                            </div>
-                            {openProduk === false ? <MdOutlineKeyboardArrowDown className={arrow_nav} /> : <MdOutlineKeyboardArrowUp className={arrow_nav} />}
-                        </CollapseBtn>
-                        <CollapseBox target="produk">
-                            <Link to="/tambah-produk">
-                                <CollapseSidebar>Tambah Produk</CollapseSidebar>
-                            </Link>
-                            <Link to="/produk">
-                                <CollapseSidebar>Lihat Produk</CollapseSidebar>
-                            </Link>
-                        </CollapseBox>
-                    </CollapseWrapper>
-                    <CollapseWrapper>
-                        <CollapseBtn target="merek" onClick={onClickArrowNavigation.merek}>
-                            <div>
-                                <AiOutlineTag className={icon} />
-                                Merek
-                            </div>
-                            {openMerek === false ? <MdOutlineKeyboardArrowDown className={arrow_nav} /> : <MdOutlineKeyboardArrowUp className={arrow_nav} />}
-                        </CollapseBtn>
-                        <CollapseBox target="merek">
-                            <Link to="/tambah-merek">
-                                <CollapseSidebar>Tambah Merek</CollapseSidebar>
-                            </Link>
-                            <Link to="/merek">
-                                <CollapseSidebar>Lihat Merek</CollapseSidebar>
-                            </Link>
-                        </CollapseBox>
-                    </CollapseWrapper>
+                    <Link to="/produk">
+                        <SidebarBtn>
+                            <FiBox className={icon} />
+                            Produk
+                        </SidebarBtn>
+                    </Link>
+                    <Link to="/merek">
+                        <SidebarBtn>
+                            <AiOutlineTag className={icon} />
+                            Merek
+                        </SidebarBtn>
+                    </Link>
                     <CollapseWrapper>
                         <CollapseBtn target="kategori" onClick={onClickArrowNavigation.kategori}>
                             <div>

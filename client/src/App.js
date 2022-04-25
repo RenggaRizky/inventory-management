@@ -2,7 +2,6 @@ import { Routes, Route, Link } from "react-router-dom";
 
 import Dashboard from "./pages/dashboard";
 import Produk from "./pages/produk";
-import TambahProduk from "./pages/tambah-produk";
 import Merek from "./pages/merek";
 import TambahMerek from "./pages/tambah-merek";
 import Laporan from "./pages/laporan";
@@ -21,7 +20,6 @@ function App() {
                             <Routes>
                                 <Route path="/" element={<Dashboard />} />
                                 <Route path="/produk" element={<Produk />} />
-                                <Route path="/tambah-produk" element={<TambahProduk />} />
                                 <Route path="/merek" element={<Merek />} />
                                 <Route path="/tambah-merek" element={<TambahMerek />} />
                                 <Route path="/laporan" element={<Laporan />} />

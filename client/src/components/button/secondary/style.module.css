@@ -1,0 +1,22 @@
+.btn_secondary {
+    background-color: #2196f3 !important;
+    border: medium solid transparent !important;
+    /* border-radius: 0.75rem !important; */
+    color: #fff !important;
+}
+
+.btn_secondary:hover {
+    background-color: #1565c0 !important;
+    color: #fff !important;
+}
+
+.btn_secondary:active {
+    background-color: #2196f3 !important;
+    color: #fff !important;
+    border: medium solid #90caf9 !important;
+}
+
+.btn_secondary:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

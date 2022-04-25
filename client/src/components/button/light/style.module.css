@@ -1,0 +1,22 @@
+.btn_light {
+    background-color: #ede7f6 !important;
+    border: medium solid transparent !important;
+    border-radius: 0.75rem !important;
+    color: #673ab7 !important;
+}
+
+.btn_light:hover {
+    background-color: #5e35b1 !important;
+    color: #fff !important;
+}
+
+.btn_light:active {
+    background-color: #673ab7 !important;
+    color: #fff !important;
+    border: medium solid #ede7f6 !important;
+}
+
+.btn_light:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

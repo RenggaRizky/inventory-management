@@ -1,0 +1,22 @@
+.pagination li a {
+    background-color: #eeeeee !important;
+    border: 2px solid transparent !important;
+    color: #673ab7 !important;
+    font-weight: 500;
+}
+
+.pagination li a:hover {
+    background-color: #673ab7 !important;
+    color: #fff !important;
+}
+
+.pagination li a:active {
+    background-color: #673ab7 !important;
+    border: 2px solid #b39ddb !important;
+    color: #fff !important;
+}
+
+.pagination li a:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
