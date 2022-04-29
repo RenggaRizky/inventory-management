@@ -1,0 +1,25 @@
+.disable_form {
+    border: 1px solid #c0c0c0 !important;
+    color: #212121 !important;
+    font-size: 0.875rem !important;
+    font-family: "Poppins", sans-serif !important;
+    margin: 1px;
+    padding: 0.875rem !important;
+    width: 100% !important;
+}
+
+.disable_form::placeholder {
+    color: #c0c0c0 !important;
+}
+
+.disable_form:-ms-input-placeholder {
+    color: #c0c0c0 !important;
+}
+
+.disable_form::-ms-input-placeholder {
+    color: #c0c0c0 !important;
+}
+
+.disable_form option:hover {
+    background-color: red;
+}

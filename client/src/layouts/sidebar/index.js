@@ -12,7 +12,8 @@ import SidebarSubtitle from "../../components/typography/sidebar-subtitle";
 import SidebarTitle from "../../components/typography/sidebar-title";
 
 import { AiOutlineTag } from "react-icons/ai";
-import { BiCategoryAlt, BiNotepad, BiUserCircle } from "react-icons/bi";
+import { BiNotepad, BiUserCircle } from "react-icons/bi";
+import { VscTypeHierarchySub } from "react-icons/vsc";
 import { FiBox } from "react-icons/fi";
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdOutlineInventory } from "react-icons/md";
 import { RiDashboardLine } from "react-icons/ri";
@@ -40,27 +41,11 @@ const Sidebar = () => {
         margin: "10px 0 12px 0",
     };
 
-    const [openProduk, setOpenProduk] = useState(false);
-    const [openMerek, setOpenMerek] = useState(false);
-    const [openKategori, setopenKategori] = useState(false);
     const [openInventori, setOpenInventori] = useState(false);
-    const [openSupplier, setOpenSupplier] = useState(false);
 
     const onClickArrowNavigation = {
-        produk: () => {
-            setOpenProduk(!openProduk);
-        },
-        merek: () => {
-            setOpenMerek(!openMerek);
-        },
-        kategori: () => {
-            setopenKategori(!openKategori);
-        },
         inventori: () => {
             setOpenInventori(!openInventori);
-        },
-        supplier: () => {
-            setOpenSupplier(!openSupplier);
         },
     };
 
@@ -93,19 +78,12 @@ const Sidebar = () => {
                             Merek
                         </SidebarBtn>
                     </Link>
-                    <CollapseWrapper>
-                        <CollapseBtn target="kategori" onClick={onClickArrowNavigation.kategori}>
-                            <div>
-                                <BiCategoryAlt className={icon} />
-                                Kategori
-                            </div>
-                            {openKategori === false ? <MdOutlineKeyboardArrowDown className={arrow_nav} /> : <MdOutlineKeyboardArrowUp className={arrow_nav} />}
-                        </CollapseBtn>
-                        <CollapseBox target="kategori">
-                            <CollapseSidebar>Tambah Kategori</CollapseSidebar>
-                            <CollapseSidebar>Lihat Kategori</CollapseSidebar>
-                        </CollapseBox>
-                    </CollapseWrapper>
+                    <Link to="/jenis-barang">
+                        <SidebarBtn>
+                            <VscTypeHierarchySub className={icon} />
+                            Jenis Barang
+                        </SidebarBtn>
+                    </Link>
                     <Divider />
                 </div>
 
@@ -124,18 +102,14 @@ const Sidebar = () => {
                             <CollapseSidebar>Test</CollapseSidebar>
                         </CollapseBox>
                     </CollapseWrapper>
-                    <CollapseWrapper>
-                        <CollapseBtn target="supplier" onClick={onClickArrowNavigation.supplier}>
-                            <div>
-                                <BsTruck className={icon} />
-                                Supplier
-                            </div>
-                            {openSupplier === false ? <MdOutlineKeyboardArrowDown className={arrow_nav} /> : <MdOutlineKeyboardArrowUp className={arrow_nav} />}
-                        </CollapseBtn>
-                        <CollapseBox target="supplier">
-                            <CollapseSidebar>Test</CollapseSidebar>
-                        </CollapseBox>
-                    </CollapseWrapper>
+
+                    <Link to="/supplier">
+                        <SidebarBtn>
+                            <BsTruck className={icon} />
+                            Supplier
+                        </SidebarBtn>
+                    </Link>
+
                     <Link to="/laporan">
                         <SidebarBtn>
                             <BiNotepad className={icon} />

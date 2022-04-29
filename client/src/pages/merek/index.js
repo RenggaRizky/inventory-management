@@ -11,6 +11,8 @@ import Pagination from "../../components/pagination";
 import BtnPrimary from "../../components/button/primary";
 import BtnSecondary from "../../components/button/secondary";
 import BtnSubmitPrimary from "../../components/button/submit-primary";
+import Subtitle from "../../components/typography/subtitle";
+import InputText from "../../components/form/text";
 
 const Merek = () => {
     const { modal, wrapper, search_wrapper } = styles;
@@ -60,11 +62,18 @@ const Merek = () => {
                                     </h5>
                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div className="modal-body">...</div>
-                                <div className="modal-footer">
-                                    <BtnSecondary data-bs-dismiss="modal">Keluar</BtnSecondary>
-                                    <BtnSubmitPrimary value="Simpan" />
-                                </div>
+                                <form>
+                                    <div className="modal-body my-2">
+                                        <div className="mb-3">
+                                            <Subtitle>Nama Merek</Subtitle>
+                                            <InputText />
+                                        </div>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <BtnSecondary data-bs-dismiss="modal">Keluar</BtnSecondary>
+                                        <BtnSubmitPrimary value="Simpan" />
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
