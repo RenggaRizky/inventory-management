@@ -1,21 +1,25 @@
 import React from "react";
 import styles from "./style.module.css";
 
-const Table = () => {
+const Table = (props) => {
     const { table, table_head } = styles;
+    const { tablehead, tabledata } = props;
 
     return (
         <table className={`${table} table`}>
             <thead className={table_head}>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    {tablehead.map((th) => {
+                        return (
+                            <th scope="col" key={th.key}>
+                                {th.title}
+                            </th>
+                        );
+                    })}
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                {/* <tr>
                     <th scope="row">1</th>
                     <td>Mark</td>
                     <td>Otto</td>
@@ -29,9 +33,17 @@ const Table = () => {
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
+                    <td colSpan="2">Larry the Bird</td>
                     <td>@twitter</td>
-                </tr>
+                </tr> */}
+                {tabledata.map((td) => {
+                    return (
+                        <tr key={td._id}>
+                            <td>{td.nama}</td>
+                            <td>button</td>
+                        </tr>
+                    );
+                })}
             </tbody>
         </table>
     );

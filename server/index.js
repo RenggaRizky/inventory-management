@@ -4,16 +4,18 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import routesProduk from "./routes/produk.js";
+import routesMerek from "./routes/merek.js";
 
 const app = express();
-
-app.use("/produk", routesProduk);
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
-const CONNECTION_URL = "mongodb+srv://alyjayaciomas:alyjaya40@cluster0.lecwu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+app.use("/produk", routesProduk);
+app.use("/merek", routesMerek);
+
+const CONNECTION_URL = "mongodb+srv://alyjayaciomas:alyjaya40@cluster0.lecwu.mongodb.net/inventoryManagement?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;
 
 main()

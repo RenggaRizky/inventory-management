@@ -1,4 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getMerek } from "../../actions/merek";
+import { postMerek } from "../../actions/merek";
+
 import BtnPrimaryModal from "../../components/button/primary-modal";
 import BtnWhiteModal from "../../components/button/white-modal";
 import Card from "../../components/card";
@@ -16,6 +20,33 @@ import InputText from "../../components/form/text";
 
 const Merek = () => {
     const { modal, wrapper, search_wrapper } = styles;
+    const dispatch = useDispatch();
+    const merek = useSelector((state) => state.merek);
+    const [postDataMerek, setPostDataMerek] = useState({
+        nama: "",
+    });
+
+    const submitHandler = () => {
+        dispatch(postMerek(postDataMerek));
+    };
+    const deleteHandler = () => {};
+
+    useEffect(() => {
+        dispatch(getMerek());
+    }, [dispatch]);
+
+    const tableHead = [
+        {
+            key: 1,
+            title: "Merek Barang",
+        },
+        {
+            key: 2,
+            title: "Tindakan",
+        },
+    ];
+
+    console.log(merek);
 
     return (
         <div className={wrapper}>
@@ -30,7 +61,7 @@ const Merek = () => {
                         </BtnWhiteModal>
 
                         {/* filter modal */}
-                        <div className={`${modal} modal fade`} id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className={`${modal} modal fade`} id="filter" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog modal-sm modal-fullscreen-lg-down">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -53,7 +84,7 @@ const Merek = () => {
                     <BtnPrimaryModal target="tambahMerek">Tambah Merek</BtnPrimaryModal>
 
                     {/* modal tambah merek*/}
-                    <div className={`${modal} modal fade`} id="tambahMerek" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className={`${modal} modal fade`} id="tambahMerek" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div className="modal-dialog modal-lg modal-fullscreen-lg-down">
                             <div className="modal-content">
                                 <div className="modal-header">
@@ -62,15 +93,25 @@ const Merek = () => {
                                     </h5>
                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <form>
+                                <form onSubmit={submitHandler}>
                                     <div className="modal-body my-2">
                                         <div className="mb-3">
                                             <Subtitle>Nama Merek</Subtitle>
-                                            <InputText />
+                                            <InputText
+                                                defaultValue={postDataMerek.nama}
+                                                onChange={(e) =>
+                                                    setPostDataMerek({
+                                                        ...postDataMerek,
+                                                        nama: e.target.value,
+                                                    })
+                                                }
+                                            />
                                         </div>
                                     </div>
                                     <div className="modal-footer">
-                                        <BtnSecondary data-bs-dismiss="modal">Keluar</BtnSecondary>
+                                        <BtnSecondary data-bs-dismiss="modal" onClick={deleteHandler}>
+                                            Keluar
+                                        </BtnSecondary>
                                         <BtnSubmitPrimary value="Simpan" />
                                     </div>
                                 </form>
@@ -79,7 +120,7 @@ const Merek = () => {
                     </div>
                 </div>
 
-                <Table />
+                <Table tablehead={tableHead} tabledata={merek} />
                 <div className="d-flex justify-content-end">
                     <Pagination />
                 </div>

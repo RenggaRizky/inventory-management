@@ -31,7 +31,7 @@ const JenisBarang = () => {
                         </BtnWhiteModal>
 
                         {/* filter modal */}
-                        <div className={`${modal} modal fade`} id="filter" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div className={`${modal} modal fade`} id="filter" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog modal-sm modal-fullscreen-lg-down">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -54,7 +54,7 @@ const JenisBarang = () => {
                     <BtnPrimaryModal target="tambahJenisBarang">Tambah Jenis Barang</BtnPrimaryModal>
 
                     {/* modal tambah produk*/}
-                    <div className={`${modal} modal fade`} id="tambahJenisBarang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className={`${modal} modal fade`} id="tambahJenisBarang" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div className="modal-dialog modal-lg modal-fullscreen-lg-down">
                             <div className="modal-content">
                                 <div className="modal-header">
