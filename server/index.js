@@ -5,6 +5,8 @@ import cors from "cors";
 
 import routesProduk from "./routes/produk.js";
 import routesMerek from "./routes/merek.js";
+import routesJenisBarang from "./routes/jenisBarang.js";
+import routesSupplier from "./routes/supplier.js";
 
 const app = express();
 
@@ -14,6 +16,8 @@ app.use(cors());
 
 app.use("/produk", routesProduk);
 app.use("/merek", routesMerek);
+app.use("/jenis-barang", routesJenisBarang);
+app.use("/supplier", routesSupplier);
 
 const CONNECTION_URL = "mongodb+srv://alyjayaciomas:alyjaya40@cluster0.lecwu.mongodb.net/inventoryManagement?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;

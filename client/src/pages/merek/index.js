@@ -8,8 +8,6 @@ import BtnWhiteModal from "../../components/button/white-modal";
 import Card from "../../components/card";
 import Search from "../../components/form/search";
 import styles from "./style.module.css";
-
-import { BiSliderAlt } from "react-icons/bi";
 import Table from "../../components/table";
 import Pagination from "../../components/pagination";
 import BtnPrimary from "../../components/button/primary";
@@ -18,8 +16,11 @@ import BtnSubmitPrimary from "../../components/button/submit-primary";
 import Subtitle from "../../components/typography/subtitle";
 import InputText from "../../components/form/text";
 
+import { BiSliderAlt } from "react-icons/bi";
+import { IoMdAdd } from "react-icons/io";
+
 const Merek = () => {
-    const { modal, wrapper, search_wrapper } = styles;
+    const { icon, modal, wrapper, search_wrapper } = styles;
     const dispatch = useDispatch();
     const merek = useSelector((state) => state.merek);
     const [postDataMerek, setPostDataMerek] = useState({
@@ -81,7 +82,10 @@ const Merek = () => {
                     </div>
 
                     {/* button tambah merek trigger modal */}
-                    <BtnPrimaryModal target="tambahMerek">Tambah Merek</BtnPrimaryModal>
+                    <BtnPrimaryModal target="tambahMerek">
+                        <IoMdAdd className={icon} />
+                        Tambah Merek
+                    </BtnPrimaryModal>
 
                     {/* modal tambah merek*/}
                     <div className={`${modal} modal fade`} id="tambahMerek" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -98,6 +102,7 @@ const Merek = () => {
                                         <div className="mb-3">
                                             <Subtitle>Nama Merek</Subtitle>
                                             <InputText
+                                                maxLength={30}
                                                 defaultValue={postDataMerek.nama}
                                                 onChange={(e) =>
                                                     setPostDataMerek({
@@ -105,6 +110,7 @@ const Merek = () => {
                                                         nama: e.target.value,
                                                     })
                                                 }
+                                                required
                                             />
                                         </div>
                                     </div>

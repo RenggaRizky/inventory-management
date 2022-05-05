@@ -3,17 +3,34 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const schemaProduk = new Schema({
-    _id: Schema.Types.ObjectId,
-    jenis: {
+    nama: {
+        type: "String",
+        required: true,
+    },
+    id_jenis_barang: {
         type: Schema.Types.ObjectId,
         ref: "JenisBarang",
+        required: true,
     },
-    volume: mongoose.Types.Decimal128,
+    id_merek: {
+        type: Schema.Types.ObjectId,
+        ref: "Merek",
+        required: true,
+    },
     harga: {
-        hargaSatuan: Number,
-        hargaPerLusin: Number,
+        hargaSatuan: {
+            type: Number,
+            required: true,
+        },
+        hargaPerLusin: {
+            type: Number,
+            required: true,
+        },
     },
-    jumlahStok: Number,
+    volume: {
+        type: mongoose.Types.Decimal128,
+        required: true,
+    },
 });
 
 const Produk = mongoose.model("Produk", schemaProduk);

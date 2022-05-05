@@ -9,3 +9,9 @@
 .modal {
     font-family: "Poppins", sans-serif;
 }
+
+.icon {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-right: 12px;
+}

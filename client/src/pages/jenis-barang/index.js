@@ -18,6 +18,21 @@ import InputText from "../../components/form/text";
 const JenisBarang = () => {
     const { modal, wrapper, search_wrapper } = styles;
 
+    const tableHead = [
+        {
+            key: 1,
+            title: "Nama Jenis Barang",
+        },
+        {
+            key: 2,
+            title: "Merek Barang",
+        },
+        {
+            key: 3,
+            title: "Ukuran Barang",
+        },
+    ];
+
     return (
         <div className={wrapper}>
             <Card padding={{ padding: "35px 28px" }}>
@@ -88,7 +103,7 @@ const JenisBarang = () => {
                     </div>
                 </div>
 
-                <Table />
+                <Table tablehead={tableHead} tabledata={[]} />
                 <div className="d-flex justify-content-end">
                     <Pagination />
                 </div>
