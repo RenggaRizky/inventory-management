@@ -19,7 +19,7 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdOutlineInventor
 import { RiDashboardLine } from "react-icons/ri";
 import { BsTruck } from "react-icons/bs";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
     // prettier-ignore
     const {
         arrow_nav,
@@ -27,6 +27,7 @@ const Sidebar = () => {
         nav,
         nav_container,
         nav_wrapper,
+        nav_d_none,
     } = styles
 
     const mb1 = {
@@ -50,7 +51,7 @@ const Sidebar = () => {
     };
 
     return (
-        <nav className={nav}>
+        <nav className={`${props.hamburgermenu ? nav_d_none : nav}`}>
             <div className={nav_container}>
                 <div className={nav_wrapper}>
                     <SidebarTitle style={mx1}>Dashboard</SidebarTitle>

@@ -3,7 +3,24 @@ import JenisBarang from "../models/jenisBarang.js";
 
 export const getProduk = async (req, res) => {
     try {
-        const produk = await Produk.find();
+        const produk = await Produk.aggregate([
+            {
+                $lookup: {
+                    from: "merek",
+                    localField: "id_merek",
+                    foreignField: "_id",
+                    as: "id_merek",
+                },
+            },
+            {
+                $lookup: {
+                    from: "jenisbarang",
+                    localField: "id_jenisbarang",
+                    foreignField: "_id",
+                    as: "id_jenisbarang",
+                },
+            },
+        ]);
         res.status(201).json(produk);
     } catch (error) {
         res.status(404).json({

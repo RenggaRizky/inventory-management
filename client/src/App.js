@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 
 import Dashboard from "./pages/dashboard";
@@ -13,12 +14,13 @@ import MainContent from "./layouts/main";
 import Wrapper from "./layouts/wrapper";
 
 function App() {
+    const [hamburgerMenu, sethamburgerMenu] = useState(false);
     return (
         <div className="App">
             <>
-                <Wrapper>
-                    <Container>
-                        <MainContent>
+                <Wrapper onclick={() => sethamburgerMenu(!hamburgerMenu)}>
+                    <Container hamburgermenu={hamburgerMenu}>
+                        <MainContent hamburgermenu={hamburgerMenu}>
                             <Routes>
                                 <Route path="/" element={<Dashboard />} />
                                 <Route path="/produk" element={<Produk />} />

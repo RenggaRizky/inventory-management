@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./style.module.css";
 
 const MainContent = (props) => {
-    const { wrapper, container } = styles;
+    const { wrapper, wrapper_d_none, container } = styles;
 
     return (
-        <div className={wrapper}>
+        <div className={props.hamburgermenu ? wrapper_d_none : wrapper}>
             <div className={container}>{props.children}</div>
         </div>
     );

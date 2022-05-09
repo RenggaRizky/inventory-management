@@ -7,7 +7,7 @@
     cursor: pointer;
     display: inline-block;
     font-size: 1.5rem !important;
-    padding: 0.375 !important;
+    /* padding: 0.375rem !important; */
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
 }
 

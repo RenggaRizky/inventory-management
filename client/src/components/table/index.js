@@ -21,17 +21,11 @@ const Table = (props) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {tabledata.map((td) => {
-                        return (
-                            <tr key={td._id}>
-                                <td>{td.nama}</td>
-                                <td>
-                                    <ButtonAction type="update" tooltipTitle="perbarui data" />
-                                    <ButtonAction type="delete" tooltipTitle="hapus data" />
-                                </td>
-                            </tr>
-                        );
-                    })}
+                    {/* <ButtonAction type="update" tooltipTitle="perbarui data" />
+                        <ButtonAction type="delete" tooltipTitle="hapus data" /> */}
+                    <tr>
+                        <td>{tabledata}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

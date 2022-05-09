@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./style.module.css";
 
 import { HiMenu } from "react-icons/hi";
@@ -6,7 +6,7 @@ import { RiNotification2Line } from "react-icons/ri";
 
 import AccountSetting from "../../components/dropdown/account-setting";
 
-const Navbar = () => {
+const Navbar = (props) => {
     // prettier-ignore
     const {
         hamburger_menu,
@@ -28,7 +28,16 @@ const Navbar = () => {
                     Aly
                     <span style={{ color: "#673AB7" }}> Jaya</span>
                 </a>
-                <button className={`${hamburger_menu} navbar-toggler`} type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <button
+                    className={`${hamburger_menu} navbar-toggler`}
+                    type="button"
+                    onClick={props.onclick}
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo03"
+                    aria-controls="navbarTogglerDemo03"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
                     <HiMenu className={hamburger_icon} />
                 </button>
             </div>

@@ -1,53 +1,97 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getMerek } from "../../actions/merek";
-import { postMerek } from "../../actions/merek";
+import { url } from "../../api";
 
 import BtnPrimaryModal from "../../components/button/primary-modal";
 import BtnWhiteModal from "../../components/button/white-modal";
 import Card from "../../components/card";
 import Search from "../../components/form/search";
 import styles from "./style.module.css";
-import Table from "../../components/table";
+import ButtonAction from "../../components/button/button-action";
 import Pagination from "../../components/pagination";
 import BtnPrimary from "../../components/button/primary";
 import BtnSecondary from "../../components/button/secondary";
 import BtnSubmitPrimary from "../../components/button/submit-primary";
 import Subtitle from "../../components/typography/subtitle";
 import InputText from "../../components/form/text";
+import P from "../../components/typography/paragraph";
 
 import { BiSliderAlt } from "react-icons/bi";
 import { IoMdAdd } from "react-icons/io";
+import { H5 } from "../../components/typography/heading";
+import Spinner from "../../components/spinner";
 
 const Merek = () => {
-    const { icon, modal, wrapper, search_wrapper } = styles;
-    const dispatch = useDispatch();
-    const merek = useSelector((state) => state.merek);
+    const { icon, modal, wrapper, search_wrapper, table, table_head, table_body } = styles;
+    // const dispatch = useDispatch();
+    // const merek = useSelector((state) => state.merek);
     const [postDataMerek, setPostDataMerek] = useState({
         nama: "",
     });
 
-    const submitHandler = () => {
-        dispatch(postMerek(postDataMerek));
+    // const submitHandler = () => {
+    //     dispatch(postMerek(postDataMerek));
+    // };
+    // const deleteHandler = () => {};
+
+    // useEffect(() => {
+    //     dispatch(getMerek());
+    // }, [dispatch]);
+
+    const [merek, setMerek] = useState(null);
+    const getMerek = async () => {
+        try {
+            const response = await url.get("merek");
+            setMerek(response.data);
+        } catch (error) {
+            console.log(error.message);
+        }
     };
+
+    // const postMerek = (merekBaru) => {
+    //     api.createDataMerek(merekBaru)
+    //         .then((response) => {
+    //             const data = response.data;
+    //             setPostDataMerek(data);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error.message);
+    //         });
+    // };
+
+    const postMerek = async () => {
+        try {
+            const response = await url.post("merek", postDataMerek);
+            setMerek(response.data);
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        postMerek();
+    };
+
     const deleteHandler = () => {};
 
     useEffect(() => {
-        dispatch(getMerek());
-    }, [dispatch]);
+        getMerek();
+    }, []);
 
     const tableHead = [
         {
             key: 1,
-            title: "Merek Barang",
+            title: "NO",
         },
         {
             key: 2,
-            title: "Tindakan",
+            title: "Merek Barang",
+        },
+        {
+            key: 3,
+            title: "",
         },
     ];
-
-    console.log(merek);
 
     return (
         <div className={wrapper}>
@@ -89,7 +133,7 @@ const Merek = () => {
 
                     {/* modal tambah merek*/}
                     <div className={`${modal} modal fade`} id="tambahMerek" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div className="modal-dialog modal-lg modal-fullscreen-lg-down">
+                        <div className="modal-dialog modal-fullscreen-lg-down">
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <h5 className="modal-title" id="exampleModalLabel">
@@ -110,7 +154,7 @@ const Merek = () => {
                                                         nama: e.target.value,
                                                     })
                                                 }
-                                                required
+                                                required={true}
                                             />
                                         </div>
                                     </div>
@@ -126,7 +170,45 @@ const Merek = () => {
                     </div>
                 </div>
 
-                <Table tablehead={tableHead} tabledata={merek} />
+                {/* table */}
+                {merek === null ? (
+                    <Spinner />
+                ) : (
+                    <div className="table-responsive">
+                        <table className={`${table} table  align-middle`}>
+                            <thead className={table_head}>
+                                <tr className="align-middle">
+                                    {tableHead.map((th) => {
+                                        return (
+                                            <th scope="col" key={th.key}>
+                                                <H5>{th.title}</H5>
+                                            </th>
+                                        );
+                                    })}
+                                </tr>
+                            </thead>
+                            <tbody className={table_body}>
+                                {merek.map((datamerek, index) => {
+                                    return (
+                                        <tr key={datamerek._id}>
+                                            <td style={{ width: "10%" }}>
+                                                <P>{index + 1}</P>
+                                            </td>
+                                            <td style={{ width: "75%" }}>
+                                                <P>{datamerek.nama}</P>
+                                            </td>
+                                            <td style={{ width: "15%", textAlign: "center" }}>
+                                                <ButtonAction type="update" tooltipTitle="perbarui data" />
+                                                <ButtonAction type="delete" tooltipTitle="hapus data" />
+                                            </td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+
                 <div className="d-flex justify-content-end">
                     <Pagination />
                 </div>

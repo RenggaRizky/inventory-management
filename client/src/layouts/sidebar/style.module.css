@@ -1,13 +1,27 @@
-nav {
+.nav,
+.nav_d_none {
     background-color: rgb(255, 255, 255);
     font-family: "Poppins", sans-serif;
-    height: 100%;
     line-height: 1.66;
     margin: 0px;
     position: fixed;
     top: 84px;
     overflow: auto;
     width: 260px;
+    z-index: 2;
+}
+
+.nav {
+    opacity: 1;
+    height: 100%;
+    visibility: visible;
+    transition: visibility 5s linear, opacity 5s linear;
+}
+
+.nav_d_none {
+    opacity: 0;
+    visibility: hidden;
+    transition: width 2s linear 1s;
 }
 
 .nav_container {

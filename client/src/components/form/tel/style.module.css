@@ -1,0 +1,33 @@
+.input_tel {
+    border: 1px solid #c0c0c0 !important;
+    color: #212121 !important;
+    font-size: 0.875rem !important;
+    font-family: "Poppins", sans-serif !important;
+    margin: 1px;
+    padding: 0.875rem !important;
+    width: 100% !important;
+}
+
+.input_tel:hover {
+    border: 1px solid #212121 !important;
+    margin: 1px;
+}
+
+.input_tel:focus {
+    border: 2px solid #2196f3 !important;
+    margin: 0;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.input_tel::placeholder {
+    color: #c0c0c0 !important;
+}
+
+.input_tel:-ms-input-placeholder {
+    color: #c0c0c0 !important;
+}
+
+.input_tel::-ms-input-placeholder {
+    color: #c0c0c0 !important;
+}

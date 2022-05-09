@@ -4,7 +4,7 @@ import Navbar from "../navbar";
 const Wrapper = (props) => {
     return (
         <>
-            <Navbar />
+            <Navbar onclick={props.onclick} />
             {props.children}
         </>
     );

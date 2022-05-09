@@ -1,7 +1,14 @@
 .wrapper {
     background-color: #fff;
+    /* margin: 84px 24px 0 24px; */
     margin: 84px 24px 0 260px;
 }
+
+.wrapper_d_none {
+    background-color: #fff;
+    margin: 84px 24px 0 24px;
+}
+
 .container {
     padding: 0 12px;
     background-color: #e3f2fd;
