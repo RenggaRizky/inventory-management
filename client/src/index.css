@@ -10,16 +10,3 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-
-::-webkit-scrollbar {
-    width: 6px; /* width of the entire scrollbar */
-}
-
-::-webkit-scrollbar-track {
-    background: #fff; /* color of the tracking area */
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: #e0e0e0; /* color of the scroll thumb */
-    border-radius: 50px; /* roundness of the scroll thumb */
-}

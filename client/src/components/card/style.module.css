@@ -1,8 +1,8 @@
 .card {
     border: 1px solid transparent !important;
-    border-radius: 0.75rem !important;
 }
 
-.card_body {
+.card_body_content {
     flex: 1 1 auto;
+    padding: 35px 28px;
 }

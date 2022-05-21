@@ -1,19 +1,21 @@
 .btn_secondary {
-    background-color: #2196f3 !important;
+    background-color: #e5e7eb !important;
     border: medium solid transparent !important;
-    /* border-radius: 0.75rem !important; */
-    color: #fff !important;
+    border-radius: 25px !important;
+    color: #111928 !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem !important;
 }
 
 .btn_secondary:hover {
-    background-color: #1565c0 !important;
-    color: #fff !important;
+    background-color: #d1d5db !important;
+    color: #111928 !important;
 }
 
 .btn_secondary:active {
-    background-color: #2196f3 !important;
-    color: #fff !important;
-    border: medium solid #90caf9 !important;
+    background-color: #e5e7eb !important;
+    color: #111928 !important;
+    border: medium solid #f3f4f6 !important;
 }
 
 .btn_secondary:focus {

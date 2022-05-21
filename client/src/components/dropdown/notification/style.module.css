@@ -1,0 +1,42 @@
+.dropdown {
+    font-size: 1.5rem !important;
+    cursor: pointer;
+    display: inline-block;
+    background-color: #fff !important;
+    border: 1px solid transparent !important;
+}
+
+.dropdown:hover {
+    color: #fff !important;
+}
+
+.dropdown:active {
+    color: #fff !important;
+}
+
+.dropdown:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.notification_wrapper {
+    margin: 0 6px 0 0;
+}
+
+.notification_icon {
+    border: 0px solid transparent !important;
+    color: #111928 !important;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+    font-size: 1.5rem !important;
+}
+
+.notification_icon:hover {
+    color: #1f2a37 !important;
+}
+
+.notification_icon:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

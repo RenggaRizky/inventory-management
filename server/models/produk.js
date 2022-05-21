@@ -28,6 +28,20 @@ const schemaProduk = new Schema(
                 required: true,
             },
         },
+        dimensi: {
+            panjang: {
+                type: mongoose.Types.Decimal128,
+                required: true,
+            },
+            lebar: {
+                type: mongoose.Types.Decimal128,
+                required: true,
+            },
+            tinggi: {
+                type: mongoose.Types.Decimal128,
+                required: true,
+            },
+        },
         volume: {
             type: mongoose.Types.Decimal128,
             required: true,

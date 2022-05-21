@@ -1,12 +1,10 @@
 import React from "react";
 import styles from "./style.module.css";
 
-const Search = () => {
-    const { search } = styles;
-
+const Search = (props) => {
     return (
         <form className="w-100">
-            <input className={`${search} form-control form-control-lg`} type="text" placeholder="Cari produk" aria-label="default input example" />
+            <input className={`${styles.search} form-control `} type="text" placeholder={props.placeholder} aria-label="default input example" />
         </form>
     );
 };

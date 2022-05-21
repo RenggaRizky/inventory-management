@@ -1,14 +1,15 @@
 import React from "react";
 
-const Title = (props) => {
+const Title = ({ color = "#111928", fontsize = "1rem", fontweight = "400", margin = 0, padding = 0, ...props }) => {
     const title = {
-        color: "#212121",
+        color: color,
         fontFamily: '"Poppins", sans-serif',
-        fontSize: "1rem",
-        fontWeight: "400",
+        fontSize: fontsize,
+        fontWeight: fontweight,
         lineHeight: "25px",
         letterSpacing: "0em",
-        margin: "0",
+        margin: margin,
+        padding: padding,
     };
 
     return <p style={title}>{props.children}</p>;

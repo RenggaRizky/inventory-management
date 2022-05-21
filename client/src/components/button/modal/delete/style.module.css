@@ -1,0 +1,41 @@
+.modal > * {
+    font-family: "Poppins", sans-serif !important;
+}
+
+.btn_modal_delete:focus,
+.modal_header button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.modal_header {
+    border-bottom: 1px solid transparent !important;
+}
+
+.modal_body {
+    padding: 1.5rem;
+}
+
+.modal_footer {
+    border-top: 1px solid transparent !important;
+}
+
+.icon_delete_primary,
+.icon_delete {
+    color: #d84315;
+}
+
+.icon_delete {
+    margin: 0 15px 0 0;
+}
+
+.icon_delete_primary {
+    font-size: 4rem;
+}
+
+.icon_wrapper {
+    background-color: #fbe9e7;
+    padding: 2rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Dashboard from "./pages/dashboard";
 import Produk from "./pages/produk";
@@ -22,7 +22,8 @@ function App() {
                     <Container hamburgermenu={hamburgerMenu}>
                         <MainContent hamburgermenu={hamburgerMenu}>
                             <Routes>
-                                <Route path="/" element={<Dashboard />} />
+                                <Route path="/" element={<Dashboard />}></Route>
+                                <Route path="/dashboard" element={<Dashboard />}></Route>
                                 <Route path="/produk" element={<Produk />} />
                                 <Route path="/merek" element={<Merek />} />
                                 <Route path="/jenis-barang" element={<JenisBarang />} />

@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "./style.module.css";
+import { useLocation } from "react-router-dom";
 
 const SidebarBtn = (props) => {
-    const { button } = styles;
+    const location = useLocation();
+    const pathname = location.pathname;
 
     return (
-        <button className={`${button} w-100`} type="button">
+        <button className={`${pathname === props.menu ? styles.button_clicked : styles.button} w-100`} type="button">
             {props.children}
         </button>
     );

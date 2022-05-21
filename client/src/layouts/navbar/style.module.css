@@ -1,29 +1,17 @@
-.hamburger_menu,
-.notification_btn {
-    background-color: #ede7f6 !important;
+.hamburger_menu {
     border: 0px solid transparent !important;
-    border-radius: 0.75rem !important;
-    color: #673ab7 !important;
+    color: #111928 !important;
     cursor: pointer;
     display: inline-block;
-    font-size: 1.5rem !important;
-    /* padding: 0.375rem !important; */
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+    font-size: 2.25rem !important;
 }
 
-.hamburger_menu:hover,
-.notification_btn:hover {
-    background-color: #673ab7 !important;
-    color: #fff !important;
+.hamburger_menu:hover {
+    color: #1f2a37 !important;
 }
 
-.hamburger_menu:active,
-.notification_btn:active {
-    color: #e0e0e0 !important;
-}
-
-.hamburger_menu:focus,
-.notification_btn:focus {
+.hamburger_menu:focus {
     outline: none !important;
     box-shadow: none !important;
 }
@@ -36,18 +24,22 @@
 }
 
 .header_brand {
-    color: #212121;
+    color: #111928;
     font-style: normal;
     font-weight: 600;
-    font-size: 1.5rem;
-    line-height: 36px;
+    font-size: 2rem;
+    line-height: 48px;
     letter-spacing: -0.1em;
-    text-transform: uppercase;
+    text-transform: lowercase;
     text-decoration: none;
 }
 
 .header_brand:hover {
-    color: #212121;
+    color: #1f2a37 !important;
+}
+
+.header_brand span {
+    font-size: 3rem;
 }
 
 .header_brand_wrapper {
@@ -56,10 +48,19 @@
     top: 0;
 }
 
-.notification_btn {
-    margin: 0 24px 0 0;
+@media (max-width: 768px) {
+    .header_brand {
+        display: none;
+    }
+
+    .header_brand_wrapper {
+        padding: 0;
+        width: auto;
+    }
 }
 
-.info_wrapper {
-    margin: 0 12px 0 0;
+@media (max-width: 500px) {
+    .header {
+        padding: 14px 14px 14px 8px;
+    }
 }

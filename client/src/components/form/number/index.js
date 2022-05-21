@@ -9,7 +9,7 @@ const InputNumber = (props) => {
         }
     };
 
-    return <input className={`${input_number} form-control`} type="number" aria-label="default input example" min={props.min} max={props.max} onInput={maxLengthInputNumber} />;
+    return <input className={`${input_number} form-control`} type="number" aria-label="default input example" min={props.min} max={props.max} onInput={maxLengthInputNumber} {...props} />;
 };
 
 export default InputNumber;

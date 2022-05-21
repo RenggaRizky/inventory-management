@@ -1,12 +1,14 @@
 import React from "react";
+import { colors } from "../../colors";
+
 const Spinner = () => {
     return (
-        <div class="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">
             <div
-                class="spinner-border"
+                className="spinner-border"
                 role="status"
                 style={{
-                    color: "#5E35B1",
+                    color: colors.gray_800,
                 }}
             >
                 <span className="visually-hidden">Loading...</span>

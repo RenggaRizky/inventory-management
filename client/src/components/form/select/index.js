@@ -1,15 +1,24 @@
 import React from "react";
+import Spinner from "../../spinner";
 import styles from "./style.module.css";
 
-const InputSelect = (props) => {
-    const { input_select } = styles;
-
+const InputSelect = ({ data, ...props }) => {
     return (
-        <select className={`${input_select} form-select`} aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select className={`${styles.input_select} form-select`} aria-label="Default select example" {...props}>
+            <option hidden value="">
+                {props.itemselected}
+            </option>
+            {data === null ? (
+                <Spinner />
+            ) : (
+                data.map((x) => {
+                    return (
+                        <option key={x._id} value={x._id}>
+                            {x.nama}
+                        </option>
+                    );
+                })
+            )}
         </select>
     );
 };

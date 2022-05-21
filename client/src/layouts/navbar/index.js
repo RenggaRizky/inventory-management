@@ -1,35 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./style.module.css";
 
 import { HiMenu } from "react-icons/hi";
 import { RiNotification2Line } from "react-icons/ri";
 
 import AccountSetting from "../../components/dropdown/account-setting";
+import Notification from "../../components/dropdown/notification";
 
 const Navbar = (props) => {
-    // prettier-ignore
-    const {
-        hamburger_menu,
-        hamburger_icon,
-        header,
-        header_brand,
-        header_brand_wrapper,
-        info_wrapper,
-        notification_btn,
-        notification_icon,
-        setting_btn,
-        setting_icon
-    } = styles
-
     return (
-        <header className={`${header} navbar navbar-light fixed-top`}>
-            <div className={`${header_brand_wrapper} d-flex justify-content-between align-items-center`}>
-                <a className={header_brand} href="#">
-                    Aly
-                    <span style={{ color: "#673AB7" }}> Jaya</span>
+        <header className={`${styles.header} navbar navbar-light fixed-top`}>
+            <div className={`${styles.header_brand_wrapper} d-flex justify-content-between align-items-center`}>
+                <a className={styles.header_brand} href="#">
+                    Aly Jaya
+                    <span>.</span>
                 </a>
                 <button
-                    className={`${hamburger_menu} navbar-toggler`}
+                    className={`${styles.hamburger_menu} navbar-toggler`}
                     type="button"
                     onClick={props.onclick}
                     data-bs-toggle="collapse"
@@ -38,14 +25,12 @@ const Navbar = (props) => {
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
-                    <HiMenu className={hamburger_icon} />
+                    <HiMenu className={styles.hamburger_icon} />
                 </button>
             </div>
 
-            <div className={`${info_wrapper} d-flex justify-content-between align-items-center`}>
-                <button type="button" className={`${notification_btn} navbar-toggler`}>
-                    <RiNotification2Line className={notification_icon} />
-                </button>
+            <div className={`${styles.info_wrapper} d-flex justify-content-between align-items-center`}>
+                <Notification />
                 <AccountSetting />
             </div>
         </header>

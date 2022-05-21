@@ -1,13 +1,17 @@
 import React from "react";
 import styles from "./style.module.css";
 
-const BtnPrimary = (props) => {
-    const { btn_primary } = styles;
-
+const BtnPrimary = ({ ...props }) => {
     return (
-        <button type="button" className={`btn ${btn_primary}`} style={props.borderRadius} {...props}>
-            {props.children}
-        </button>
+        <>
+            {props.type === "button" ? (
+                <button type="button" className={`${styles.btn_primary} btn`} {...props}>
+                    {props.children}
+                </button>
+            ) : (
+                <input type="submit" className={`btn ${styles.btn_primary}`} value={props.value} {...props} />
+            )}
+        </>
     );
 };
 

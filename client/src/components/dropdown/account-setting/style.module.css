@@ -1,6 +1,6 @@
 .dropdown {
-    background-color: #e3f2fd !important;
-    color: #2196f3 !important;
+    background-color: #e5e7eb !important;
+    color: #111928 !important;
     font-size: 1.5rem !important;
     border: 0px solid transparent;
     border-radius: 1.6875rem !important;
@@ -12,12 +12,12 @@
 }
 
 .dropdown:hover {
-    background-color: #2196f3 !important;
-    color: #fff !important;
+    background-color: #111928 !important;
+    color: #ffff !important;
 }
 
 .dropdown:active {
-    background-color: #90caf9 !important;
+    background-color: #1f2a37 !important;
 }
 
 .dropdown:focus {

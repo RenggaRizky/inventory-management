@@ -1,0 +1,58 @@
+.modal > * {
+    font-family: "Poppins", sans-serif !important;
+}
+
+.modal {
+    overflow-y: scroll;
+}
+
+.btn_modal_add {
+    background-color: #111928 !important;
+    border: medium solid transparent !important;
+    border-radius: 50px !important;
+    color: #fff !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem !important;
+    line-height: 21px !important;
+    padding: 12px 25px;
+}
+
+.btn_modal_add:hover {
+    background-color: #1f2a37 !important;
+    color: #fff !important;
+}
+
+.btn_modal_add:active {
+    background-color: #111928 !important;
+    color: #fff !important;
+    border: medium solid #9ca3af !important;
+}
+
+.btn_modal_add:focus,
+.btn_modal_edit:focus,
+.modal_header button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.modal_header {
+    border-bottom: 1px solid rgb(238, 238, 238);
+}
+
+.modal_body {
+    padding: 2rem 1.5rem;
+}
+
+.modal_footer {
+    border-top: 1px solid rgb(238, 238, 238);
+}
+
+.icon_add {
+    font-size: 1.125rem;
+    margin: 0 15px 0 0;
+}
+
+.icon_edit {
+    color: #00c853;
+    margin: 0 15px 0 0;
+}

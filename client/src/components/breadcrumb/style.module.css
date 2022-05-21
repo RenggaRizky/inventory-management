@@ -1,0 +1,4 @@
+.breadcrumb_item + .breadcrumb_item::before {
+    content: url("../../../public/icons/chevron-right.svg");
+    margin-right: 1rem;
+}

@@ -1,8 +1,7 @@
-.button {
-    background-color: #fff;
+.button,
+.button_clicked {
     border: 1px solid transparent;
-    border-radius: 0.75rem;
-    color: #616161;
+    border-radius: 50px;
     cursor: pointer;
     display: inline-block;
     font-size: 0.875rem;
@@ -14,18 +13,24 @@
     vertical-align: middle;
     padding: 0.625rem 1.5rem;
     -webkit-user-select: none;
+}
 
-    /* padding: .375rem .75rem; */
+.button {
+    background-color: #fff;
+    color: #111928;
+}
+
+.button_clicked {
+    background-color: #111928;
+    color: #fff;
 }
 
 .button:hover {
-    color: #5e35b1;
-    background-color: #ede7f6;
+    background-color: #f3f4f6;
 }
 
 .button:active {
-    color: #5e35b1;
-    background-color: #b39ddb;
+    background-color: #e5e7eb;
 }
 
 .button:focus {
