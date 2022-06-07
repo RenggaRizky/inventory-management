@@ -1,0 +1,21 @@
+.wrapper {
+    padding: 20px 8px 0 8px;
+}
+
+.list_wrapper {
+    background-color: #f9fafb;
+    border-radius: 12px;
+    padding: 32px 22px;
+}
+
+.icon_add_wrapper {
+    background-color: #1f2a37;
+    border-radius: 50%;
+    padding: 11px;
+    width: fit-content;
+}
+
+.icon_add {
+    color: #fff;
+    font-size: 26px;
+}

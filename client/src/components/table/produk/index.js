@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import styles from "./style.module.css";
+
+import { HiOutlinePencilAlt } from "react-icons/hi";
+
+import BtnLinkSuccess from "../../button/link/success";
 import ModalDelete from "../../button/modal/delete";
-import ModalMerek from "../../button/modal/modal-merek";
-import { H3, H5, H6 } from "../../typography/heading";
+import { H5, H6 } from "../../typography/heading";
 import P from "../../typography/paragraph";
 import Subtitle from "../../typography/subtitle";
-import styles from "./style.module.css";
+import { Link } from "react-router-dom";
 
 const TableProduk = ({ tableheaddata, tablebodydata, setproduk, ...props }) => {
     const [currentId, setCurrentId] = useState(null);
@@ -43,9 +47,6 @@ const TableProduk = ({ tableheaddata, tablebodydata, setproduk, ...props }) => {
                             <td className="text-capitalize">
                                 <P color="#616161">{data.harga.hargaSatuan}</P>
                             </td>
-                            {/* <td className="text-capitalize">
-                                <P color="#616161">{data.harga.hargaSatuan.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".")}</P>
-                            </td> */}
                             <td className="text-capitalize">
                                 <P color="#616161">{data.harga.hargaPerLusin}</P>
                             </td>
@@ -53,8 +54,13 @@ const TableProduk = ({ tableheaddata, tablebodydata, setproduk, ...props }) => {
                                 <P color="#616161">{data.volume.$numberDecimal}</P>
                             </td>
                             <td>
-                                <div className="d-flex">
-                                    <ModalMerek value="Edit" type="edit" target="editProduk" setcurrentid={() => setCurrentId(data._id)} currentid={currentId} />
+                                <div className="d-flex justify-content-end">
+                                    <Link to="edit-produk" state={{ id: data._id }} className="text-decoration-none d-flex align-items-center">
+                                        <BtnLinkSuccess bs="text-uppercase d-flex border-0 align-items-center">
+                                            <HiOutlinePencilAlt className={styles.icon_edit} />
+                                            Edit
+                                        </BtnLinkSuccess>
+                                    </Link>
                                     <ModalDelete value="Hapus" page="Produk" target="hapusProduk" currentid={currentId} setcurrentid={() => setCurrentId(data._id)} setdata={setproduk} deleteurl={"produk"} />
                                 </div>
                                 <Subtitle></Subtitle>

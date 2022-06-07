@@ -5,11 +5,11 @@ const BtnSecondary = ({ ...props }) => {
     return (
         <>
             {props.type === "button" ? (
-                <button type="button" className={`${styles.btn_secondary} btn`} {...props}>
+                <button type="button" className={`btn ${styles.btn_secondary} ${props.bs}`} {...props}>
                     {props.children}
                 </button>
             ) : (
-                <input type="submit" className={`btn ${styles.btn_secondary}`} value={props.value} {...props} />
+                <input type="submit" className={`btn ${styles.btn_secondary} ${props.bs}`} value={props.value} {...props} />
             )}
         </>
     );

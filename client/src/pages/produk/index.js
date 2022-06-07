@@ -1,67 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { url } from "../../api";
-import ModalProduk from "../../components/button/modal/modal-produk";
+import React from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import styles from "./style.module.css";
+
+import { IoMdAdd } from "react-icons/io";
+
+import BtnPrimary from "../../components/button/primary";
 import MainCard from "../../components/card/main";
 import Divider from "../../components/divider";
 import Search from "../../components/form/search";
-import Pagination from "../../components/pagination";
-import Spinner from "../../components/spinner";
-import TableProduk from "../../components/table/produk";
 import HeadContent from "../../layouts/head-content";
-import styles from "./style.module.css";
 
 const Produk = () => {
-    const [produk, setProduk] = useState(null);
-
-    const getProduk = () => {
-        url.get("produk")
-            .then((response) => {
-                setProduk(response.data);
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    };
-
-    useEffect(() => {
-        getProduk();
-    }, []);
-
-    const tableHead = [
-        { key: 1, title: "NO", width: "5%" },
-        { key: 2, title: "Produk", width: "30%" },
-        { key: 3, title: "Jenis Barang", width: "8%" },
-        { key: 4, title: "Merek", width: "8%" },
-        { key: 5, title: "Harga Satuan (Rp)", width: "8%" },
-        { key: 6, title: "Harga Perlusin (Rp)", width: "8%" },
-        {
-            key: 7,
-            title: (
-                <>
-                    Volume (cm<sup>3</sup>)
-                </>
-            ),
-            width: "13%",
-        },
-        { key: 8, title: "", width: "20%" },
-    ];
+    const navigate = useNavigate();
+    const location = useLocation();
+    const pathname = location.pathname;
+    const route = pathname.split("/");
 
     return (
         <div className={styles.wrapper}>
             <MainCard>
-                <HeadContent title="Produk" subtitle="Kumpulan data mengenai produk yang tersedia" />
+                <HeadContent
+                    length={route.length}
+                    item={pathname === "/produk" ? { first: "Produk" } : pathname === "/produk/tambah-produk" ? { first: "Produk", second: "Tambah Produk" } : { first: "Produk", second: "Edit Produk" }}
+                    title={pathname === "/produk" ? "Produk" : pathname === "/produk/tambah-produk" ? "Tambah Produk" : "Edit Produk"}
+                    subtitle={pathname === "/produk" ? "Kumpulan data mengenai produk yang tersedia" : pathname === "/produk/tambah-produk" ? "Menambah data produk yang tersedia" : "Memperbarui data produk yang tersedia"}
+                >
+                    {pathname === "/produk" && (
+                        <div className={`${styles.action_wrapper} d-flex justify-content-between align-items-center`}>
+                            <div className="flex-grow-1 me-3">
+                                <Search placeholder="Cari Produk" />
+                            </div>
+                            <BtnPrimary type="button" bs="align-self-stretch" onClick={() => navigate("tambah-produk")}>
+                                <IoMdAdd className={styles.icon_add} />
+                                Tambah Produk
+                            </BtnPrimary>
+                        </div>
+                    )}
+                </HeadContent>
                 <Divider margin="0 0 24px 0" />
-                <div className={`${styles.action_wrapper} d-flex justify-content-between`}>
-                    <div className="w-50">
-                        <Search placeholder="Cari Produk" />
-                    </div>
-                    <ModalProduk value="Tambah" type="add" target="tambahProduk" produk={produk} setproduk={setProduk} />
-                </div>
-
-                {produk === null ? <Spinner /> : <TableProduk tableheaddata={tableHead} tablebodydata={produk} setproduk={setProduk} />}
-                {/* <div className="d-flex justify-content-end">
-                    <Pagination />
-                </div> */}
+                <Outlet />
             </MainCard>
         </div>
     );

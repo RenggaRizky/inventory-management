@@ -8,5 +8,5 @@ export const colors = {
     gray_100: "#F3F4F6",
     white: "#FFFFFF",
     success: "#00C853",
-    error: "#D84315",
+    error: "#C62828",
 };

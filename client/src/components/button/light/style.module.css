@@ -1,19 +1,21 @@
 .btn_light {
-    background-color: #ede7f6 !important;
+    background-color: #ffffff !important;
     border: medium solid transparent !important;
-    border-radius: 0.75rem !important;
-    color: #673ab7 !important;
+    border-radius: 4px !important;
+    color: #111928 !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem !important;
 }
 
 .btn_light:hover {
-    background-color: #5e35b1 !important;
-    color: #fff !important;
+    background-color: #f9fafb !important;
+    color: #111928 !important;
 }
 
 .btn_light:active {
-    background-color: #673ab7 !important;
-    color: #fff !important;
-    border: medium solid #ede7f6 !important;
+    background-color: #ffffff !important;
+    color: #111928 !important;
+    border: medium solid #111928 !important;
 }
 
 .btn_light:focus {

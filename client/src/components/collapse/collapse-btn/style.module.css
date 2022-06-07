@@ -1,8 +1,9 @@
 .button {
     background-color: #fff;
     border: 1px solid transparent;
-    border-radius: 0.25rem;
-    color: #616161;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    color: #111928;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -15,18 +16,19 @@
     vertical-align: middle;
     padding: 0.625rem 1.5rem;
     -webkit-user-select: none;
-
-    /* padding: .375rem .75rem; */
 }
 
 .button:hover {
-    color: #5e35b1;
-    background-color: #ede7f6;
+    background-color: #f3f4f6;
 }
 
 .button:active {
-    color: #5e35b1;
-    background-color: #b39ddb;
+    background-color: #e5e7eb;
+}
+
+.button_clicked {
+    background-color: #111928;
+    color: #fff;
 }
 
 .button:focus {

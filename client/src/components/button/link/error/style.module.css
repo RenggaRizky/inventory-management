@@ -1,0 +1,26 @@
+.btn_link_error {
+    background-color: #ffffff !important;
+    border: medium solid transparent !important;
+    border-radius: 50px !important;
+    color: #c62828 !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem !important;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.btn_link_error:hover {
+    background-color: #ffffff !important;
+    color: #f44336 !important;
+}
+
+.btn_link_error:active {
+    background-color: #ffffff !important;
+    color: #c62828 !important;
+    border: medium solid transparent !important;
+}
+
+.btn_link_error:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

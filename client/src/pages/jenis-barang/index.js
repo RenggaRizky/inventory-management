@@ -1,55 +1,57 @@
-import React, { useState, useEffect } from "react";
-import { url } from "../../api";
+import React from "react";
 import styles from "./style.module.css";
+import { useNavigate, useLocation, Outlet } from "react-router-dom";
+
+import { IoMdAdd } from "react-icons/io";
 
 import Search from "../../components/form/search";
-import Spinner from "../../components/spinner";
-import Pagination from "../../components/pagination";
 import MainCard from "../../components/card/main";
 import HeadContent from "../../layouts/head-content";
 import Divider from "../../components/divider";
-import ModalJenisBarang from "../../components/button/modal/modal-jenisbarang";
-import TableJenisBarang from "../../components/table/jenis-barang";
+import BtnPrimary from "../../components/button/primary";
 
 const JenisBarang = () => {
-    const [jenisBarang, setJenisBarang] = useState(null);
-
-    const getJenisBarang = () => {
-        url.get("jenis-barang")
-            .then((response) => {
-                setJenisBarang(response.data);
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    };
-
-    useEffect(() => {
-        getJenisBarang();
-    }, []);
-
-    const tableHead = [
-        { key: 1, title: "NO" },
-        { key: 2, title: "Jenis Barang" },
-        { key: 3, title: "" },
-    ];
+    const navigate = useNavigate();
+    const location = useLocation();
+    const pathname = location.pathname;
+    const route = pathname.split("/");
 
     return (
         <div className={styles.wrapper}>
             <MainCard>
-                <HeadContent title="Jenis Barang" subtitle="Kumpulan data mengenai jenis - jenis dan kategori barang" />
+                <HeadContent
+                    length={route.length}
+                    item={
+                        pathname === "/jenis-barang"
+                            ? { first: "Jenis Barang" }
+                            : pathname === "/jenis-barang/tambah-jenis-barang"
+                            ? { first: "Jenis Barang", second: "Tambah Jenis Barang" }
+                            : { first: "Jenis Barang", second: "Edit Jenis Barang" }
+                    }
+                    title={pathname === "/jenis-barang" ? "Jenis Barang" : pathname === "/jenis-barang/tambah-jenis-barang" ? "Tambah Jenis Barang" : "Edit Jenis Barang"}
+                    subtitle={
+                        pathname === "/jenis-barang"
+                            ? "Kumpulan data mengenai jenis & kategori barang"
+                            : pathname === "/jenis-barang/tambah-jenis-barang"
+                            ? "Menambah data jenis & kategori barang"
+                            : "Memperbarui data jenis & kategori barang"
+                    }
+                >
+                    {pathname === "/jenis-barang" && (
+                        <div className={`${styles.action_wrapper} d-flex justify-content-between align-items-center`}>
+                            <div className="flex-grow-1 me-3">
+                                <Search placeholder="Cari Jenis Barang" />
+                            </div>
+                            <BtnPrimary type="button" bs="align-self-stretch" onClick={() => navigate("tambah-jenis-barang")}>
+                                <IoMdAdd className={styles.icon_add} />
+                                Tambah Jenis Barang
+                            </BtnPrimary>
+                        </div>
+                    )}
+                </HeadContent>
                 <Divider margin="0 0 24px 0" />
-                <div className={`${styles.action_wrapper} d-flex justify-content-between`}>
-                    <div className="w-50">
-                        <Search placeholder="Cari Jenis Barang" />
-                    </div>
-                    <ModalJenisBarang value="Tambah" type="add" target="tambahJenisBarang" jenisbarang={jenisBarang} setjenisbarang={setJenisBarang} />
-                </div>
 
-                {jenisBarang === null ? <Spinner /> : <TableJenisBarang tableheaddata={tableHead} tablebodydata={jenisBarang} setjenisbarang={setJenisBarang} />}
-                {/* <div className="d-flex justify-content-end">
-                    <Pagination />
-                </div> */}
+                <Outlet />
             </MainCard>
         </div>
     );

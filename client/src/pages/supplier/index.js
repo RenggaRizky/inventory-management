@@ -1,57 +1,44 @@
-import React, { useState, useEffect } from "react";
-import { url } from "../../api";
+import React from "react";
 import styles from "./style.module.css";
+import { useNavigate, useLocation, Outlet } from "react-router-dom";
+
+import { IoMdAdd } from "react-icons/io";
 
 import MainCard from "../../components/card/main";
 import HeadContent from "../../layouts/head-content";
 import Divider from "../../components/divider";
 import Search from "../../components/form/search";
-import Spinner from "../../components/spinner";
-import Pagination from "../../components/pagination";
-import ModalSupplier from "../../components/button/modal/modal-supplier";
-import TableSupplier from "../../components/table/supplier";
+import BtnPrimary from "../../components/button/primary";
 
 const Supplier = () => {
-    const [supplier, setSupplier] = useState(null);
-
-    const getSupplier = () => {
-        url.get("supplier")
-            .then((response) => {
-                setSupplier(response.data);
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    };
-
-    useEffect(() => {
-        getSupplier();
-    }, []);
-
-    const tableHead = [
-        { key: 1, title: "NO", width: "10%" },
-        { key: 2, title: "Nama Supplier", width: "20%" },
-        { key: 3, title: "Kontak", width: "15%" },
-        { key: 4, title: "Alamat", width: "35%" },
-        { key: 5, title: "", width: "20%" },
-    ];
+    const navigate = useNavigate();
+    const location = useLocation();
+    const pathname = location.pathname;
+    const route = pathname.split("/");
 
     return (
         <div className={styles.wrapper}>
             <MainCard>
-                <HeadContent title="Supplier" subtitle="Kumpulan data mengenai supplier barang" />
+                <HeadContent
+                    length={route.length}
+                    item={pathname === "/supplier" ? { first: "Supplier" } : pathname === "/supplier/tambah-supplier" ? { first: "Supplier", second: "Tambah Supplier" } : { first: "Supplier", second: "Edit Supplier" }}
+                    title={pathname === "/supplier" ? "Supplier" : pathname === "/supplier/tambah-supplier" ? "Tambah Supplier" : "Edit Supplier"}
+                    subtitle={pathname === "/supplier" ? "Kumpulan data mengenai supplier barang" : pathname === "/supplier/tambah-supplier" ? "Menambah data supplier barang" : "Memperbarui data supplier barang"}
+                >
+                    {pathname === "/supplier" && (
+                        <div className={`${styles.action_wrapper} d-flex justify-content-between align-items-center`}>
+                            <div className="flex-grow-1 me-3">
+                                <Search placeholder="Cari Supplier" />
+                            </div>
+                            <BtnPrimary type="button" bs="align-self-stretch" onClick={() => navigate("tambah-supplier")}>
+                                <IoMdAdd className={styles.icon_add} />
+                                Tambah Supplier
+                            </BtnPrimary>
+                        </div>
+                    )}
+                </HeadContent>
                 <Divider margin="0 0 24px 0" />
-                <div className={`${styles.action_wrapper} d-flex justify-content-between`}>
-                    <div className="w-50">
-                        <Search placeholder="Cari Merek" />
-                    </div>
-                    <ModalSupplier value="Tambah" type="add" target="tambahSupplier" supplier={supplier} setsupplier={setSupplier} />
-                </div>
-
-                {supplier === null ? <Spinner /> : <TableSupplier tableheaddata={tableHead} tablebodydata={supplier} setsupplier={setSupplier} />}
-                {/* <div className="d-flex justify-content-end">
-                    <Pagination />
-                </div> */}
+                <Outlet />
             </MainCard>
         </div>
     );

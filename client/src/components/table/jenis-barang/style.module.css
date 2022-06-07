@@ -29,3 +29,8 @@
 .table_body {
     border-color: #e5e7eb !important;
 }
+
+.icon_edit {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}

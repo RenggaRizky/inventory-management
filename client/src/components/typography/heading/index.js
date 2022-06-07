@@ -33,6 +33,24 @@ const H3 = ({ color = colors.gray_900, fontweight = "600", margin = "0", padding
     );
 };
 
+const H4 = ({ color = colors.gray_900, fontweight = "600", margin = "0", padding = "0", ...props }) => {
+    const h4 = {
+        color: color,
+        fontFamily: '"Poppins", sans-serif',
+        fontWeight: fontweight,
+        fontSize: "1rem",
+        lineHeight: "20px",
+        margin: margin,
+        padding: padding,
+    };
+
+    return (
+        <h4 style={h4} {...props}>
+            {props.children}
+        </h4>
+    );
+};
+
 const H5 = ({ color = colors.gray_900, fontweight = "500", margin = "0", padding = "0", ...props }) => {
     const h5 = {
         color: color,
@@ -65,4 +83,4 @@ const H6 = ({ color = colors.gray_900, fontweight = "500", margin = "0", padding
     return <h6 style={h6}>{props.children}</h6>;
 };
 
-export { H1, H3, H5, H6 };
+export { H1, H3, H4, H5, H6 };

@@ -20,12 +20,12 @@
     border-top: 1px solid transparent !important;
 }
 
-.icon_delete_primary,
-.icon_delete {
+.icon_delete_primary {
     color: #d84315;
 }
 
 .icon_delete {
+    font-size: 1rem;
     margin: 0 15px 0 0;
 }
 

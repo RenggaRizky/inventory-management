@@ -5,11 +5,11 @@ const BtnPrimary = ({ ...props }) => {
     return (
         <>
             {props.type === "button" ? (
-                <button type="button" className={`${styles.btn_primary} btn`} {...props}>
+                <button type="button" className={`btn ${styles.btn_primary} ${props.bs}`} {...props}>
                     {props.children}
                 </button>
             ) : (
-                <input type="submit" className={`btn ${styles.btn_primary}`} value={props.value} {...props} />
+                <input type="submit" className={`btn ${styles.btn_primary} ${props.bs}`} value={props.value} {...props} />
             )}
         </>
     );

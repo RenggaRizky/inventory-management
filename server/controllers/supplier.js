@@ -13,6 +13,19 @@ export const getSupplier = async (req, res) => {
     }
 };
 
+export const getInfoSupplier = async (req, res) => {
+    const { id: _id } = req.params;
+
+    try {
+        const idSupplier = await Supplier.findById(_id);
+        res.status(200).json(idSupplier);
+    } catch (error) {
+        res.status(404).json({
+            message: error.message,
+        });
+    }
+};
+
 export const postSupplier = async (req, res) => {
     const supplier = req.body;
     const supplierBaru = new Supplier(supplier);

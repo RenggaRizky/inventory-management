@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import styles from "./style.module.css";
+import { Link } from "react-router-dom";
+
+import { HiOutlinePencilAlt } from "react-icons/hi";
+
 import { H6 } from "../../typography/heading";
 import P from "../../typography/paragraph";
-import ModalMerek from "../../button/modal/modal-merek";
 import ModalDelete from "../../button/modal/delete";
+import BtnLinkSuccess from "../../button/link/success";
 
 const TableMerek = ({ tableheaddata, tablebodydata, setmerek, ...props }) => {
     const [currentId, setCurrentId] = useState(null);
@@ -31,9 +35,16 @@ const TableMerek = ({ tableheaddata, tablebodydata, setmerek, ...props }) => {
                             <td className="text-capitalize">
                                 <P color="#616161">{data.nama}</P>
                             </td>
-                            <td className="d-flex justify-content-end">
-                                <ModalMerek value="Edit" type="edit" target="editMerek" setcurrentid={() => setCurrentId(data._id)} currentid={currentId} />
-                                <ModalDelete value="Hapus" page="Merek" target="hapusMerek" currentid={currentId} setcurrentid={() => setCurrentId(data._id)} setdata={setmerek} deleteurl={"merek"} />
+                            <td>
+                                <div className="d-flex justify-content-end">
+                                    <Link to={"edit-merek"} state={{ id: data._id }} className="text-decoration-none d-flex align-items-center">
+                                        <BtnLinkSuccess bs="text-uppercase d-flex border-0 align-items-center">
+                                            <HiOutlinePencilAlt className={styles.icon_edit} />
+                                            Edit
+                                        </BtnLinkSuccess>
+                                    </Link>
+                                    <ModalDelete value="Hapus" page="Merek" target="hapusMerek" currentid={currentId} setcurrentid={() => setCurrentId(data._id)} setdata={setmerek} deleteurl={"merek"} />
+                                </div>
                             </td>
                         </tr>
                     );

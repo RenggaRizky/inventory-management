@@ -49,7 +49,7 @@ const Sidebar = (props) => {
                 <div className={styles.nav_wrapper}>
                     <SidebarTitle style={mx1}>Dashboard</SidebarTitle>
                     <Link to="/">
-                        <SidebarBtn menu={pathname === "/" ? "/" : "/dashboard"}>
+                        <SidebarBtn menu={pathname === "/" ? "/" : pathname === "/dashboard" ? "/dashboard" : "home"}>
                             <RiDashboardLine className={styles.icon} />
                             Dashboard
                         </SidebarBtn>
@@ -60,19 +60,19 @@ const Sidebar = (props) => {
                 <div className={styles.nav_wrapper}>
                     <SidebarTitle style={mb1}>Produk</SidebarTitle>
                     <SidebarSubtitle>Atur Produk</SidebarSubtitle>
-                    <Link to="/produk">
+                    <Link to="produk">
                         <SidebarBtn menu="/produk">
                             <FiBox className={styles.icon} />
                             Produk
                         </SidebarBtn>
                     </Link>
-                    <Link to="/merek">
+                    <Link to="merek">
                         <SidebarBtn menu="/merek">
                             <AiOutlineTag className={styles.icon} />
                             Merek
                         </SidebarBtn>
                     </Link>
-                    <Link to="/jenis-barang">
+                    <Link to="jenis-barang">
                         <SidebarBtn menu="/jenis-barang">
                             <MdOutlineCategory className={styles.icon} />
                             Jenis Barang
@@ -93,18 +93,24 @@ const Sidebar = (props) => {
                             {openInventori === false ? <MdOutlineKeyboardArrowDown className={styles.arrow_nav} /> : <MdOutlineKeyboardArrowUp className={styles.arrow_nav} />}
                         </CollapseBtn>
                         <CollapseBox target="inventori">
-                            <CollapseSidebar>Test</CollapseSidebar>
+                            <CollapseSidebar>Stok Barang</CollapseSidebar>
+                            <CollapseSidebar>Barang Masuk</CollapseSidebar>
+                            <CollapseSidebar>Barang Keluar</CollapseSidebar>
+                            <CollapseSidebar>Barang Retur</CollapseSidebar>
+                            <Link to="tempat-penyimpanan">
+                                <CollapseSidebar menu="/tempat-penyimpanan">Penyimpanan</CollapseSidebar>
+                            </Link>
                         </CollapseBox>
                     </CollapseWrapper>
 
-                    <Link to="/supplier">
-                        <SidebarBtn menu="/supplier">
+                    <Link to="supplier">
+                        <SidebarBtn menu={"supplier"}>
                             <BsTruck className={styles.icon} />
                             Supplier
                         </SidebarBtn>
                     </Link>
 
-                    <Link to="/laporan">
+                    <Link to="laporan">
                         <SidebarBtn>
                             <BiNotepad className={styles.icon} />
                             Laporan

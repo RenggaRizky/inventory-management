@@ -1,0 +1,39 @@
+.list_btn_wrapper {
+    height: 45vh;
+}
+
+.list_btn,
+.list_btn_active {
+    border-radius: 12px;
+    padding: 4px;
+}
+
+.list_btn_active {
+    background-color: #111928;
+    border: 1px solid transparent;
+}
+
+.list_btn {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+}
+
+.list_btn p {
+    text-align: left !important;
+}
+
+.wrapper_icon_storage {
+    background-color: #1f2a37;
+    padding: 9px !important;
+}
+
+.icon_storage {
+    color: #fff;
+    font-size: 24px;
+    margin: 0 !important;
+}
+
+.list_btn > button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

@@ -9,6 +9,7 @@ import BtnPrimary from "../../primary";
 import BtnSecondary from "../../secondary";
 
 import { HiOutlineTrash } from "react-icons/hi";
+import BtnLinkError from "../../link/error";
 
 const ModalDelete = ({ currentid, setcurrentid, setdata, deleteurl, ...props }) => {
     const deleteData = (id) => {
@@ -32,10 +33,10 @@ const ModalDelete = ({ currentid, setcurrentid, setdata, deleteurl, ...props }) 
 
     return (
         <>
-            <button type="button" className={`${styles.btn_modal_delete} btn text-uppercase d-flex`} data-bs-toggle="modal" data-bs-target={`#${props.target}`} onClick={setcurrentid}>
+            <BtnLinkError bs="btn text-uppercase d-flex align-items-center" data-bs-toggle="modal" data-bs-target={`#${props.target}`} onClick={setcurrentid}>
                 <HiOutlineTrash className={styles.icon_delete} />
-                <H6 color={colors.error}>{props.value}</H6>
-            </button>
+                {props.value}
+            </BtnLinkError>
             <div className={`${styles.modal} modal fade`} id={props.target} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-lg-down">
                     <div className="modal-content">

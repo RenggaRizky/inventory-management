@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import styles from "./style.module.css";
 
+import { HiOutlinePencilAlt } from "react-icons/hi";
+
 import { H6 } from "../../typography/heading";
 import P from "../../typography/paragraph";
-import ModalJenisBarang from "../../button/modal/modal-jenisbarang";
 import ModalDelete from "../../button/modal/delete";
+import { Link } from "react-router-dom";
+import BtnLinkSuccess from "../../button/link/success";
 
 const TableJenisBarang = ({ tableheaddata, tablebodydata, setjenisbarang, ...props }) => {
     const [currentId, setCurrentId] = useState(null);
@@ -33,7 +36,12 @@ const TableJenisBarang = ({ tableheaddata, tablebodydata, setjenisbarang, ...pro
                                 <P color="#616161">{data.nama}</P>
                             </td>
                             <td className="d-flex justify-content-end">
-                                <ModalJenisBarang value="Edit" type="edit" target="editJenisBarang" setcurrentid={() => setCurrentId(data._id)} currentid={currentId} />
+                                <Link to="edit-jenis-barang" state={{ id: data._id }} className="text-decoration-none d-flex align-items-center">
+                                    <BtnLinkSuccess bs="text-uppercase d-flex border-0 align-items-center">
+                                        <HiOutlinePencilAlt className={styles.icon_edit} />
+                                        Edit
+                                    </BtnLinkSuccess>
+                                </Link>
                                 <ModalDelete value="Hapus" page="Jenis Barang" target="hapusJenisBarang" currentid={currentId} setcurrentid={() => setCurrentId(data._id)} setdata={setjenisbarang} deleteurl={"jenis-barang"} />
                             </td>
                         </tr>

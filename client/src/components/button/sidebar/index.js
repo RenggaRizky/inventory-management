@@ -7,7 +7,7 @@ const SidebarBtn = (props) => {
     const pathname = location.pathname;
 
     return (
-        <button className={`${pathname === props.menu ? styles.button_clicked : styles.button} w-100`} type="button">
+        <button className={`${pathname.includes(props.menu) ? styles.button_clicked : styles.button} w-100`} type="button">
             {props.children}
         </button>
     );

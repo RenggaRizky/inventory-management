@@ -12,6 +12,19 @@ export const getMerek = async (req, res) => {
     }
 };
 
+export const getInfoMerek = async (req, res) => {
+    const { id: _id } = req.params;
+
+    try {
+        const idMerek = await Merek.findById(_id);
+        res.status(200).json(idMerek);
+    } catch (error) {
+        res.status(404).json({
+            message: error.message,
+        });
+    }
+};
+
 export const postMerek = async (req, res) => {
     const merek = req.body;
     const merekBaru = new Merek(merek);

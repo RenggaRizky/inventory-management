@@ -1,12 +1,14 @@
 import React from "react";
 import styles from "./style.module.css";
+import { useLocation } from "react-router-dom";
 
 const CollapseSidebar = (props) => {
-    const { button } = styles;
+    const location = useLocation();
+    const pathname = location.pathname;
 
     return (
         <>
-            <button className={`${button} w-100`} type="button">
+            <button className={`${pathname.includes(props.menu) ? styles.button_clicked : styles.button} w-100`} type="button">
                 <li>{props.children}</li>
             </button>
         </>

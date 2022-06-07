@@ -1,12 +1,10 @@
 import React from "react";
 import styles from "./style.module.css";
 
-const BtnLight = (props) => {
-    const { btn_light } = styles;
-
+const BtnLight = ({ ...props }) => {
     return (
         <>
-            <button type="button" className={`btn ${btn_light}`} {...props}>
+            <button type="button" className={`btn ${styles.btn_light} ${props.bs}`} {...props}>
                 {props.children}
             </button>
         </>
