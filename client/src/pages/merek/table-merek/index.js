@@ -22,8 +22,7 @@ const TableDataMerek = () => {
     }, []);
 
     const tableHead = [
-        { key: 1, title: "NO", width: "10%" },
-        { key: 2, title: "Merek Barang", width: "70%" },
+        { key: 2, title: "Merek Barang", width: "80%" },
         { key: 3, title: "", width: "20%" },
     ];
 

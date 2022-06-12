@@ -13,13 +13,18 @@ import styles from "../style.module.css";
 
 const TambahMerek = () => {
     const navigate = useNavigate();
+    const capitalize = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
 
     const [dataMerek, setDataMerek] = useState({
         nama: "",
     });
 
     const postMerek = () => {
-        url.post("tambah-merek", dataMerek)
+        url.post("tambah-merek", {
+            nama: capitalize(dataMerek.nama),
+        })
             .then((response) => {})
             .catch((error) => {
                 console.log(error.message);

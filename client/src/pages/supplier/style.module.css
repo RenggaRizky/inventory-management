@@ -2,10 +2,6 @@
     padding: 20px 8px 0 8px;
 }
 
-/* .action_wrapper {
-    margin: 0 0 2.5rem 0;
-} */
-
 .form_footer {
     border-top: 1px solid rgb(238, 238, 238);
 }
@@ -18,4 +14,20 @@
 .icon_delete {
     font-size: 1rem;
     margin: 0 15px 0 0;
+}
+
+.icon_edit {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}
+
+.icon_supplier {
+    color: #fff;
+    font-size: 1.75rem;
+}
+
+.icon_supplier_wrapper {
+    background-color: #1f2a37;
+    border-radius: 50%;
+    padding: 0.875rem;
 }

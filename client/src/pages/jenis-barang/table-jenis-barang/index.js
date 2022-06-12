@@ -21,9 +21,8 @@ const TableDataJenisBarang = () => {
     }, []);
 
     const tableHead = [
-        { key: 1, title: "NO" },
-        { key: 2, title: "Jenis Barang" },
-        { key: 3, title: "" },
+        { key: 1, title: "Jenis Barang" },
+        { key: 2, title: "" },
     ];
     return <>{jenisBarang === null ? <Spinner /> : <TableJenisBarang tableheaddata={tableHead} tablebodydata={jenisBarang} setjenisbarang={setJenisBarang} />}</>;
 };

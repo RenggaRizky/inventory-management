@@ -22,11 +22,10 @@ const TableDataSupplier = () => {
     }, []);
 
     const tableHead = [
-        { key: 1, title: "NO", width: "10%" },
-        { key: 2, title: "Nama Supplier", width: "20%" },
-        { key: 3, title: "Kontak", width: "15%" },
-        { key: 4, title: "Alamat", width: "35%" },
-        { key: 5, title: "", width: "20%" },
+        { key: 1, title: "Supplier", width: "40%" },
+        { key: 2, title: "No. Handphone", width: "15%" },
+        { key: 3, title: "Alamat", width: "35%" },
+        { key: 4, title: "", width: "10%" },
     ];
 
     return <div>{supplier === null ? <Spinner /> : <TableSupplier tableheaddata={tableHead} tablebodydata={supplier} setsupplier={setSupplier} />}</div>;

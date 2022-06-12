@@ -33,8 +33,30 @@ export const getInfoProduk = async (req, res) => {
     const { id: _id } = req.params;
 
     try {
-        const idProduk = await Produk.findById(_id);
-        res.status(200).json(idProduk);
+        const dataProduk = await Produk.aggregate([
+            {
+                $match: {
+                    _id: mongoose.Types.ObjectId(_id),
+                },
+            },
+            {
+                $lookup: {
+                    from: "merek",
+                    localField: "id_merek",
+                    foreignField: "_id",
+                    as: "id_merek",
+                },
+            },
+            {
+                $lookup: {
+                    from: "jenisbarang",
+                    localField: "id_jenisbarang",
+                    foreignField: "_id",
+                    as: "id_jenisbarang",
+                },
+            },
+        ]);
+        res.status(201).json(dataProduk);
     } catch (error) {
         res.status(404).json({
             message: error.message,
@@ -45,13 +67,15 @@ export const getInfoProduk = async (req, res) => {
 export const postProduk = async (req, res) => {
     const {
         nama,
+        gambar,
+        deskripsi,
         id_jenisbarang,
         id_merek,
-        harga: { hargaSatuan, hargaPerLusin },
+        harga,
         dimensi: { panjang, lebar, tinggi },
         volume,
     } = req.body;
-    const produkBaru = new Produk({ nama, id_jenisbarang, id_merek, harga: { hargaSatuan, hargaPerLusin }, dimensi: { panjang, lebar, tinggi }, volume });
+    const produkBaru = new Produk({ nama, gambar, deskripsi, id_jenisbarang, id_merek, harga, dimensi: { panjang, lebar, tinggi }, volume });
     try {
         await produkBaru.save();
         const dataProduk = await Produk.aggregate([
@@ -84,16 +108,18 @@ export const patchProduk = async (req, res) => {
     const { id: _id } = req.params;
     const {
         nama,
+        gambar,
+        deskripsi,
         id_jenisbarang,
         id_merek,
-        harga: { hargaSatuan, hargaPerLusin },
+        harga,
         dimensi: { panjang, lebar, tinggi },
         volume,
     } = req.body;
 
     try {
         if (mongoose.Types.ObjectId.isValid(_id)) {
-            const produkDiperbarui = await Produk.findByIdAndUpdate(_id, { nama, id_jenisbarang, id_merek, harga: { hargaSatuan, hargaPerLusin }, dimensi: { panjang, lebar, tinggi }, volume }, { new: true });
+            const produkDiperbarui = await Produk.findByIdAndUpdate(_id, { nama, gambar, deskripsi, id_jenisbarang, id_merek, harga, dimensi: { panjang, lebar, tinggi }, volume }, { new: true });
             res.status(200).json(produkDiperbarui);
         } else {
             res.status(404).send("ID tidak ditemukan");

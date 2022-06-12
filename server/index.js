@@ -8,6 +8,7 @@ import routesMerek from "./routes/merek.js";
 import routesJenisBarang from "./routes/jenisBarang.js";
 import routesSupplier from "./routes/supplier.js";
 import routesTempatPenyimpanan from "./routes/tempatPenyimpanan.js";
+import routesBarangRetur from "./routes/barangRetur.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/merek", routesMerek);
 app.use("/jenis-barang", routesJenisBarang);
 app.use("/supplier", routesSupplier);
 app.use("/tempat-penyimpanan", routesTempatPenyimpanan);
+app.use("/barang-retur", routesBarangRetur);
 
 const CONNECTION_URL = "mongodb+srv://alyjayaciomas:alyjaya40@cluster0.lecwu.mongodb.net/manajemenInventoryDB?retryWrites=true&w=majority";
 const PORT = process.env.PORT || 5000;

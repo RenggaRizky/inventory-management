@@ -8,11 +8,15 @@ const schemaSupplier = new Schema(
             type: String,
             required: true,
         },
+        namaPerusahaan: {
+            type: String,
+            required: true,
+        },
         alamat: {
             type: String,
             required: true,
         },
-        kontak: {
+        noHandphone: {
             type: String,
             required: true,
         },

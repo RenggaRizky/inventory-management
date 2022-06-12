@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./style.module.css";
+import styles from "../style.module.css";
 import { colors } from "../../../../colors";
 import { url } from "../../../../api";
 
@@ -11,7 +11,7 @@ import BtnSecondary from "../../secondary";
 import { HiOutlineTrash } from "react-icons/hi";
 import BtnLinkError from "../../link/error";
 
-const ModalDelete = ({ currentid, setcurrentid, setdata, deleteurl, ...props }) => {
+const ModalDeleteSecondary = ({ currentid, setcurrentid, setdata, deleteurl, ...props }) => {
     const deleteData = (id) => {
         url.delete(`${deleteurl}/${id}`)
             .then((response) => {
@@ -19,16 +19,18 @@ const ModalDelete = ({ currentid, setcurrentid, setdata, deleteurl, ...props }) 
             })
             .catch((error) => {
                 console.log(error.message);
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    handleCloseModal();
-                }, 100);
             });
     };
 
     const handleCloseModal = () => {
         document.getElementById("closeModalDelete").click();
+    };
+
+    const handleDelete = (id) => {
+        deleteData(id);
+        setTimeout(() => {
+            handleCloseModal();
+        }, 100);
     };
 
     return (
@@ -56,7 +58,7 @@ const ModalDelete = ({ currentid, setcurrentid, setdata, deleteurl, ...props }) 
                             <BtnSecondary type="button" data-bs-dismiss="modal">
                                 Batal
                             </BtnSecondary>
-                            <BtnPrimary type="button" onClick={() => deleteData(currentid)}>
+                            <BtnPrimary type="button" onClick={() => handleDelete(currentid)}>
                                 Hapus
                             </BtnPrimary>
                         </div>
@@ -67,4 +69,4 @@ const ModalDelete = ({ currentid, setcurrentid, setdata, deleteurl, ...props }) 
     );
 };
 
-export default ModalDelete;
+export default ModalDeleteSecondary;

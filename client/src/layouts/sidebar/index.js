@@ -96,7 +96,9 @@ const Sidebar = (props) => {
                             <CollapseSidebar>Stok Barang</CollapseSidebar>
                             <CollapseSidebar>Barang Masuk</CollapseSidebar>
                             <CollapseSidebar>Barang Keluar</CollapseSidebar>
-                            <CollapseSidebar>Barang Retur</CollapseSidebar>
+                            <Link to="barang-retur">
+                                <CollapseSidebar menu="/barang-retur">Barang Retur</CollapseSidebar>
+                            </Link>
                             <Link to="tempat-penyimpanan">
                                 <CollapseSidebar menu="/tempat-penyimpanan">Penyimpanan</CollapseSidebar>
                             </Link>

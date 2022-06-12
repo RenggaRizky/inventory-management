@@ -19,3 +19,27 @@
     font-size: 1rem;
     margin: 0 15px 0 0;
 }
+
+.icon_header_form {
+    font-size: 2rem;
+    background-color: #1f2a37;
+    border-radius: 50px;
+    padding: 4px;
+    color: #fff;
+    margin-right: 1rem;
+}
+
+.icon_product {
+    color: #fff;
+    font-size: 1.75rem;
+}
+
+.icon_product_wrapper {
+    background-color: #1f2a37;
+    border-radius: 50%;
+    padding: 0.875rem;
+}
+
+.product_picture {
+    width: 256px;
+}

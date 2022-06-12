@@ -23,6 +23,13 @@ import TableDataProduk from "./pages/produk/table-produk";
 import TambahProduk from "./pages/produk/tambah-produk";
 import EditProduk from "./pages/produk/edit-produk";
 import TempatPenyimpanan from "./pages/penyimpanan";
+import BarangRetur from "./pages/barang-retur";
+import TambahBarangRetur from "./pages/barang-retur/tambah-barang-retur";
+import TableDataBarangRetur from "./pages/barang-retur/table-barang-retur";
+import EditBarangRetur from "./pages/barang-retur/edit-barang-retur";
+import DetailBarangRetur from "./pages/barang-retur/detail-barang-retur";
+import DetailSupplier from "./pages/supplier/detail-supplier";
+import DetailProduk from "./pages/produk/detail-produk";
 
 function App() {
     const [hamburgerMenu, sethamburgerMenu] = useState(false);
@@ -40,6 +47,7 @@ function App() {
                                     <Route index element={<TableDataProduk />} />
                                     <Route path="tambah-produk" element={<TambahProduk />} />
                                     <Route path="edit-produk" element={<EditProduk />} />
+                                    <Route path=":id" element={<DetailProduk />} />
                                 </Route>
                                 <Route path="merek" element={<Merek />}>
                                     <Route index element={<TableDataMerek />} />
@@ -56,6 +64,13 @@ function App() {
                                     <Route index element={<TableDataSupplier />} />
                                     <Route path="tambah-supplier" element={<TambahSupplier />} />
                                     <Route path="edit-supplier" element={<EditSupplier />} />
+                                    <Route path=":id" element={<DetailSupplier />} />
+                                </Route>
+                                <Route path="barang-retur" element={<BarangRetur />}>
+                                    <Route index element={<TableDataBarangRetur />} />
+                                    <Route path="tambah-barang-retur" element={<TambahBarangRetur />} />
+                                    <Route path="edit-barang-retur" element={<EditBarangRetur />} />
+                                    <Route path=":id" element={<DetailBarangRetur />} />
                                 </Route>
                                 <Route path="laporan" element={<Laporan />} />
                             </Routes>

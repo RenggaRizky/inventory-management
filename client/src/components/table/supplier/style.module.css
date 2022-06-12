@@ -1,9 +1,5 @@
-.table {
-    box-shadow: 0px 1px 2px -1px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
 .table > :not(caption) > * > * {
-    padding: 1.25rem 1rem !important;
+    padding: 1rem 0.75rem !important;
 }
 
 .table > :not(:first-child) {
@@ -30,7 +26,9 @@
     border-color: #e5e7eb !important;
 }
 
-.icon_edit {
-    font-size: 1rem;
-    margin: 0 15px 0 0;
+.text_ellipsis {
+    width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

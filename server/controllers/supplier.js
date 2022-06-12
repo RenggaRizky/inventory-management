@@ -65,8 +65,6 @@ export const deleteSupplier = async (req, res) => {
     try {
         if (mongoose.Types.ObjectId.isValid(_id)) {
             await Supplier.findByIdAndRemove(_id);
-            const dataSupplier = await Supplier.find();
-            res.status(200).json(dataSupplier);
         } else {
             res.status(404).send("ID tidak ditemukan");
         }

@@ -5,9 +5,11 @@ const { Schema } = mongoose;
 const schemaProduk = new Schema(
     {
         nama: {
-            type: "String",
+            type: String,
             required: true,
         },
+        gambar: String,
+        deskripsi: String,
         id_jenisbarang: {
             type: Schema.Types.ObjectId,
             ref: "JenisBarang",
@@ -19,14 +21,8 @@ const schemaProduk = new Schema(
             required: true,
         },
         harga: {
-            hargaSatuan: {
-                type: Number,
-                required: true,
-            },
-            hargaPerLusin: {
-                type: Number,
-                required: true,
-            },
+            type: Number,
+            required: true,
         },
         dimensi: {
             panjang: {

@@ -17,7 +17,8 @@ const TambahSupplier = () => {
     const navigate = useNavigate();
     const [dataSupplier, setDataSupplier] = useState({
         nama: "",
-        kontak: "",
+        namaPerusahaan: "",
+        noHandphone: "",
         alamat: "",
     });
 
@@ -37,9 +38,10 @@ const TambahSupplier = () => {
 
     const handleClear = () => {
         document.getElementById("inputNamaSupplier").value = "";
-        document.getElementById("inputKontakSupplier").value = "";
+        document.getElementById("inputNamaPerusahaan").value = "";
+        document.getElementById("inputNoHandphoneSupplier").value = "";
         document.getElementById("inputAlamatSupplier").value = "";
-        setDataSupplier({ nama: "", kontak: "", alamat: "" });
+        setDataSupplier({ nama: "", namaPerusahaa: "", noHandphone: "", alamat: "" });
     };
 
     const handleBackToPrevious = () => {
@@ -56,15 +58,19 @@ const TambahSupplier = () => {
         <form onSubmit={handleSubmit} id="formInputSupplier">
             <div className="mt-1 mb-5">
                 <label htmlFor="inputNamaSupplier">
-                    <Title margin="0.875rem 0 0.625rem 0.25rem">Nama Supplier</Title>
+                    <Title margin="1rem 0 0.625rem 0.25rem">Nama Supplier</Title>
                 </label>
                 <InputText id="inputNamaSupplier" defaultValue={dataSupplier.nama} onChange={(e) => setDataSupplier({ ...dataSupplier, nama: e.target.value })} maxLength={50} required />
-                <label htmlFor="inputKontakSupplier">
-                    <Title margin="0.875rem 0 0.625rem 0.25rem">Kontak</Title>
+                <label htmlFor="inputNamaPerusahaan">
+                    <Title margin="1rem 0 0.625rem 0.25rem">Nama Perusahaan atau Toko</Title>
                 </label>
-                <InputTel id="inputKontakSupplier" defaultValue={dataSupplier.kontak} onChange={(e) => setDataSupplier({ ...dataSupplier, kontak: e.target.value })} maxLength={12} required />
+                <InputText id="inputNamaPerusahaan" defaultValue={dataSupplier.namaPerusahaan} onChange={(e) => setDataSupplier({ ...dataSupplier, namaPerusahaan: e.target.value })} maxLength={50} required />
+                <label htmlFor="inputNoHandphoneSupplier">
+                    <Title margin="1rem 0 0.625rem 0.25rem">No. Handphone</Title>
+                </label>
+                <InputTel id="inputNoHandphoneSupplier" defaultValue={dataSupplier.noHandphone} onChange={(e) => setDataSupplier({ ...dataSupplier, noHandphone: e.target.value })} maxLength={12} required />
                 <label htmlFor="inputAlamatSupplier">
-                    <Title margin="0.875rem 0 0.625rem 0.25rem">Alamat</Title>
+                    <Title margin="1rem 0 0.625rem 0.25rem">Alamat</Title>
                 </label>
                 <Textarea id="inputAlamatSupplier" defaultValue={dataSupplier.alamat} onChange={(e) => setDataSupplier({ ...dataSupplier, alamat: e.target.value })} rows={8} required />
             </div>

@@ -1,0 +1,56 @@
+.input_file {
+    border: 1px solid #9ca3af !important;
+    color: #111928 !important;
+    font-size: 0.875rem !important;
+    font-family: "Poppins", sans-serif !important;
+    padding: 0.75rem !important;
+    /* width: 100% !important; */
+}
+
+.custom_input_file input[type="file"] {
+    margin-left: -2px !important;
+}
+
+.custom_input_file input[type="file"]::-webkit-file-upload-button {
+    display: none;
+}
+
+.custom_input_file input[type="file"]::file-selector-button {
+    display: none;
+}
+
+.custom_input_file:hover label {
+    background-color: #dde0e3;
+    cursor: pointer;
+}
+
+.input_file:hover {
+    border: 1px solid #111928 !important;
+}
+
+.input_file:focus {
+    border: 2px solid #111928 !important;
+    margin: 0;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.input_file::placeholder {
+    color: #9ca3af !important;
+}
+
+.input_file:-ms-input-placeholder {
+    color: #9ca3af !important;
+}
+
+.input_file::-ms-input-placeholder {
+    color: #9ca3af !important;
+}
+
+.input_group_wrapper {
+    background-color: #e5e7eb !important;
+    font-size: 0.875rem !important;
+    font-family: "Poppins", sans-serif !important;
+    border: 1px solid #9ca3af !important;
+    padding: 0.75rem !important;
+}

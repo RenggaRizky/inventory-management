@@ -13,22 +13,28 @@ import InputSelect from "../../../components/form/select";
 import InputText from "../../../components/form/text";
 import Subtitle from "../../../components/typography/subtitle";
 import Title from "../../../components/typography/title";
+import LinkSpan from "../../../components/typography/link";
+import InputDataList from "../../../components/form/datalist";
+import Textarea from "../../../components/form/textarea";
+import InputFile from "../../../components/form/file";
 
 const EditProduk = () => {
     const navigate = useNavigate();
     const id = useLocation().state.id;
     const [dataProduk, setDataProduk] = useState({
-        nama: "",
+        nama: null,
+        deskripsi: null,
         id_jenibarang: "",
         id_merek: "",
-        hargaSatuan: "",
-        hargaPerLusin: "",
-        panjang: "",
-        lebar: "",
-        tinggi: "",
-        volume: "",
+        harga: null,
+        panjang: null,
+        lebar: null,
+        tinggi: null,
+        volume: null,
     });
 
+    const [gambarBase64, setGambarBase64] = useState("");
+    const [infoGambarBase64, setInfoGambarBase64] = useState("");
     const [jenisBarang, setJenisBarang] = useState(null);
     const [merek, setMerek] = useState(null);
 
@@ -36,24 +42,22 @@ const EditProduk = () => {
         url.get(`${id}`)
             .then((response) => {
                 setDataProduk({
-                    nama: response.data.nama,
-                    id_jenibarang: response.data.id_jenisbarang,
-                    id_merek: response.data.id_merek,
-                    hargaSatuan: Number(response.data.harga.hargaSatuan),
-                    hargaPerLusin: Number(response.data.harga.hargaPerLusin),
-                    panjang: Number(response.data.dimensi.panjang.$numberDecimal),
-                    lebar: Number(response.data.dimensi.lebar.$numberDecimal),
-                    tinggi: Number(response.data.dimensi.tinggi.$numberDecimal),
-                    volume: Number(response.data.volume.$numberDecimal),
+                    nama: response.data[0].nama,
+                    gambar: gambarBase64,
+                    deskripsi: response.data[0].deskripsi,
+                    id_jenibarang: response.data[0].id_jenisbarang[0]._id,
+                    id_merek: response.data[0].id_merek[0]._id,
+                    harga: Number(response.data[0].harga),
+                    panjang: Number(response.data[0].dimensi.panjang.$numberDecimal),
+                    lebar: Number(response.data[0].dimensi.lebar.$numberDecimal),
+                    tinggi: Number(response.data[0].dimensi.tinggi.$numberDecimal),
+                    volume: Number(response.data[0].volume.$numberDecimal),
                 });
-                console.log(response.data);
             })
             .catch((error) => {
                 console.log(error.message);
             });
     };
-
-    console.log(dataProduk);
 
     const getJenisBarang = () => {
         url.get("/jenis-barang")
@@ -78,12 +82,10 @@ const EditProduk = () => {
     const patchProduk = (id) => {
         url.patch(`${id}`, {
             nama: dataProduk.nama,
+            deskripsi: dataProduk.deskripsi,
             id_jenisbarang: dataProduk.id_jenibarang,
             id_merek: dataProduk.id_merek,
-            harga: {
-                hargaSatuan: Number(dataProduk.hargaSatuan),
-                hargaPerLusin: Number(dataProduk.hargaPerLusin),
-            },
+            harga: Number(dataProduk.harga),
             dimensi: {
                 panjang: Number(dataProduk.panjang),
                 lebar: Number(dataProduk.lebar),
@@ -104,25 +106,27 @@ const EditProduk = () => {
 
     const handleClear = () => {
         document.getElementById("inputNamaProduk").value = "";
+        document.getElementById("inputGambarProduk").value = "";
+        document.getElementById("inputDeskripsiProduk").value = "";
         document.getElementById("SelectIdJenisBarang").selectedIndex = 0;
         document.getElementById("SelectIdMerek").selectedIndex = 0;
-        document.getElementById("inputHargaSatuanProduk").value = 0;
-        document.getElementById("inputHargaPerLusinProduk").value = 0;
+        document.getElementById("inputHargaProduk").value = 0;
         document.getElementById("inputPanjangProduk").value = 0;
         document.getElementById("inputLebarProduk").value = 0;
         document.getElementById("inputTinggiProduk").value = 0;
         document.getElementById("inputVolumeProduk").value = 0;
         setDataProduk({
             nama: "",
+            deskripsi: "-",
             id_jenibarang: "",
             id_merek: "",
-            hargaSatuan: 0,
-            hargaPerlusin: 0,
+            harga: 0,
             panjang: 0,
             lebar: 0,
             tinggi: 0,
             volume: 0,
         });
+        setGambarBase64("");
     };
 
     const handleBackToPrevious = () => {
@@ -138,7 +142,25 @@ const EditProduk = () => {
         getInfoProduk(id);
         getJenisBarang();
         getMerek();
-    }, [id]);
+    }, []);
+
+    const fileToBase64 = (e, setFile, setFileName) => {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            var inputData = reader.result;
+            var replaceValue = inputData.split(",")[0];
+            var base64String = inputData.replace(replaceValue + ",", "");
+            setFile(base64String);
+            setFileName(file.name);
+        };
+    };
+
+    const setFilesName = (e, setFileName) => {
+        var file = e.target.files[0];
+        setFileName(file.name);
+    };
 
     const volumeProduk = dataProduk.panjang * dataProduk.lebar * dataProduk.tinggi;
 
@@ -146,64 +168,64 @@ const EditProduk = () => {
         <form onSubmit={handleSubmit} id="formInputProduk">
             <div className="mt-1 mb-5">
                 <label htmlFor="inputNamaProduk">
-                    <Title margin="1rem 0 0.25rem 0.25rem">Nama Produk</Title>
+                    <Title margin="2rem 0 0.625rem 0.25rem">Nama Produk</Title>
                 </label>
                 <InputText id="inputNamaProduk" defaultValue={dataProduk.nama} onChange={(e) => setDataProduk({ ...dataProduk, nama: e.target.value })} maxLength={50} required />
 
-                <label htmlFor="SelectIdJenisBarang">
-                    <Title margin="1rem 0 0.25rem 0.25rem">Jenis Barang</Title>
+                <label htmlFor="inputGambarProduk">
+                    <Title margin="2rem 0 0.625rem 0.25rem">Gambar Produk</Title>
                 </label>
-                <InputSelect id="SelectIdJenisBarang" data={jenisBarang} value={dataProduk.id_jenibarang} onChange={(e) => setDataProduk({ ...dataProduk, id_jenibarang: e.target.value })} required />
-                <Subtitle fontsize="0.75rem" margin="0 0 0 0.25rem">
-                    *Jika jenis barang yang ingin dipilih tidak ditemukan, maka pergi ke halaman 'Jenis Barang' di bagian 'Produk'
-                </Subtitle>
-                <label htmlFor="SelectIdMerek">
-                    <Title margin="1rem 0 0.25rem 0.25rem">Merek</Title>
-                </label>
-                <InputSelect id="SelectIdMerek" data={merek} value={dataProduk.id_merek} onChange={(e) => setDataProduk({ ...dataProduk, id_merek: e.target.value })} required />
-                <Subtitle fontsize="0.75rem" margin="0 0 0 0.25rem">
-                    *Jika merek yang ingin dipilih tidak ditemukan, maka pergi ke halaman 'Merek' di bagian 'Produk'
-                </Subtitle>
-
-                <div className="d-flex w-100">
-                    <div className="w-100 me-3">
-                        <label htmlFor="inputHargaSatuanProduk">
-                            <Title margin="1rem 0 0.25rem 0.25rem">Harga Satuan</Title>
+                <InputFile
+                    id="inputGambarProduk"
+                    onChange={(e) => {
+                        fileToBase64(e, setGambarBase64, setInfoGambarBase64);
+                        setFilesName(e, setGambarBase64);
+                    }}
+                    accept="image/*"
+                />
+                {/* <FileBase type="file" multiple={false} onDone={({ base64 }) => setDataProduk({ ...dataProduk, gambar: base64 })} /> */}
+                <div className="row">
+                    <div className="col">
+                        <label htmlFor="SelectIdJenisBarang">
+                            <Title margin="2rem 0 0.625rem 0.25rem">Jenis Barang</Title>
                         </label>
-                        <InputGroupFront
-                            type="number"
-                            min="0"
-                            max="9999999"
-                            step="500"
-                            wrap="Rp"
-                            id="inputHargaSatuanProduk"
-                            defaultValue={dataProduk.hargaSatuan}
-                            onChange={(e) => setDataProduk({ ...dataProduk, hargaSatuan: e.target.value })}
-                            required
-                        />
+                        <InputSelect id="SelectIdJenisBarang" value={dataProduk.id_jenibarang} data={jenisBarang} onChange={(e) => setDataProduk({ ...dataProduk, id_jenibarang: e.target.value })} required />
+                        <Subtitle fontsize="0.75rem" margin="0 0 0 0.25rem">
+                            *Jika jenis barang tidak ditemukan, maka pergi ke halaman 'Jenis Barang' atau klik{" "}
+                            <LinkSpan fontsize="0.75rem" to="/jenis-barang/tambah-jenis-barang">
+                                disini
+                            </LinkSpan>
+                        </Subtitle>
                     </div>
-                    <div className="w-100 ms-3">
-                        <label htmlFor="inputHargaPerLusinProduk">
-                            <Title margin="1rem 0 0.25rem 0.25rem">Harga Per Lusin</Title>
+
+                    <div className="col">
+                        <label htmlFor="SelectIdMerek">
+                            <Title margin="2rem 0 0.625rem 0.25rem">Merek</Title>
                         </label>
-                        <InputGroupFront
-                            type="number"
-                            min="0"
-                            max="9999999"
-                            step="500"
-                            wrap="Rp"
-                            id="inputHargaPerLusinProduk"
-                            defaultValue={dataProduk.hargaPerLusin}
-                            onChange={(e) => setDataProduk({ ...dataProduk, hargaPerLusin: e.target.value })}
-                            required
-                        />
+                        <InputSelect id="SelectIdMerek" value={dataProduk.id_merek} data={merek} onChange={(e) => setDataProduk({ ...dataProduk, id_merek: e.target.value })} required />
+                        <Subtitle fontsize="0.75rem" margin="0 0 0 0.25rem">
+                            *Jika merek tidak ditemukan, maka pergi ke halaman 'Merek' atau klik{" "}
+                            <LinkSpan fontsize="0.75rem" to="/merek/tambah-merek">
+                                disini
+                            </LinkSpan>
+                        </Subtitle>
                     </div>
                 </div>
 
-                <div className="d-flex w-100 justify-content-between">
-                    <div className="w-100 me-3">
+                <label htmlFor="inputHargaProduk">
+                    <Title margin="2rem 0 0.625rem 0.25rem">Harga </Title>
+                </label>
+                <InputGroupFront type="number" min="0" max="9999999" step="500" wrap="Rp" id="inputHargaProduk" defaultValue={dataProduk.harga} onChange={(e) => setDataProduk({ ...dataProduk, harga: e.target.value })} required />
+
+                <label htmlFor="inputDeskripsiProduk">
+                    <Title margin="2rem 0 0.625rem 0.25rem">Deskripsi</Title>
+                </label>
+                <Textarea id="inputDeskripsiProduk" defaultValue={dataProduk.deskripsi} onChange={(e) => setDataProduk({ ...dataProduk, deskripsi: e.target.value })} rows={8} />
+
+                <div className="row">
+                    <div className="col me-2">
                         <label htmlFor="inputPanjangProduk">
-                            <Title margin="1.75rem 0 0.25rem 0.25rem">Panjang Produk</Title>
+                            <Title margin="2rem 0 0.625rem 0.25rem">Panjang Produk</Title>
                         </label>
                         <InputGroupBack
                             type="number"
@@ -217,21 +239,21 @@ const EditProduk = () => {
                             required
                         />
                     </div>
-                    <div className="w-100 me-3">
+                    <div className="col me-2">
                         <label htmlFor="inputLebarProduk">
-                            <Title margin="1.75rem 0 0.25rem 0.25rem">Lebar Produk</Title>
+                            <Title margin="2rem 0 0.625rem 0.25rem">Lebar Produk</Title>
                         </label>
                         <InputGroupBack type="number" min="0" max="999999" step="any" wrap="cm" id="inputLebarProduk" defaultValue={dataProduk.lebar} onChange={(e) => setDataProduk({ ...dataProduk, lebar: e.target.value })} required />
                     </div>
-                    <div className="w-100">
+                    <div className="col">
                         <label htmlFor="inputTinggiProduk">
-                            <Title margin="1.75rem 0 0.25rem 0.25rem">Tinggi Produk</Title>
+                            <Title margin="2rem 0 0.625rem 0.25rem">Tinggi Produk</Title>
                         </label>
                         <InputGroupBack type="number" min="0" max="999999" step="any" wrap="cm" id="inputTinggiProduk" defaultValue={dataProduk.tinggi} onChange={(e) => setDataProduk({ ...dataProduk, tinggi: e.target.value })} required />
                     </div>
                 </div>
                 <label htmlFor="inputVolumeProduk">
-                    <Title margin="1.75rem 0 0.25rem 0.25rem">Volume</Title>
+                    <Title margin="2rem 0 0.625rem 0.25rem">Volume</Title>
                 </label>
                 <InputGroupBackDisabled
                     type="number"

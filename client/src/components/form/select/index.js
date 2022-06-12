@@ -1,11 +1,11 @@
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../../spinner";
 import styles from "./style.module.css";
 
-const InputSelect = ({ data, value = "", ...props }) => {
-    console.log(typeof value);
+const InputSelect = ({ data, ...props }) => {
     return (
-        <select className={`${styles.input_select} form-select`} aria-label="Default select example" {...props} value={value}>
+        <select className={`${styles.input_select} form-select`} aria-label="Default select example" {...props}>
             <option hidden value="">
                 {props.itemselected}
             </option>

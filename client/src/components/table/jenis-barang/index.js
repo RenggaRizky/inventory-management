@@ -5,9 +5,10 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 
 import { H6 } from "../../typography/heading";
 import P from "../../typography/paragraph";
-import ModalDelete from "../../button/modal/delete";
+
 import { Link } from "react-router-dom";
 import BtnLinkSuccess from "../../button/link/success";
+import ModalDeleteSecondary from "../../button/modal/delete-table-section";
 
 const TableJenisBarang = ({ tableheaddata, tablebodydata, setjenisbarang, ...props }) => {
     const [currentId, setCurrentId] = useState(null);
@@ -19,21 +20,22 @@ const TableJenisBarang = ({ tableheaddata, tablebodydata, setjenisbarang, ...pro
                     {tableheaddata.map((data) => {
                         return (
                             <th scope="col" key={data.key} className="text-uppercase" style={{ width: data.width }}>
-                                <H6 color="#6B7280">{data.title}</H6>
+                                <H6 fontsize="0.75rem" color="#6B7280" fontweight="600">
+                                    {data.title}
+                                </H6>
                             </th>
                         );
                     })}
                 </tr>
             </thead>
             <tbody className={styles.table_body}>
-                {tablebodydata.map((data, index) => {
+                {tablebodydata.map((data) => {
                     return (
                         <tr key={data._id} className="align-middle">
                             <td className="text-capitalize">
-                                <P color="#616161">{index + 1}</P>
-                            </td>
-                            <td className="text-capitalize">
-                                <P color="#616161">{data.nama}</P>
+                                <P color="#616161" fontsize="0.875rem">
+                                    {data.nama}
+                                </P>
                             </td>
                             <td className="d-flex justify-content-end">
                                 <Link to="edit-jenis-barang" state={{ id: data._id }} className="text-decoration-none d-flex align-items-center">
@@ -42,7 +44,7 @@ const TableJenisBarang = ({ tableheaddata, tablebodydata, setjenisbarang, ...pro
                                         Edit
                                     </BtnLinkSuccess>
                                 </Link>
-                                <ModalDelete value="Hapus" page="Jenis Barang" target="hapusJenisBarang" currentid={currentId} setcurrentid={() => setCurrentId(data._id)} setdata={setjenisbarang} deleteurl={"jenis-barang"} />
+                                <ModalDeleteSecondary value="Hapus" page="Jenis Barang" target="hapusJenisBarang" currentid={currentId} setcurrentid={() => setCurrentId(data._id)} setdata={setjenisbarang} deleteurl={"jenis-barang"} />
                             </td>
                         </tr>
                     );

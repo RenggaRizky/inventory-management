@@ -14,12 +14,18 @@ import BtnLinkError from "../../../components/button/link/error";
 const TambahJenisBarang = () => {
     const navigate = useNavigate();
 
+    const capitalize = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
     const [dataJenisBarang, setDataJenisBarang] = useState({
         nama: "",
     });
 
     const postJenisBarang = () => {
-        url.post("tambah-jenis-barang", dataJenisBarang)
+        url.post("tambah-jenis-barang", {
+            nama: capitalize(dataJenisBarang.nama),
+        })
             .then((response) => {})
             .catch((error) => {
                 console.log(error.message);

@@ -8,14 +8,14 @@
 }
 
 .btn_light:hover {
-    background-color: #f9fafb !important;
-    color: #111928 !important;
+    /* background-color: #f9fafb !important; */
+    color: #1f2a37 !important;
 }
 
 .btn_light:active {
-    background-color: #ffffff !important;
+    /* background-color: #ffffff !important; */
     color: #111928 !important;
-    border: medium solid #111928 !important;
+    /* border: medium solid #111928 !important; */
 }
 
 .btn_light:focus {
