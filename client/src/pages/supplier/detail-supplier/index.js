@@ -37,7 +37,7 @@ const DetailSupplier = () => {
     };
 
     const handleBackToPrevious = () => {
-        navigate("/supplier");
+        navigate(-1);
     };
 
     useEffect(() => {

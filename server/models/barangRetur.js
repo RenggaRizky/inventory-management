@@ -21,11 +21,7 @@ const schemaBarangRetur = new Schema(
             type: String,
             required: true,
         },
-        catatan: {
-            type: String,
-            required: false,
-        },
-        lampiran: String,
+        catatan: String,
         id_produk: {
             type: Schema.Types.ObjectId,
             ref: "Produk",

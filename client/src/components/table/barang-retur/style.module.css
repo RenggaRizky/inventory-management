@@ -57,7 +57,7 @@
 }
 
 .break_words {
-    width: 100px;
+    width: 200px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

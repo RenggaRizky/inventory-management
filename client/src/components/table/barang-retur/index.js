@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./style.module.css";
 import moment from "moment";
+import "moment/locale/id";
 import { Link } from "react-router-dom";
 
 import { BsThreeDots } from "react-icons/bs";
@@ -10,6 +11,7 @@ import P from "../../typography/paragraph";
 import Subtitle from "../../typography/subtitle";
 
 const TableBarangRetur = ({ tableheaddata, tablebodydata, setbarangretur, ...props }) => {
+    moment.locale("id");
     return (
         <table className={`${styles.table} table`}>
             <thead className={styles.table_head}>
@@ -32,7 +34,7 @@ const TableBarangRetur = ({ tableheaddata, tablebodydata, setbarangretur, ...pro
                         <tr key={data._id} className="align-middle">
                             <td className="text-capitalize">
                                 <P color="#616161" fontsize="0.75rem">
-                                    {moment(data.tanggalPengembalian).format("L")}
+                                    {moment(data.tanggalPengembalian).format("LL")}
                                 </P>
                             </td>
                             <td className="d-flex align-items-center">
@@ -46,24 +48,19 @@ const TableBarangRetur = ({ tableheaddata, tablebodydata, setbarangretur, ...pro
                                 </div>
                             </td>
                             <td>
-                                <H6 className="text-uppercase">Dadang Sunandar</H6>
+                                <H6 className="text-uppercase"> {data.id_supplier[0].nama}</H6>
                                 <Subtitle fontsize="0.75rem" lineheight="15px">
-                                    Toko Pelita Jaya Harapan
+                                    {data.id_supplier[0].namaPerusahaan}
                                 </Subtitle>
                             </td>
-                            <td className="text-capitalize text-center">
+                            <td className="text-capitalize">
                                 <P color="#616161" fontsize="0.875rem">
                                     {data.jumlah}
                                 </P>
                             </td>
                             <td className="text-capitalize">
-                                <P color="#616161" fontsize="0.875rem">
-                                    buah
-                                </P>
-                            </td>
-                            <td className="text-capitalize">
                                 <P color="#fff" fontsize="0.875rem">
-                                    <span className={data.status === "diterima" ? styles.status_wrapper_accepted : data.status === "ditolak" ? styles.status_wrapper_rejected : styles.status_wrapper_process}>{data.status}</span>
+                                    <span className={data.status === "Diterima" ? styles.status_wrapper_accepted : data.status === "Ditolak" ? styles.status_wrapper_rejected : styles.status_wrapper_process}>{data.status}</span>
                                 </P>
                             </td>
                             <td className="text-capitalize">

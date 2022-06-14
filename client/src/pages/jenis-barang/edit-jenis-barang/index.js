@@ -46,7 +46,7 @@ const EditJenisBarang = () => {
 
     const handleBackToPrevious = () => {
         handleClear();
-        navigate("/jenis-barang");
+        navigate(-1);
     };
 
     const handleClear = () => {

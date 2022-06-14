@@ -1,5 +1,4 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../../spinner";
 import styles from "./style.module.css";
 

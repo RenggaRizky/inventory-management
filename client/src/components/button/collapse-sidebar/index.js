@@ -9,7 +9,7 @@ const CollapseSidebar = (props) => {
     return (
         <>
             <button className={`${pathname.includes(props.menu) ? styles.button_clicked : styles.button} w-100`} type="button">
-                <li>{props.children}</li>
+                {props.children}
             </button>
         </>
     );

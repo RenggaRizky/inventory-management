@@ -61,7 +61,7 @@ const EditSupplier = () => {
     };
 
     const handleBackToPrevious = () => {
-        navigate("/supplier");
+        navigate(-1);
     };
 
     const handleSubmit = (e) => {

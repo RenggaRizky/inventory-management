@@ -51,7 +51,7 @@ const EditMerek = () => {
 
     const handleBackToPrevious = () => {
         handleClear();
-        navigate("/merek");
+        navigate(-1);
     };
 
     const handleSubmit = (e) => {

@@ -121,7 +121,7 @@ const TambahProduk = () => {
 
     const handleBackToPrevious = () => {
         handleClear();
-        navigate("/produk");
+        navigate(-1);
     };
 
     const fileToBase64 = (e, setFile, setFileName) => {

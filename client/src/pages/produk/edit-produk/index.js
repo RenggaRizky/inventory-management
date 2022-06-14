@@ -130,7 +130,7 @@ const EditProduk = () => {
     };
 
     const handleBackToPrevious = () => {
-        navigate("/produk");
+        navigate(-1);
     };
 
     const handleSubmit = (e) => {

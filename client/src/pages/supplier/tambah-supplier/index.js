@@ -46,7 +46,7 @@ const TambahSupplier = () => {
 
     const handleBackToPrevious = () => {
         handleClear();
-        navigate("/supplier");
+        navigate(-1);
     };
 
     const handleSubmit = (e) => {

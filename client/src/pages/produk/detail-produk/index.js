@@ -50,7 +50,7 @@ const DetailProduk = () => {
     };
 
     const handleBackToPrevious = () => {
-        navigate("/produk");
+        navigate(-1);
     };
     useEffect(() => {
         getInfoProduk(getId);
