@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../style.module.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { url } from "../../../../api";
 
 import { H3, H6 } from "../../../typography/heading";

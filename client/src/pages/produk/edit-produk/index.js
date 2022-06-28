@@ -9,14 +9,17 @@ import BtnLinkError from "../../../components/button/link/error";
 import BtnPrimary from "../../../components/button/primary";
 import BtnSecondary from "../../../components/button/secondary";
 import { InputGroupBack, InputGroupBackDisabled, InputGroupFront } from "../../../components/form/input-group";
-import InputSelect from "../../../components/form/select";
+import { InputSelect } from "../../../components/form/select";
 import InputText from "../../../components/form/text";
 import Subtitle from "../../../components/typography/subtitle";
-import Title from "../../../components/typography/title";
+import { Title } from "../../../components/typography/title";
 import LinkSpan from "../../../components/typography/link";
 import InputDataList from "../../../components/form/datalist";
 import Textarea from "../../../components/form/textarea";
 import InputFile from "../../../components/form/file";
+import { H2 } from "../../../components/typography/heading";
+import Divider from "../../../components/divider";
+import InputNumber from "../../../components/form/number";
 
 const EditProduk = () => {
     const navigate = useNavigate();
@@ -26,7 +29,10 @@ const EditProduk = () => {
         deskripsi: null,
         id_jenibarang: "",
         id_merek: "",
+        id_satuanbarang: null,
         harga: null,
+        // stokAwal: null,
+        // batasMinimum: null,
         panjang: null,
         lebar: null,
         tinggi: null,
@@ -35,8 +41,10 @@ const EditProduk = () => {
 
     const [gambarBase64, setGambarBase64] = useState("");
     const [infoGambarBase64, setInfoGambarBase64] = useState("");
+
     const [jenisBarang, setJenisBarang] = useState(null);
     const [merek, setMerek] = useState(null);
+    const [satuanbarang, setSatuanBarang] = useState(null);
 
     const getInfoProduk = (id) => {
         url.get(`${id}`)
@@ -47,7 +55,10 @@ const EditProduk = () => {
                     deskripsi: response.data[0].deskripsi,
                     id_jenibarang: response.data[0].id_jenisbarang[0]._id,
                     id_merek: response.data[0].id_merek[0]._id,
+                    id_satuanbarang: response.data[0].id_satuanbarang[0]._id,
                     harga: Number(response.data[0].harga),
+                    // stokAwal: Number(response.data[0].stok.total),
+                    // batasMinimum: Number(response.data[0].stok.batasMinimum),
                     panjang: Number(response.data[0].dimensi.panjang.$numberDecimal),
                     lebar: Number(response.data[0].dimensi.lebar.$numberDecimal),
                     tinggi: Number(response.data[0].dimensi.tinggi.$numberDecimal),
@@ -79,12 +90,27 @@ const EditProduk = () => {
             });
     };
 
+    const getSatuanBarang = () => {
+        url.get("/satuan-barang")
+            .then((response) => {
+                setSatuanBarang(response.data);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            });
+    };
+
     const patchProduk = (id) => {
         url.patch(`${id}`, {
             nama: dataProduk.nama,
             deskripsi: dataProduk.deskripsi,
             id_jenisbarang: dataProduk.id_jenibarang,
             id_merek: dataProduk.id_merek,
+            id_satuanbarang: dataProduk.id_satuanbarang,
+            stok: {
+                stokAwal: Number(dataProduk.stokAwal),
+                batasMinimum: Number(dataProduk.batasMinimum),
+            },
             harga: Number(dataProduk.harga),
             dimensi: {
                 panjang: Number(dataProduk.panjang),
@@ -110,7 +136,10 @@ const EditProduk = () => {
         document.getElementById("inputDeskripsiProduk").value = "";
         document.getElementById("SelectIdJenisBarang").selectedIndex = 0;
         document.getElementById("SelectIdMerek").selectedIndex = 0;
+        document.getElementById("SelectIdSatuanBarang").selectedIndex = 0;
         document.getElementById("inputHargaProduk").value = 0;
+        // document.getElementById("inputStokAwalProduk").value = 0;
+        // document.getElementById("inputBatasMinimumProduk").value = 0;
         document.getElementById("inputPanjangProduk").value = 0;
         document.getElementById("inputLebarProduk").value = 0;
         document.getElementById("inputTinggiProduk").value = 0;
@@ -120,7 +149,10 @@ const EditProduk = () => {
             deskripsi: "-",
             id_jenibarang: "",
             id_merek: "",
+            id_satuanbarang: "",
             harga: 0,
+            // stokAwal: 0,
+            // batasMinimum: 0,
             panjang: 0,
             lebar: 0,
             tinggi: 0,
@@ -142,6 +174,7 @@ const EditProduk = () => {
         getInfoProduk(id);
         getJenisBarang();
         getMerek();
+        getSatuanBarang();
     }, []);
 
     const fileToBase64 = (e, setFile, setFileName) => {
@@ -166,11 +199,12 @@ const EditProduk = () => {
 
     return (
         <form onSubmit={handleSubmit} id="formInputProduk">
-            <div className="mt-1 mb-5">
+            <div className="p-5">
+                <H2>Informasi Produk</H2>
                 <label htmlFor="inputNamaProduk">
                     <Title margin="2rem 0 0.625rem 0.25rem">Nama Produk</Title>
                 </label>
-                <InputText id="inputNamaProduk" defaultValue={dataProduk.nama} onChange={(e) => setDataProduk({ ...dataProduk, nama: e.target.value })} maxLength={50} required />
+                <InputText id="inputNamaProduk" defaultValue={dataProduk.nama} onChange={(e) => setDataProduk({ ...dataProduk, nama: e.target.value })} maxLength={100} required />
 
                 <label htmlFor="inputGambarProduk">
                     <Title margin="2rem 0 0.625rem 0.25rem">Gambar Produk</Title>
@@ -179,11 +213,13 @@ const EditProduk = () => {
                     id="inputGambarProduk"
                     onChange={(e) => {
                         fileToBase64(e, setGambarBase64, setInfoGambarBase64);
-                        setFilesName(e, setGambarBase64);
+                        setFilesName(e, setInfoGambarBase64);
                     }}
                     accept="image/*"
                 />
+
                 {/* <FileBase type="file" multiple={false} onDone={({ base64 }) => setDataProduk({ ...dataProduk, gambar: base64 })} /> */}
+
                 <div className="row">
                     <div className="col">
                         <label htmlFor="SelectIdJenisBarang">
@@ -210,6 +246,19 @@ const EditProduk = () => {
                             </LinkSpan>
                         </Subtitle>
                     </div>
+
+                    <div className="col">
+                        <label htmlFor="SelectIdSatuanBarang">
+                            <Title margin="2rem 0 0.625rem 0.25rem">Satuan Barang</Title>
+                        </label>
+                        <InputSelect id="SelectIdSatuanBarang" value={dataProduk.id_satuanbarang} data={satuanbarang} onChange={(e) => setDataProduk({ ...dataProduk, id_satuanbarang: e.target.value })} required />
+                        <Subtitle fontsize="0.75rem" margin="0 0 0 0.25rem">
+                            *Jika satuan barang tidak ditemukan, maka pergi ke halaman 'Satuan Barang' atau klik{" "}
+                            <LinkSpan fontsize="0.75rem" to="/merek/tambah-satuan-barang">
+                                disini
+                            </LinkSpan>
+                        </Subtitle>
+                    </div>
                 </div>
 
                 <label htmlFor="inputHargaProduk">
@@ -221,35 +270,28 @@ const EditProduk = () => {
                     <Title margin="2rem 0 0.625rem 0.25rem">Deskripsi</Title>
                 </label>
                 <Textarea id="inputDeskripsiProduk" defaultValue={dataProduk.deskripsi} onChange={(e) => setDataProduk({ ...dataProduk, deskripsi: e.target.value })} rows={8} />
+            </div>
 
+            <div className="p-5">
+                <H2>Dimensi Produk</H2>
                 <div className="row">
                     <div className="col me-2">
                         <label htmlFor="inputPanjangProduk">
                             <Title margin="2rem 0 0.625rem 0.25rem">Panjang Produk</Title>
                         </label>
-                        <InputGroupBack
-                            type="number"
-                            min="0"
-                            max="999999"
-                            step="any"
-                            wrap="cm"
-                            id="inputPanjangProduk"
-                            defaultValue={dataProduk.panjang}
-                            onChange={(e) => setDataProduk({ ...dataProduk, panjang: e.target.value })}
-                            required
-                        />
+                        <InputGroupBack type="number" min="0" max="999999" step="any" wrap="cm" id="inputPanjangProduk" value={dataProduk.panjang} onChange={(e) => setDataProduk({ ...dataProduk, panjang: e.target.value })} required />
                     </div>
                     <div className="col me-2">
                         <label htmlFor="inputLebarProduk">
                             <Title margin="2rem 0 0.625rem 0.25rem">Lebar Produk</Title>
                         </label>
-                        <InputGroupBack type="number" min="0" max="999999" step="any" wrap="cm" id="inputLebarProduk" defaultValue={dataProduk.lebar} onChange={(e) => setDataProduk({ ...dataProduk, lebar: e.target.value })} required />
+                        <InputGroupBack type="number" min="0" max="999999" step="any" wrap="cm" id="inputLebarProduk" value={dataProduk.lebar} onChange={(e) => setDataProduk({ ...dataProduk, lebar: e.target.value })} required />
                     </div>
                     <div className="col">
                         <label htmlFor="inputTinggiProduk">
                             <Title margin="2rem 0 0.625rem 0.25rem">Tinggi Produk</Title>
                         </label>
-                        <InputGroupBack type="number" min="0" max="999999" step="any" wrap="cm" id="inputTinggiProduk" defaultValue={dataProduk.tinggi} onChange={(e) => setDataProduk({ ...dataProduk, tinggi: e.target.value })} required />
+                        <InputGroupBack type="number" min="0" max="999999" step="any" wrap="cm" id="inputTinggiProduk" value={dataProduk.tinggi} onChange={(e) => setDataProduk({ ...dataProduk, tinggi: e.target.value })} required />
                     </div>
                 </div>
                 <label htmlFor="inputVolumeProduk">
@@ -267,7 +309,10 @@ const EditProduk = () => {
                     id="inputVolumeProduk"
                     value={volumeProduk}
                 />
+
+                <Divider margin="4rem 0 0 0" bordercolor="#fff" />
             </div>
+
             <div className={`${styles.form_footer} pt-5 d-flex justify-content-between`}>
                 <BtnLinkError bs="text-uppercase d-flex" onClick={handleClear}>
                     <HiOutlineTrash className={`${styles.icon_delete}`} />

@@ -20,6 +20,14 @@ export const getProduk = async (req, res) => {
                     as: "id_jenisbarang",
                 },
             },
+            {
+                $lookup: {
+                    from: "satuanbarang",
+                    localField: "id_satuanbarang",
+                    foreignField: "_id",
+                    as: "id_satuanbarang",
+                },
+            },
         ]);
         res.status(201).json(dataProduk);
     } catch (error) {
@@ -55,6 +63,14 @@ export const getInfoProduk = async (req, res) => {
                     as: "id_jenisbarang",
                 },
             },
+            {
+                $lookup: {
+                    from: "satuanbarang",
+                    localField: "id_satuanbarang",
+                    foreignField: "_id",
+                    as: "id_satuanbarang",
+                },
+            },
         ]);
         res.status(201).json(dataProduk);
     } catch (error) {
@@ -71,11 +87,24 @@ export const postProduk = async (req, res) => {
         deskripsi,
         id_jenisbarang,
         id_merek,
+        id_satuanbarang,
+        stok: { jumlahMasuk, jumlahKeluar, jumlahRetur, statusStok, batasMinimum, total },
         harga,
         dimensi: { panjang, lebar, tinggi },
         volume,
     } = req.body;
-    const produkBaru = new Produk({ nama, gambar, deskripsi, id_jenisbarang, id_merek, harga, dimensi: { panjang, lebar, tinggi }, volume });
+    const produkBaru = new Produk({
+        nama,
+        gambar,
+        deskripsi,
+        id_jenisbarang,
+        id_merek,
+        id_satuanbarang,
+        stok: { jumlahMasuk, jumlahKeluar, jumlahRetur, statusStok, batasMinimum, total },
+        harga,
+        dimensi: { panjang, lebar, tinggi },
+        volume,
+    });
     try {
         await produkBaru.save();
         const dataProduk = await Produk.aggregate([
@@ -95,6 +124,14 @@ export const postProduk = async (req, res) => {
                     as: "id_jenisbarang",
                 },
             },
+            {
+                $lookup: {
+                    from: "satuanbarang",
+                    localField: "id_satuanbarang",
+                    foreignField: "_id",
+                    as: "id_satuanbarang",
+                },
+            },
         ]);
         res.status(201).json(dataProduk);
     } catch (error) {
@@ -112,6 +149,8 @@ export const patchProduk = async (req, res) => {
         deskripsi,
         id_jenisbarang,
         id_merek,
+        id_satuanbarang,
+        stok: { batasMinimum },
         harga,
         dimensi: { panjang, lebar, tinggi },
         volume,
@@ -119,7 +158,7 @@ export const patchProduk = async (req, res) => {
 
     try {
         if (mongoose.Types.ObjectId.isValid(_id)) {
-            const produkDiperbarui = await Produk.findByIdAndUpdate(_id, { nama, gambar, deskripsi, id_jenisbarang, id_merek, harga, dimensi: { panjang, lebar, tinggi }, volume }, { new: true });
+            const produkDiperbarui = await Produk.findByIdAndUpdate(_id, { nama, gambar, deskripsi, id_jenisbarang, id_merek, id_satuanbarang, stok: { batasMinimum }, harga, dimensi: { panjang, lebar, tinggi }, volume }, { new: true });
             res.status(200).json(produkDiperbarui);
         } else {
             res.status(404).send("ID tidak ditemukan");
@@ -152,6 +191,14 @@ export const deleteProduk = async (req, res) => {
                         localField: "id_jenisbarang",
                         foreignField: "_id",
                         as: "id_jenisbarang",
+                    },
+                },
+                {
+                    $lookup: {
+                        from: "satuanbarang",
+                        localField: "id_satuanbarang",
+                        foreignField: "_id",
+                        as: "id_satuanbarang",
                     },
                 },
             ]);

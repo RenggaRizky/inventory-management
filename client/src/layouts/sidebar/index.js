@@ -18,6 +18,8 @@ import { FiBox } from "react-icons/fi";
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdOutlineInventory, MdOutlineCategory } from "react-icons/md";
 import { RiDashboardLine } from "react-icons/ri";
 import { BsTruck } from "react-icons/bs";
+import { CgRuler } from "react-icons/cg";
+import { TbPackgeImport, TbPackgeExport } from "react-icons/tb";
 
 const Sidebar = (props) => {
     const mb1 = {
@@ -78,6 +80,12 @@ const Sidebar = (props) => {
                             Jenis Barang
                         </SidebarBtn>
                     </Link>
+                    <Link to="satuan-barang">
+                        <SidebarBtn menu="/satuan-barang">
+                            <CgRuler className={styles.icon} />
+                            Satuan Barang
+                        </SidebarBtn>
+                    </Link>
                     <Divider margin="18px 0" />
                 </div>
 
@@ -93,14 +101,16 @@ const Sidebar = (props) => {
                             {openInventori === false ? <MdOutlineKeyboardArrowDown className={styles.arrow_nav} /> : <MdOutlineKeyboardArrowUp className={styles.arrow_nav} />}
                         </CollapseBtn>
                         <CollapseBox target="inventori">
-                            <CollapseSidebar>Stok Barang</CollapseSidebar>
+                            <Link to="stok-barang">
+                                <CollapseSidebar menu="/stok-barang">Stok Barang</CollapseSidebar>
+                            </Link>
                             <CollapseSidebar>Barang Masuk</CollapseSidebar>
                             <CollapseSidebar>Barang Keluar</CollapseSidebar>
                             <Link to="barang-retur">
                                 <CollapseSidebar menu="/barang-retur">Barang Retur</CollapseSidebar>
                             </Link>
-                            <Link to="tempat-penyimpanan">
-                                <CollapseSidebar menu="/tempat-penyimpanan">Penyimpanan</CollapseSidebar>
+                            <Link to="rak">
+                                <CollapseSidebar menu="/rak">Rak Penyimpanan</CollapseSidebar>
                             </Link>
                         </CollapseBox>
                     </CollapseWrapper>
@@ -124,14 +134,19 @@ const Sidebar = (props) => {
                 <div className={styles.nav_wrapper}>
                     <SidebarTitle style={mb1}>Pemesanan</SidebarTitle>
                     <SidebarSubtitle>Atur Pemesanan Barang</SidebarSubtitle>
-                    <SidebarBtn>
-                        <BiUserCircle className={styles.icon} />
-                        Test
-                    </SidebarBtn>
-                    <SidebarBtn>
-                        <BiUserCircle className={styles.icon} />
-                        Test
-                    </SidebarBtn>
+                    <Link to="pembelian">
+                        <SidebarBtn menu={"pembelian"}>
+                            <TbPackgeImport className={styles.icon} />
+                            Pembelian
+                        </SidebarBtn>
+                    </Link>
+
+                    <Link to="penjualan">
+                        <SidebarBtn menu={"penjualan"}>
+                            <TbPackgeExport className={styles.icon} />
+                            Penjualan
+                        </SidebarBtn>
+                    </Link>
                     <Divider margin="18px 0" />
                 </div>
 

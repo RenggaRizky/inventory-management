@@ -3,7 +3,7 @@ import styles from "../style.module.css";
 import moment from "moment";
 import "moment/locale/id";
 
-import { TbTruckReturn } from "react-icons/tb";
+import { MdOutlineInventory } from "react-icons/md";
 
 import { H2, H3 } from "../../../components/typography/heading";
 import Subtitle from "../../../components/typography/subtitle";
@@ -66,7 +66,7 @@ const DetailBarangRetur = () => {
                         <div className="card-header p-4 mb-1">
                             <div className="d-flex align-items-center">
                                 <div className={`${styles.icon_return_product_wrapper} me-4`}>
-                                    <TbTruckReturn className={styles.icon_return_product} />
+                                    <MdOutlineInventory className={styles.icon_return_product} />
                                 </div>
                                 <div>
                                     <H2 bs="text-uppercase">{dataBarangRetur.namaProduk}</H2>

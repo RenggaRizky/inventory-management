@@ -1,0 +1,41 @@
+.wrapper {
+    padding: 20px 8px 0 8px;
+}
+
+.icon_delete {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}
+
+.icon_edit {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}
+
+.icon_product {
+    color: #fff;
+    font-size: 1.75rem;
+}
+
+.icon_product_wrapper {
+    background-color: #1f2a37;
+    border-radius: 50%;
+    padding: 0.875rem;
+}
+
+.product_picture {
+    width: 256px;
+}
+
+.wrapper {
+    padding: 20px 8px 0 8px;
+}
+
+.form_footer {
+    border-top: 1px solid rgb(238, 238, 238);
+}
+
+.icon_add {
+    font-size: 1.125rem;
+    margin: 0 15px 0 0;
+}

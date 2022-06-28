@@ -1,0 +1,118 @@
+.wrapper {
+    padding: 20px 8px 0 8px;
+}
+
+.list_wrapper {
+    background-color: #f9fafb;
+    border-radius: 12px;
+    padding: 32px 22px;
+}
+
+.list_container {
+    overflow: auto;
+    height: 440px;
+}
+
+.icon_add_wrapper {
+    background-color: #1f2a37;
+    border-radius: 50%;
+    padding: 11px;
+    width: fit-content;
+}
+
+.icon_add {
+    color: #fff;
+    font-size: 26px;
+    font-size: 1.125rem;
+    margin: 0 15px 0 0;
+}
+
+.form_footer {
+    border-top: 1px solid rgb(238, 238, 238);
+}
+
+.icon_delete {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}
+
+.rack_icon_wrapper,
+.rack_main_icon_wrapper,
+.rack_detail_icon_wrapper {
+    background-color: #1f2a37;
+    color: #fff;
+}
+
+.rack_icon_wrapper {
+    font-size: 18px;
+    padding: 9px;
+    margin-right: 14px;
+    width: 2.25rem;
+    height: 2.25rem;
+}
+
+.rack_main_icon_wrapper {
+    font-size: 64px;
+    padding: 30px;
+    margin-right: 24px;
+    width: 7.8125rem;
+    height: 7.8125rem;
+}
+
+.rack_detail_icon_wrapper {
+    font-size: 28px;
+    padding: 10px;
+    margin-right: 24px;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 12px;
+}
+
+.active_link > div {
+    background-color: #111928;
+    border: 1px solid #111928;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 12px 16px;
+    text-decoration: none !important;
+    margin-right: 1rem;
+}
+
+.active_link > div:first-child {
+    color: #fff;
+}
+
+.noactive_link > div {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-right: 1rem;
+    padding: 12px 16px;
+    text-decoration: none !important;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.noactive_link > div:hover {
+    background-color: #f3f4f6;
+}
+
+.noactive_link > div:first-child {
+    color: #111928;
+}
+
+.rack_info_wrapper {
+    background-color: #111928;
+    padding: 36px 28px;
+    border-radius: 12px;
+    margin: 0 0 24px 0;
+}
+
+.progress_bar {
+    background-color: #00c853;
+}
+
+.icon_edit {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}

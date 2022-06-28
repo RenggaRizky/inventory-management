@@ -22,13 +22,31 @@ const TableDataProduk = () => {
     }, []);
 
     const tableHead = [
-        { key: 1, title: "Produk", width: "35%" },
-        { key: 2, title: "Jenis Barang", width: "10%" },
-        { key: 3, title: "Merek", width: "10%" },
-        { key: 4, title: "Unit", width: "10%" },
-        { key: 5, title: "Volume", width: "10%" },
-        { key: 6, title: "Harga", width: "15%" },
-        { key: 7, title: "", width: "10%" },
+        { key: 1, title: "Produk" },
+        {
+            key: 2,
+            title: (
+                <span>
+                    Jenis
+                    <br />
+                    Barang
+                </span>
+            ),
+        },
+        { key: 3, title: "Merek" },
+        {
+            key: 4,
+            title: (
+                <span>
+                    Satuan
+                    <br />
+                    Barang
+                </span>
+            ),
+        },
+        { key: 5, title: "Volume" },
+        { key: 6, title: "Harga" },
+        { key: 7, title: "" },
     ];
 
     return <>{produk === null ? <Spinner /> : produk.length === 0 ? <P>Tidak ada data yang ditampilkan</P> : <TableProduk tableheaddata={tableHead} tablebodydata={produk} setproduk={setProduk} />}</>;

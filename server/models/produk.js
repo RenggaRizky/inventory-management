@@ -10,6 +10,15 @@ const schemaProduk = new Schema(
         },
         gambar: String,
         deskripsi: String,
+        harga: {
+            type: Number,
+            required: true,
+        },
+        volume: {
+            type: mongoose.Types.Decimal128,
+            required: true,
+        },
+        notifikasi: [String],
         id_jenisbarang: {
             type: Schema.Types.ObjectId,
             ref: "JenisBarang",
@@ -20,8 +29,14 @@ const schemaProduk = new Schema(
             ref: "Merek",
             required: true,
         },
-        harga: {
-            type: Number,
+        id_satuanbarang: {
+            type: Schema.Types.ObjectId,
+            ref: "SatuanBarang",
+            required: true,
+        },
+        id_tempatpenyimpanan: {
+            type: Schema.Types.ObjectId,
+            ref: "TempatPenyimpanan",
             required: true,
         },
         dimensi: {
@@ -38,9 +53,15 @@ const schemaProduk = new Schema(
                 required: true,
             },
         },
-        volume: {
-            type: mongoose.Types.Decimal128,
-            required: true,
+        stok: {
+            batasMinimum: {
+                type: Number,
+                required: true,
+            },
+            total: {
+                type: Number,
+                required: true,
+            },
         },
     },
     {

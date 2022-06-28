@@ -21,3 +21,9 @@
 .disable_form option:hover {
     background-color: red;
 }
+
+.disable_form:focus {
+    margin: 0;
+    outline: none !important;
+    box-shadow: none !important;
+}

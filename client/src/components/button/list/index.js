@@ -6,7 +6,7 @@ import { BsHddRack } from "react-icons/bs";
 import { RiHome6Line } from "react-icons/ri";
 
 import Subtitle from "../../typography/subtitle";
-import Title from "../../typography/title";
+import { Title } from "../../typography/title";
 
 const BtnList = ({ data, props }) => {
     return (

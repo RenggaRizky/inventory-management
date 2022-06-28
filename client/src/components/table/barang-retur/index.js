@@ -40,7 +40,7 @@ const TableBarangRetur = ({ tableheaddata, tablebodydata, setbarangretur, ...pro
                             <td className="d-flex align-items-center">
                                 <img src={`data:image/png;base64, ${data.id_produk[0].gambar}`} alt={data.id_produk[0].nama} className={styles.product_picture} />
                                 <div className="ms-3">
-                                    <H6 className="text-uppercase">{data.id_produk[0].nama}</H6>
+                                    <H6 className={`${styles.text_ellipsis} text-uppercase`}>{data.id_produk[0].nama}</H6>
                                     <Subtitle
                                         fontsize="0.75rem"
                                         lineheight="15px"
@@ -64,7 +64,7 @@ const TableBarangRetur = ({ tableheaddata, tablebodydata, setbarangretur, ...pro
                                 </P>
                             </td>
                             <td className="text-capitalize">
-                                <P color="#616161" fontsize="0.875rem" className={styles.break_words}>
+                                <P color="#616161" fontsize="0.875rem" className={styles.text_ellipsis}>
                                     {data.alasan}
                                 </P>
                             </td>

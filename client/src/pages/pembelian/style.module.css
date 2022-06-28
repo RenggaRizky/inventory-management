@@ -1,0 +1,159 @@
+.wrapper {
+    padding: 20px 8px 0 8px;
+}
+
+.action_wrapper {
+    /* margin: 0 0 2.5rem 0; */
+}
+
+.form_footer {
+    border-top: 1px solid rgb(238, 238, 238);
+}
+
+.icon_add {
+    font-size: 1.125rem;
+    margin: 0 15px 0 0;
+}
+
+.icon_delete {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}
+
+.icon_edit {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}
+
+.icon_header_form {
+    font-size: 2rem;
+    background-color: #1f2a37;
+    border-radius: 50px;
+    padding: 4px;
+    color: #fff;
+    margin-right: 1rem;
+}
+
+.icon_product {
+    color: #fff;
+    font-size: 1.75rem;
+}
+
+.icon_product_wrapper {
+    background-color: #1f2a37;
+    border-radius: 50%;
+    padding: 0.875rem;
+}
+
+.product_picture {
+    width: 256px;
+}
+
+.input_select {
+    border: 1px solid #9ca3af !important;
+    color: #111928 !important;
+    font-size: 0.875rem !important;
+    font-family: "Poppins", sans-serif !important;
+    margin: 1px;
+    padding: 0.75rem !important;
+    width: 100% !important;
+}
+
+.input_select:hover {
+    border: 1px solid #111928 !important;
+    margin: 1px;
+}
+
+.input_select:focus {
+    border: 2px solid #111928 !important;
+    margin: 0;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.input_select::placeholder {
+    color: #9ca3af !important;
+}
+
+.input_select:-ms-input-placeholder {
+    color: #9ca3af !important;
+}
+
+.input_select::-ms-input-placeholder {
+    color: #9ca3af !important;
+}
+
+.table > :not(caption) > * > th {
+    padding: 1.25rem 1rem !important;
+}
+
+.table > :not(:first-child) {
+    border-top: 0;
+}
+
+.table_head {
+    background-color: #f9fafb;
+}
+
+.table_head th {
+    padding: 1rem;
+}
+
+.table_head th:first-child {
+    border-top-left-radius: 12px !important;
+}
+
+.table_head th:last-child {
+    border-top-right-radius: 12px !important;
+}
+
+.table_body {
+    border-color: #e5e7eb !important;
+}
+
+.icon_edit {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}
+
+.product_picture,
+.product_picture_list {
+    border-radius: 50px;
+}
+
+.product_picture_order {
+    border-radius: 12px;
+}
+
+.product_picture {
+    width: 32px;
+}
+
+.product_picture_order {
+    width: 3rem;
+}
+
+.product_picture_list {
+    width: 6rem;
+}
+
+.text_ellipsis,
+.text_ellipsis_product {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text_ellipsis {
+    width: 300px;
+}
+
+.text_ellipsis_product {
+    width: 150px;
+}
+
+.list_wrapper {
+    background-color: #f9fafb;
+    border-radius: 12px;
+    padding: 32px 22px;
+}

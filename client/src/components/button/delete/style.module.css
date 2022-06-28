@@ -1,0 +1,24 @@
+.btn_delete {
+    background-color: #f44336 !important;
+    border: medium solid transparent !important;
+    border-radius: 4px !important;
+    color: #fff !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem !important;
+}
+
+.btn_delete:hover {
+    background-color: #c62828 !important;
+    color: #fff !important;
+}
+
+.btn_delete:active {
+    background-color: #f44336 !important;
+    color: #fff !important;
+    border: medium solid #f3f4f6 !important;
+}
+
+.btn_delete:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

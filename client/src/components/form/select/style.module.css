@@ -1,4 +1,5 @@
-.input_select {
+.input_select,
+.disabled_input_select {
     border: 1px solid #9ca3af !important;
     color: #111928 !important;
     font-size: 0.875rem !important;

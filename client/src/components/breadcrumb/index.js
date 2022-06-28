@@ -4,7 +4,7 @@ import styles from "./style.module.css";
 
 import { RiDashboardFill } from "react-icons/ri";
 
-import Title from "../typography/title";
+import { Title } from "../typography/title";
 
 const Breadcrumb = ({ length, item, ...props }) => {
     const location = useLocation();

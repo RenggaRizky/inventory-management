@@ -15,7 +15,7 @@ const H1 = ({ color = colors.gray_900, fontweight = "700", margin = "0", padding
     return <h1 style={h1}>{props.children}</h1>;
 };
 
-const H2 = ({ color = colors.gray_900, fontweight = "700", margin = "0", padding = "0", ...props }) => {
+const H2 = ({ color = colors.gray_900, fontweight = "700", margin = "0", padding = "0", texttransform = "none", ...props }) => {
     const h2 = {
         color: color,
         fontFamily: '"Poppins", sans-serif',
@@ -24,6 +24,7 @@ const H2 = ({ color = colors.gray_900, fontweight = "700", margin = "0", padding
         lineHeight: "28px",
         margin: margin,
         padding: padding,
+        textTransform: texttransform,
     };
 
     return (
@@ -69,7 +70,7 @@ const H4 = ({ color = colors.gray_900, fontweight = "600", margin = "0", padding
     );
 };
 
-const H5 = ({ color = colors.gray_900, fontweight = "500", margin = "0", padding = "0", ...props }) => {
+const H5 = ({ color = colors.gray_900, fontweight = "500", margin = "0", padding = "0", bs, ...props }) => {
     const h5 = {
         color: color,
         fontFamily: '"Poppins", sans-serif',

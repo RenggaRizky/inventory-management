@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { HiOutlineTrash } from "react-icons/hi";
 
 import InputText from "../../../components/form/text";
-import Title from "../../../components/typography/title";
+import { Title } from "../../../components/typography/title";
 import InputTel from "../../../components/form/tel";
 import Textarea from "../../../components/form/textarea";
 import BtnSecondary from "../../../components/button/secondary";

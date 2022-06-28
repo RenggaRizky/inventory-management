@@ -1,9 +1,9 @@
 import React from "react";
 import { colors } from "../../colors";
 
-const Spinner = () => {
+const Spinner = (props) => {
     return (
-        <div className="d-flex justify-content-center">
+        <div className={`${props.bs} d-flex justify-content-center`}>
             <div
                 className="spinner-border"
                 role="status"

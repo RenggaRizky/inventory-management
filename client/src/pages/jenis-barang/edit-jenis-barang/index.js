@@ -9,7 +9,7 @@ import BtnLinkError from "../../../components/button/link/error";
 import BtnPrimary from "../../../components/button/primary";
 import BtnSecondary from "../../../components/button/secondary";
 import InputText from "../../../components/form/text";
-import Title from "../../../components/typography/title";
+import { Title } from "../../../components/typography/title";
 
 const EditJenisBarang = () => {
     const navigate = useNavigate();

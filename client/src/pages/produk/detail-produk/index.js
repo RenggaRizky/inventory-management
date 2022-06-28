@@ -19,6 +19,7 @@ const DetailProduk = () => {
         deskripsi: "-",
         id_jenibarang: "",
         id_merek: "",
+        id_satuanbarang: "",
         harga: 0,
         panjang: 0,
         lebar: 0,
@@ -36,6 +37,7 @@ const DetailProduk = () => {
                     deskripsi: response.data[0].deskripsi,
                     id_jenibarang: response.data[0].id_jenisbarang[0].nama,
                     id_merek: response.data[0].id_merek[0].nama,
+                    id_satuanbarang: response.data[0].id_satuanbarang[0].nama,
                     harga: Number(response.data[0].harga),
                     panjang: Number(response.data[0].dimensi.panjang.$numberDecimal),
                     lebar: Number(response.data[0].dimensi.lebar.$numberDecimal),
@@ -55,13 +57,26 @@ const DetailProduk = () => {
     useEffect(() => {
         getInfoProduk(getId);
     }, [getId]);
+
+    const numberWithCommas = (number) => {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    };
+
+    const decimalNumber = (number) => {
+        if (Number.isInteger(number)) {
+            return parseFloat(number.toFixed(1).toString().replace(".", ","));
+        } else {
+            return number.toFixed(1).toString().replace(".", ",");
+        }
+    };
+
     return (
         <>
             {dataProduk.nama === "" ? (
                 <Spinner />
             ) : (
                 <div className="my-2">
-                    <div className="card mb-5">
+                    <div className="card mb-4">
                         <div className="card-header p-4 mb-1">
                             <div className="d-flex align-items-center">
                                 <div className={`${styles.icon_product_wrapper} me-4`}>
@@ -69,7 +84,9 @@ const DetailProduk = () => {
                                 </div>
                                 <div>
                                     <H2 bs="text-uppercase">{dataProduk.nama}</H2>
-                                    <Subtitle>{`${dataProduk.panjang} x ${dataProduk.lebar} x ${dataProduk.tinggi}`}</Subtitle>
+                                    <Subtitle>{`${numberWithCommas(decimalNumber(Number(dataProduk.panjang)))} x ${numberWithCommas(decimalNumber(Number(dataProduk.lebar)))} x ${numberWithCommas(
+                                        decimalNumber(Number(dataProduk.tinggi))
+                                    )}`}</Subtitle>
                                 </div>
                             </div>
                         </div>
@@ -90,16 +107,26 @@ const DetailProduk = () => {
                                         <H3>{dataProduk.id_merek}</H3>
                                     </div>
                                     <div className="mb-3">
+                                        <Overline>Satuan Barang</Overline>
+                                        <H3>{dataProduk.id_satuanbarang}</H3>
+                                    </div>
+                                    <div className="mb-3">
                                         <Overline>Harga</Overline>
-                                        <H3>{dataProduk.harga}</H3>
+                                        <H3>Rp {numberWithCommas(dataProduk.harga)}</H3>
                                     </div>
                                     <div className="mb-3">
                                         <Overline>Dimensi</Overline>
-                                        <H3>{`${dataProduk.panjang} x ${dataProduk.lebar} x ${dataProduk.tinggi}`}</H3>
+                                        <H3>
+                                            {`${numberWithCommas(decimalNumber(Number(dataProduk.panjang)))} cm x ${numberWithCommas(decimalNumber(Number(dataProduk.lebar)))} cm x ${numberWithCommas(
+                                                decimalNumber(Number(dataProduk.tinggi))
+                                            )} cm`}
+                                        </H3>
                                     </div>
                                     <div className="mb-3">
                                         <Overline>Volume</Overline>
-                                        <H3>{dataProduk.volume}</H3>
+                                        <H3>
+                                            {numberWithCommas(decimalNumber(Number(dataProduk.volume)))} cm<sup>3</sup>
+                                        </H3>
                                     </div>
                                 </div>
                                 <div className="col">
@@ -114,6 +141,10 @@ const DetailProduk = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="mb-5">
+                        <Subtitle>*Data stok awal akan muncul di halaman 'Stok Barang'</Subtitle>
+                        <Subtitle>*Data batas minimum stok akan muncul di halaman 'Stok Barang'</Subtitle>
                     </div>
                     <div className="d-flex justify-content-end">
                         <BtnSecondary type="button" onClick={handleBackToPrevious}>

@@ -56,7 +56,7 @@
     background-color: #ffc107;
 }
 
-.break_words {
+.text_ellipsis {
     width: 200px;
     white-space: nowrap;
     overflow: hidden;

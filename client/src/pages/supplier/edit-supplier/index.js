@@ -11,7 +11,7 @@ import BtnSecondary from "../../../components/button/secondary";
 import InputTel from "../../../components/form/tel";
 import InputText from "../../../components/form/text";
 import Textarea from "../../../components/form/textarea";
-import Title from "../../../components/typography/title";
+import { Title } from "../../../components/typography/title";
 import Spinner from "../../../components/spinner";
 
 const EditSupplier = () => {
