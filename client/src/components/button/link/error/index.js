@@ -11,4 +11,14 @@ const BtnLinkError = ({ ...props }) => {
     );
 };
 
-export default BtnLinkError;
+const BtnLinkDelete = ({ ...props }) => {
+    return (
+        <>
+            <button type="button" className={`btn ${styles.btn_link_delete} ${props.bs}`} {...props}>
+                {props.children}
+            </button>
+        </>
+    );
+};
+
+export { BtnLinkError, BtnLinkDelete };

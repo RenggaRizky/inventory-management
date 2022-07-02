@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import BarangRetur from "../models/barangRetur.js";
+import Produk from "../models/produk.js";
 
 export const getBarangRetur = async (req, res) => {
     try {
@@ -81,11 +82,99 @@ export const postBarangRetur = async (req, res) => {
 
 export const patchBarangRetur = async (req, res) => {
     const { id: _id } = req.params;
-    const barangRetur = req.body;
+    const { id_produk, id_supplier, status, alasan, catatan, jumlah, jumlahDiproses } = req.body;
 
     try {
         if (mongoose.Types.ObjectId.isValid(_id)) {
-            const barangReturDiperbarui = await BarangRetur.findByIdAndUpdate(_id, barangRetur, { new: true });
+            const totalStokBarang = await Produk.find({ _id: id_produk }, { "stok.total": 1, _id: 0 });
+            const getTotalStokBarang = totalStokBarang[0].stok.total;
+
+            if (status === "Diterima Ganti Barang") {
+                if (jumlah === jumlahDiproses) {
+                    const returDiterimaGantiBarang = await Produk.findOneAndUpdate(
+                        {
+                            _id: mongoose.Types.ObjectId(id_produk),
+                        },
+                        {
+                            $set: {
+                                "stok.total": Number(getTotalStokBarang) + Number(jumlah),
+                            },
+                        }
+                    );
+                } else {
+                    const returDiterimaGantiBarang = await Produk.findOneAndUpdate(
+                        {
+                            _id: mongoose.Types.ObjectId(id_produk),
+                        },
+                        {
+                            $set: {
+                                "stok.total": Number(getTotalStokBarang) + Number(jumlahDiproses) - Number(jumlah) + Number(jumlah),
+                            },
+                        }
+                    );
+                }
+            } else if (status === "Diterima Ganti Uang" || status === "Ditolak") {
+                if (jumlah === jumlahDiproses) {
+                    const returGantiUangAtauDitolak = await Produk.findOneAndUpdate(
+                        {
+                            _id: mongoose.Types.ObjectId(id_produk),
+                        },
+                        {
+                            $set: {
+                                "stok.total": Number(getTotalStokBarang),
+                            },
+                        }
+                    );
+                } else {
+                    const returGantiUangAtauDitolak = await Produk.findOneAndUpdate(
+                        {
+                            _id: mongoose.Types.ObjectId(id_produk),
+                        },
+                        {
+                            $set: {
+                                "stok.total": Number(jumlahDiproses) - Number(jumlah) + Number(getTotalStokBarang),
+                            },
+                        }
+                    );
+                }
+            } else {
+                if (jumlah === jumlahDiproses) {
+                    const returDiprosesJumlahSama = await Produk.findOneAndUpdate(
+                        {
+                            _id: mongoose.Types.ObjectId(id_produk),
+                        },
+                        {
+                            $set: {
+                                "stok.total": Number(getTotalStokBarang),
+                            },
+                        }
+                    );
+                } else {
+                    const returDiprosesJumlahBerbeda = await Produk.findOneAndUpdate(
+                        {
+                            _id: mongoose.Types.ObjectId(id_produk),
+                        },
+                        {
+                            $set: {
+                                "stok.total": Number(getTotalStokBarang) + Number(jumlahDiproses) - Number(jumlah),
+                            },
+                        }
+                    );
+                }
+            }
+
+            const barangReturDiperbarui = await BarangRetur.findByIdAndUpdate(
+                _id,
+                {
+                    jumlah: jumlah,
+                    status: status,
+                    alasan: alasan,
+                    catatan: catatan,
+                    id_produk: id_produk,
+                    id_supplier: id_supplier,
+                },
+                { new: true }
+            );
             res.status(200).json(barangReturDiperbarui);
         } else {
             res.status(404).send("ID tidak ditemukan");

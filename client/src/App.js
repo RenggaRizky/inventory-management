@@ -46,6 +46,13 @@ import TambahPembelian from "./pages/pembelian/tambah-pembelian";
 import TambahRak from "./pages/rak/tambah-rak";
 import DetailRak from "./pages/rak/detail-rak";
 import EditRak from "./pages/rak/edit-rak";
+import DetailPembelian from "./pages/pembelian/detail-pembelian";
+import Penjualan from "./pages/penjualan";
+import TableDataPenjualan from "./pages/penjualan/table-penjualan";
+import TambahPenjualan from "./pages/penjualan/tambah-penjualan";
+import DetailPenjualan from "./pages/penjualan/detail-penjualan";
+import BarangMasuk from "./pages/barang-masuk";
+import BarangKeluar from "./pages/barang-keluar";
 
 function App() {
     const [hamburgerMenu, sethamburgerMenu] = useState(false);
@@ -107,7 +114,15 @@ function App() {
                                 <Route path="pembelian" element={<Pembelian />}>
                                     <Route index element={<TableDataPembelian />} />
                                     <Route path="tambah-pembelian" element={<TambahPembelian />} />
+                                    <Route path=":id" element={<DetailPembelian />} />
                                 </Route>
+                                <Route path="penjualan" element={<Penjualan />}>
+                                    <Route index element={<TableDataPenjualan />} />
+                                    <Route path="tambah-penjualan" element={<TambahPenjualan />} />
+                                    <Route path=":id" element={<DetailPenjualan />} />
+                                </Route>
+                                <Route path="barang-masuk" element={<BarangMasuk />} />
+                                <Route path="barang-keluar" element={<BarangKeluar />} />
                                 <Route path="laporan" element={<Laporan />} />
                             </Routes>
                         </MainContent>

@@ -1,0 +1,61 @@
+.wrapper {
+    padding: 20px 8px 0 8px;
+}
+.action_wrapper {
+    /* margin: 0 0 2.5rem 0; */
+}
+.icon_add {
+    font-size: 1.125rem;
+    margin: 0 15px 0 0;
+}
+.icon_edit {
+    font-size: 1rem;
+    margin: 0 15px 0 0;
+}
+.icon_product_wrapper {
+    background-color: #1f2a37;
+    border-radius: 50%;
+    padding: 0.875rem;
+}
+.icon_product {
+    color: #fff;
+    font-size: 1.75rem;
+}
+.product_picture_list {
+    width: 6rem;
+}
+.product_picture_order {
+    width: 3rem;
+}
+.list_wrapper {
+    background-color: #f9fafb;
+    border-radius: 12px;
+    padding: 32px 22px;
+}
+.table > :not(caption) > * > * {
+    padding: 1rem 0.75rem !important;
+}
+
+.table > :not(:first-child) {
+    border-top: 0;
+}
+
+.table_head {
+    background-color: #f9fafb;
+}
+
+.table_head th {
+    padding: 1rem;
+}
+
+.table_head th:first-child {
+    border-top-left-radius: 12px !important;
+}
+
+.table_head th:last-child {
+    border-top-right-radius: 12px !important;
+}
+
+.table_body {
+    border-color: #e5e7eb !important;
+}

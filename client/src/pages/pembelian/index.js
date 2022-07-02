@@ -2,14 +2,15 @@ import React from "react";
 import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import styles from "./style.module.css";
 
+import { IoMdAdd } from "react-icons/io";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+
 import MainCard from "../../components/card/main";
 import Search from "../../components/form/search";
 import BtnPrimary from "../../components/button/primary";
-import { IoMdAdd } from "react-icons/io";
 import HeadContent from "../../layouts/head-content";
 import Divider from "../../components/divider";
 import BtnLinkSuccess from "../../components/button/link/success";
-import { HiOutlinePencilAlt } from "react-icons/hi";
 import ModalDelete from "../../components/button/modal/delete-detail-section";
 
 const Pembelian = () => {

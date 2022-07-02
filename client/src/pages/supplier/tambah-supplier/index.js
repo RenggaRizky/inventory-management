@@ -11,7 +11,7 @@ import InputTel from "../../../components/form/tel";
 import Textarea from "../../../components/form/textarea";
 import BtnSecondary from "../../../components/button/secondary";
 import BtnPrimary from "../../../components/button/primary";
-import BtnLinkError from "../../../components/button/link/error";
+import { BtnLinkError } from "../../../components/button/link/error";
 
 const TambahSupplier = () => {
     const navigate = useNavigate();

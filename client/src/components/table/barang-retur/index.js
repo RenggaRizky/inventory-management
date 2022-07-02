@@ -54,17 +54,20 @@ const TableBarangRetur = ({ tableheaddata, tablebodydata, setbarangretur, ...pro
                                 </Subtitle>
                             </td>
                             <td className="text-capitalize">
-                                <P color="#616161" fontsize="0.875rem">
+                                <P color="#616161" fontsize="0.75rem">
                                     {data.jumlah}
                                 </P>
                             </td>
                             <td className="text-capitalize">
-                                <P color="#fff" fontsize="0.875rem">
-                                    <span className={data.status === "Diterima" ? styles.status_wrapper_accepted : data.status === "Ditolak" ? styles.status_wrapper_rejected : styles.status_wrapper_process}>{data.status}</span>
+                                <P color="#fff" fontsize="0.75rem">
+                                    {/* <span className={data.status === "Diterima" ? styles.status_wrapper_accepted : data.status === "Ditolak" ? styles.status_wrapper_rejected : styles.status_wrapper_process}>{data.status}</span> */}
+                                    {(data.status === "Diterima Ganti Barang" || data.status === "Diterima Ganti Uang") && <span className={styles.status_wrapper_accepted}>Diterima</span>}
+                                    {data.status === "Ditolak" && <span className={styles.status_wrapper_rejected}>Ditolak</span>}
+                                    {data.status === "Diproses" && <span className={styles.status_wrapper_process}>Diproses</span>}
                                 </P>
                             </td>
                             <td className="text-capitalize">
-                                <P color="#616161" fontsize="0.875rem" className={styles.text_ellipsis}>
+                                <P color="#616161" fontsize="0.75rem" className={styles.text_ellipsis}>
                                     {data.alasan}
                                 </P>
                             </td>

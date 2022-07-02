@@ -7,7 +7,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 
 import { Title } from "../../../components/typography/title";
 import InputText from "../../../components/form/text";
-import BtnLinkError from "../../../components/button/link/error";
+import { BtnLinkError } from "../../../components/button/link/error";
 import BtnSecondary from "../../../components/button/secondary";
 import BtnPrimary from "../../../components/button/primary";
 

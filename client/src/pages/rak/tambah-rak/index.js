@@ -6,7 +6,7 @@ import { InputGroupBack, InputGroupBackDisabled } from "../../../components/form
 import InputText from "../../../components/form/text";
 import { H2 } from "../../../components/typography/heading";
 import { Title } from "../../../components/typography/title";
-import BtnLinkError from "../../../components/button/link/error";
+import { BtnLinkError } from "../../../components/button/link/error";
 import { HiOutlineTrash } from "react-icons/hi";
 import BtnSecondary from "../../../components/button/secondary";
 import BtnPrimary from "../../../components/button/primary";

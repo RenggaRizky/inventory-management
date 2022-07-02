@@ -9,7 +9,7 @@ import BtnPrimary from "../../primary";
 import BtnSecondary from "../../secondary";
 
 import { HiOutlineTrash } from "react-icons/hi";
-import BtnLinkError from "../../link/error";
+import { BtnLinkError } from "../../link/error";
 
 const ModalDeleteSecondary = ({ currentid, setcurrentid, setdata, deleteurl, ...props }) => {
     const deleteData = (id) => {

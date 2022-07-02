@@ -5,7 +5,7 @@ import { url } from "../../../../api";
 
 import { HiOutlineTrash } from "react-icons/hi";
 
-import BtnLinkError from "../../../../components/button/link/error";
+import { BtnLinkError } from "../../../../components/button/link/error";
 import BtnPrimary from "../../../../components/button/primary";
 import BtnSecondary from "../../../../components/button/secondary";
 import InputNumber from "../../../../components/form/number";
@@ -31,6 +31,7 @@ const EditBarangRetur2 = () => {
     });
 
     const [produk, setProduk] = useState(null);
+    const [jumlahDiproses, setJumlahDiproses] = useState(null);
 
     const getInfoDataBarangRetur = (id) => {
         url.get(`/barang-retur/${id}`)
@@ -41,6 +42,7 @@ const EditBarangRetur2 = () => {
                     catatan: response.data[0].catatan,
                     jumlah: response.data[0].jumlah,
                 });
+                setJumlahDiproses(response.data[0].jumlah);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -48,7 +50,15 @@ const EditBarangRetur2 = () => {
     };
 
     const patchBarangRetur = (id) => {
-        url.patch(`${id}`, dataBarangRetur)
+        url.patch(`${id}`, {
+            status: dataBarangRetur.status,
+            alasan: dataBarangRetur.alasan,
+            catatan: dataBarangRetur.catatan,
+            jumlah: dataBarangRetur.jumlah,
+            jumlahDiproses: jumlahDiproses,
+            id_produk: idProduk,
+            id_supplier: idSupplier,
+        })
             .then((response) => {})
             .catch((error) => {
                 console.log(error.message);
@@ -60,18 +70,18 @@ const EditBarangRetur2 = () => {
             });
     };
 
-    const patchStokProsesRetur = (id) => {
-        url.patch(`/stok-barang/proses-retur/${id}`, {
-            stok: {
-                total: dataBarangRetur.status === "Diterima" ? Number(produk[0].stok.total) + Number(dataBarangRetur.jumlah) : Number(produk[0].stok.total),
-                jumlahRetur: dataBarangRetur.status === "Diproses" ? Number(produk[0].stok.jumlahRetur) : Number(produk[0].stok.jumlahRetur) - Number(dataBarangRetur.jumlah),
-            },
-        })
-            .then((response) => {})
-            .catch((error) => {
-                console.log(error.message);
-            });
-    };
+    // const patchStokProsesRetur = (id) => {
+    //     url.patch(`/stok-barang/proses-retur/${id}`, {
+    //         stok: {
+    //             total: dataBarangRetur.status === "Diterima" ? Number(produk[0].stok.total) + Number(dataBarangRetur.jumlah) : Number(produk[0].stok.total),
+    //             jumlahRetur: dataBarangRetur.status === "Diproses" ? Number(produk[0].stok.jumlahRetur) : Number(produk[0].stok.jumlahRetur) - Number(dataBarangRetur.jumlah),
+    //         },
+    //     })
+    //         .then((response) => {})
+    //         .catch((error) => {
+    //             console.log(error.message);
+    //         });
+    // };
 
     const getInfoProduk = (id) => {
         url.get(`/produk/${id}`)
@@ -101,7 +111,7 @@ const EditBarangRetur2 = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         patchBarangRetur(idBarangRetur);
-        patchStokProsesRetur(idProduk);
+        // patchStokProsesRetur(idProduk);
     };
 
     useEffect(() => {
@@ -110,8 +120,8 @@ const EditBarangRetur2 = () => {
     }, []);
 
     const dataStatus = [
-        { key: 1, nama: "Diterima", detail: "Diterima ( diganti dengan barang yang sejenis )" },
-        { key: 2, nama: "Diterima", detail: "Diterima ( diganti dengan uang )" },
+        { key: 1, nama: "Diterima Ganti Barang", detail: "Diterima ( diganti dengan barang yang sejenis )" },
+        { key: 2, nama: "Diterima Ganti Uang", detail: "Diterima ( diganti dengan uang )" },
         { key: 3, nama: "Ditolak", detail: "Ditolak" },
         { key: 4, nama: "Diproses", detail: "Diproses" },
     ];
@@ -128,7 +138,15 @@ const EditBarangRetur2 = () => {
                         <label htmlFor="DisableinputJumlahRetur">
                             <Title margin="2rem 0 0.625rem 0.25rem">Jumlah retur</Title>
                         </label>
-                        <DisableForm id="DisableinputJumlahRetur" defaultValue={dataBarangRetur.jumlah} required />
+                        {/* <DisableForm id="DisableinputJumlahRetur" defaultValue={dataBarangRetur.jumlah} required /> */}
+                        <InputNumber
+                            id="inputJumlahRetur"
+                            defaultValue={dataBarangRetur.jumlah}
+                            onChange={(e) => setDataBarangRetur({ ...dataBarangRetur, jumlah: e.target.value })}
+                            min="1"
+                            max={produk === null ? 9999 : Number(produk[0].stok.total + Number(jumlahDiproses))}
+                            required
+                        />
                         <label htmlFor="inputAlasanRetur">
                             <Title margin="2rem 0 0.625rem 0.25rem">Alasan melakukan retur</Title>
                         </label>
@@ -146,7 +164,7 @@ const EditBarangRetur2 = () => {
                             id="selectStatusRetur"
                             className={`${styles.input_select} form-select`}
                             aria-label="Default select example"
-                            defaultValue={dataBarangRetur.status}
+                            value={dataBarangRetur.status}
                             onChange={(e) => setDataBarangRetur({ ...dataBarangRetur, status: e.target.value })}
                         >
                             <option hidden value=""></option>

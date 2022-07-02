@@ -110,7 +110,9 @@ const DetailBarangRetur = () => {
                                     </div>
                                     <div className="mb-3">
                                         <Overline>Status barang retur</Overline>
-                                        <H3>{dataBarangRetur.status}</H3>
+                                        {(dataBarangRetur.status === "Diterima Ganti Barang" || dataBarangRetur.status === "Diterima Ganti Uang") && <H3>Diterima</H3>}
+                                        {dataBarangRetur.status === "Ditolak" && <H3>Ditolak</H3>}
+                                        {dataBarangRetur.status === "Diproses" && <H3>Diproses</H3>}
                                     </div>
                                 </div>
                             </div>

@@ -14,19 +14,29 @@ const schemaPenjualan = new Schema(
             default: `NOTA#${mongoose.Types.ObjectId()}`,
             required: true,
         },
-        jumlahPembelian: {
-            type: Number,
-            required: true,
-        },
         totalHarga: {
             type: Number,
             required: true,
         },
-        id_produk: {
-            type: [Schema.Types.ObjectId],
-            ref: "Produk",
-            required: true,
-        },
+        barangKeluar: [
+            {
+                tanggalKeluar: {
+                    type: Date,
+                    default: Date.now(),
+                    required: true,
+                },
+                id_produk: {
+                    type: Schema.Types.ObjectId,
+                    ref: "Produk",
+                    required: true,
+                },
+                jumlahKeluar: {
+                    type: Number,
+                    min: 1,
+                    required: true,
+                },
+            },
+        ],
     },
     {
         collection: "penjualan",

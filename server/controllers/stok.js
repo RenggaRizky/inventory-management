@@ -67,22 +67,82 @@ export const patchStokBarang = async (req, res) => {
     }
 };
 
-export const patchStokProsesRetur = async (req, res) => {
+export const patchStokBarangMasuk = async (req, res) => {
     const { id: _id } = req.params;
-    const {
-        stok: { total, jumlahRetur },
-    } = req.body;
+    const { jumlahMasuk } = req.body;
 
     try {
         if (mongoose.Types.ObjectId.isValid(_id)) {
+            const totalStokBarang = await Produk.find({ _id: _id }, { "stok.total": 1, _id: 0 });
+            const getTotalStokBarang = totalStokBarang[0].stok.total;
+
+            const pembelianBarang = await Produk.findOneAndUpdate(
+                {
+                    _id: mongoose.Types.ObjectId(_id),
+                },
+                {
+                    $set: {
+                        "stok.total": getTotalStokBarang + jumlahMasuk,
+                    },
+                }
+            );
+            res.status(200).json(pembelianBarang);
+        } else {
+            res.status(404).send("ID tidak ditemukan");
+        }
+    } catch (error) {
+        res.status(409).json({
+            message: error.message,
+        });
+    }
+};
+
+export const patchStokBarangKeluar = async (req, res) => {
+    const { id: _id } = req.params;
+    const { jumlahKeluar } = req.body;
+
+    try {
+        if (mongoose.Types.ObjectId.isValid(_id)) {
+            const totalStokBarang = await Produk.find({ _id: _id }, { "stok.total": 1, _id: 0 });
+            const getTotalStokBarang = totalStokBarang[0].stok.total;
+
+            const penjualanBarang = await Produk.findOneAndUpdate(
+                {
+                    _id: mongoose.Types.ObjectId(_id),
+                },
+                {
+                    $set: {
+                        "stok.total": getTotalStokBarang - jumlahKeluar,
+                    },
+                }
+            );
+            res.status(200).json(penjualanBarang);
+        } else {
+            res.status(404).send("ID tidak ditemukan");
+        }
+    } catch (error) {
+        res.status(409).json({
+            message: error.message,
+        });
+    }
+};
+
+export const patchStokProsesRetur = async (req, res) => {
+    const { id: _id } = req.params;
+    const { jumlah } = req.body;
+
+    try {
+        if (mongoose.Types.ObjectId.isValid(_id)) {
+            const totalStokBarang = await Produk.find({ _id: _id }, { "stok.total": 1, _id: 0 });
+            const getTotalStokBarang = totalStokBarang[0].stok.total;
+
             const prosesRetur = await Produk.findOneAndUpdate(
                 {
                     _id: mongoose.Types.ObjectId(_id),
                 },
                 {
                     $set: {
-                        "stok.total": total,
-                        "stok.jumlahRetur": jumlahRetur,
+                        "stok.total": getTotalStokBarang - jumlah,
                     },
                 }
             );

@@ -104,8 +104,12 @@ const Sidebar = (props) => {
                             <Link to="stok-barang">
                                 <CollapseSidebar menu="/stok-barang">Stok Barang</CollapseSidebar>
                             </Link>
-                            <CollapseSidebar>Barang Masuk</CollapseSidebar>
-                            <CollapseSidebar>Barang Keluar</CollapseSidebar>
+                            <Link to="barang-masuk">
+                                <CollapseSidebar menu="/barang-masuk">Barang Masuk</CollapseSidebar>
+                            </Link>
+                            <Link to="barang-keluar">
+                                <CollapseSidebar menu="/barang-keluar">Barang Keluar</CollapseSidebar>
+                            </Link>
                             <Link to="barang-retur">
                                 <CollapseSidebar menu="/barang-retur">Barang Retur</CollapseSidebar>
                             </Link>

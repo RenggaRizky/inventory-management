@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { url } from "../../../../api";
 import styles from "../../style.module.css";
 
-import BtnLinkError from "../../../../components/button/link/error";
+import { BtnLinkError } from "../../../../components/button/link/error";
 import BtnPrimary from "../../../../components/button/primary";
 import BtnSecondary from "../../../../components/button/secondary";
 import InputNumber from "../../../../components/form/number";
@@ -51,10 +51,11 @@ const TambahBarangRetur2 = () => {
 
     const patchStokProsesRetur = (id) => {
         url.patch(`/stok-barang/proses-retur/${id}`, {
-            stok: {
-                total: Number(produk[0].stok.total) - Number(dataBarangRetur.jumlah),
-                jumlahRetur: Number(produk[0].stok.jumlahRetur + Number(dataBarangRetur.jumlah)),
-            },
+            // stok: {
+            //     total: Number(produk[0].stok.total) - Number(dataBarangRetur.jumlah),
+            //     jumlah: Number(produk[0].stok.jumlahRetur + Number(dataBarangRetur.jumlah)),
+            // },
+            jumlah: Number(dataBarangRetur.jumlah),
         })
             .then((response) => {})
             .catch((error) => {

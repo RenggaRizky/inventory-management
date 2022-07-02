@@ -1,26 +1,37 @@
-.btn_link_error {
+.btn_link_error,
+.btn_link_delete {
     background-color: #ffffff !important;
     border: medium solid transparent !important;
     border-radius: 50px !important;
     color: #c62828 !important;
     font-family: "Poppins", sans-serif;
-    font-size: 0.875rem !important;
     font-weight: 500;
     line-height: 20px;
 }
 
-.btn_link_error:hover {
+.btn_link_error {
+    font-size: 0.875rem !important;
+}
+
+.btn_link_delete {
+    font-size: 0.875rem !important;
+}
+
+.btn_link_error:hover,
+.btn_link_delete:hover {
     background-color: #ffffff !important;
     color: #f44336 !important;
 }
 
-.btn_link_error:active {
+.btn_link_error:active,
+.btn_link_delete:active {
     background-color: #ffffff !important;
     color: #c62828 !important;
     border: medium solid transparent !important;
 }
 
-.btn_link_error:focus {
+.btn_link_error:focus,
+.btn_link_delete:focus {
     outline: none !important;
     box-shadow: none !important;
 }

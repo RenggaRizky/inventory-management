@@ -1,0 +1,34 @@
+.wrapper {
+    padding: 20px 8px 0 8px;
+}
+.table > :not(caption) > * > * {
+    padding: 1.25rem 1rem !important;
+}
+
+.table > :not(:first-child) {
+    border-top: 0;
+}
+
+.table_head {
+    background-color: #f9fafb;
+}
+
+.table_head th {
+    padding: 1rem;
+}
+
+.table_head th:first-child {
+    border-top-left-radius: 12px !important;
+}
+
+.table_head th:last-child {
+    border-top-right-radius: 12px !important;
+}
+
+.table_body {
+    border-color: #e5e7eb !important;
+}
+.product_picture {
+    width: 32px;
+    border-radius: 16px;
+}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { url } from "../../../api";
-import BtnLinkError from "../../../components/button/link/error";
+import { BtnLinkError } from "../../../components/button/link/error";
 import BtnPrimary from "../../../components/button/primary";
 import BtnSecondary from "../../../components/button/secondary";
 import MainCard from "../../../components/card/main";

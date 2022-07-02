@@ -34,11 +34,6 @@ const schemaProduk = new Schema(
             ref: "SatuanBarang",
             required: true,
         },
-        id_tempatpenyimpanan: {
-            type: Schema.Types.ObjectId,
-            ref: "TempatPenyimpanan",
-            required: true,
-        },
         dimensi: {
             panjang: {
                 type: mongoose.Types.Decimal128,
@@ -61,6 +56,19 @@ const schemaProduk = new Schema(
             total: {
                 type: Number,
                 required: true,
+                default: 0,
+            },
+            status: {
+                type: String,
+                default: function () {
+                    if (this.stok.total <= 0 || this.stok.total === 0) {
+                        return "Habis";
+                    } else if (this.stok.total >= this.stok.batasMinimum) {
+                        return "Tersedia";
+                    } else {
+                        return "Hampir habis";
+                    }
+                },
             },
         },
     },

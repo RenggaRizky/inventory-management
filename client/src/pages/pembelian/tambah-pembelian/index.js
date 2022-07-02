@@ -1,49 +1,61 @@
 import React, { useEffect, useState } from "react";
-import { HiOutlineTrash } from "react-icons/hi";
 import { url } from "../../../api";
-import BtnDelete from "../../../components/button/delete";
-import BtnPrimary from "../../../components/button/primary";
-import BtnSecondary from "../../../components/button/secondary";
-import { InputSelect, SupplierInputSelect } from "../../../components/form/select";
-import InputText from "../../../components/form/text";
-import Spinner from "../../../components/spinner";
-import { H4, H5, H6 } from "../../../components/typography/heading";
-import P from "../../../components/typography/paragraph";
-import Subtitle from "../../../components/typography/subtitle";
-import { Title } from "../../../components/typography/title";
 import styles from "../style.module.css";
 
-const TambahPembelian = () => {
-    const [pembelianIdSupplier, setPembelianIdSupplier] = useState("");
-    const [pembelianIdProduk, setPembelianIdProduk] = useState([]);
-    const [pembelianProduk, setPembelianProduk] = useState([]);
-    const [pembelianJumlahBarang, setPembelianJumlahBarang] = useState([1]);
-    const [pembelianJumlahHarga, setPembelianJumlahHarga] = useState([]);
-    const [pembelianTotalHarga, setPembelianTotalHarga] = useState(0);
-    const [jumlahDibeli, setJumlahDibeli] = useState(1);
+import BtnPrimary from "../../../components/button/primary";
+import { H3, H4, H5, H6 } from "../../../components/typography/heading";
+import Subtitle from "../../../components/typography/subtitle";
+import { Title } from "../../../components/typography/title";
+import { SupplierInputSelect } from "../../../components/form/select";
+import LinkSpan from "../../../components/typography/link";
+import Checkbox from "../../../components/checkbox";
+import InputText from "../../../components/form/text";
+import DisableForm from "../../../components/form/disable";
+import Spinner from "../../../components/spinner";
+import Divider from "../../../components/divider";
+import P from "../../../components/typography/paragraph";
+import BtnSecondary from "../../../components/button/secondary";
+import { useNavigate } from "react-router-dom";
 
-    const [infoProduk, setInfoProduk] = useState(null);
+const TambahPembelian = () => {
+    const navigate = useNavigate();
+
     const [produk, setProduk] = useState(null);
     const [supplier, setSupplier] = useState(null);
+    const [statusNoNota, setStatusNoNota] = useState(false);
+
+    const [barangMasuk, setBarangMasuk] = useState([]);
+    const [idSupplier, setIdSupplier] = useState(null);
+    const [noNota, setNoNota] = useState(null);
 
     const numberWithCommas = (number) => {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     };
 
+    const tambahJumlahBarang = (produk) => {
+        const barangAdaDiDaftar = barangMasuk.find((x) => x._id === produk._id);
+        if (barangAdaDiDaftar) {
+            setBarangMasuk(barangMasuk.map((x) => (x._id === produk._id ? { ...barangAdaDiDaftar, jumlahMasuk: barangAdaDiDaftar.jumlahMasuk + 1 } : x)));
+        } else {
+            setBarangMasuk([...barangMasuk, { ...produk, jumlahMasuk: 1 }]);
+        }
+    };
+
+    const kurangJumlahBarang = (produk) => {
+        const barangAdaDiDaftar = barangMasuk.find((x) => x._id === produk._id);
+        if (barangAdaDiDaftar.jumlahMasuk === 1) {
+            setBarangMasuk(barangMasuk.filter((x) => x._id !== produk._id));
+        } else {
+            setBarangMasuk(barangMasuk.map((x) => (x._id === produk._id ? { ...barangAdaDiDaftar, jumlahMasuk: barangAdaDiDaftar.jumlahMasuk - 1 } : x)));
+        }
+    };
+
+    const totalHarga = barangMasuk.reduce((previous, current) => previous + current.jumlahMasuk * current.harga, 0);
+
     const getProduk = () => {
         url.get("/produk")
             .then((response) => {
                 setProduk(response.data);
-            })
-            .catch((error) => {
-                console.log(error.message);
-            });
-    };
-
-    const getInfoProduk = (id) => {
-        url.get(`/produk/${id}`)
-            .then((response) => {
-                setInfoProduk(response.data);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -60,15 +72,52 @@ const TambahPembelian = () => {
             });
     };
 
-    const setDaftarPembelian = (produk, idproduk) => {
-        // const setDaftarPembelian = (idproduk, jumlahbarang, jumlahharga) => {
-        // setPembelianJumlahBarang([...pembelianJumlahBarang, jumlahbarang]);
-        // setPembelianJumlahHarga([...pembelianJumlahHarga, jumlahharga]);
-        setPembelianProduk([...pembelianProduk, produk]);
-        setPembelianIdProduk([...pembelianIdProduk, idproduk]);
-        pembelianJumlahBarang([...pembelianJumlahBarang, jumlahDibeli]);
-        // getInfoProduk(idproduk);
-        // setPembelianIdProduk([...pembelianIdProduk, idproduk]);
+    const postPembelian = () => {
+        url.post("tambah-pembelian", {
+            barangMasuk: barangMasuk.map((x) => ({ id_produk: x._id, jumlahMasuk: Number(x.jumlahMasuk) })),
+            totalHarga: Number(totalHarga),
+            id_supplier: idSupplier,
+            noNota: noNota !== null ? `NOTA#${noNota}` : undefined,
+        })
+            .then((response) => {})
+            .catch((error) => {
+                console.log(error.message);
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    handleClear();
+                    navigate("/pembelian");
+                }, 100);
+            });
+    };
+
+    const patchBarangMasuk = (id, jumlahMasuk) => {
+        url.patch(`/stok-barang/barang-masuk/${id}`, {
+            jumlahMasuk,
+        })
+            .then((response) => {})
+            .catch((error) => {
+                console.log(error.message);
+            });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        postPembelian();
+
+        barangMasuk.map((x) => {
+            return patchBarangMasuk(x._id, x.jumlahMasuk);
+        });
+    };
+
+    const handleClear = () => {
+        setBarangMasuk([]);
+        setNoNota(null);
+        setIdSupplier(null);
+    };
+
+    const handleBackToPrevious = () => {
+        navigate(-1);
     };
 
     useEffect(() => {
@@ -76,16 +125,6 @@ const TambahPembelian = () => {
         getSupplier();
     }, []);
 
-    const minJumlahDibeli = () => {
-        setPembelianJumlahBarang((prevValue) => prevValue - 1);
-    };
-
-    const plusJumlahDibeli = () => {
-        setPembelianJumlahBarang((prevValue) => prevValue + 1);
-    };
-
-    console.log(pembelianIdProduk);
-    console.log(pembelianJumlahBarang);
     return (
         <>
             {produk === null ? (
@@ -120,7 +159,7 @@ const TambahPembelian = () => {
                                                     </Subtitle>
                                                 </div>
                                             </div>
-                                            <BtnPrimary type="button" onClick={() => setDaftarPembelian(x, x._id)}>
+                                            <BtnPrimary type="button" onClick={() => tambahJumlahBarang(x)}>
                                                 Pilih
                                             </BtnPrimary>
                                         </div>
@@ -132,46 +171,73 @@ const TambahPembelian = () => {
                     <div className="col">
                         <div className={`${styles.list_wrapper}`}>
                             <H4 margin="0 0 32px 0">Daftar Barang Pembelian</H4>
-                            <div>
-                                {pembelianProduk.map((data, index) => {
-                                    return (
-                                        <div className="card border-0" style={{ backgroundColor: "#f9fafb" }}>
-                                            <div className="p-3 d-flex">
-                                                <div className="align-self-center me-3">
-                                                    <img src={`data:image/png;base64, ${data.gambar}`} alt={data.nama} className={styles.product_picture_order} />
-                                                </div>
-                                                <div className="text-uppercase align-self-center w-100">
-                                                    <H5 className="mb-1">{data.nama}</H5>
-                                                    <div className="d-flex justify-content-between">
-                                                        <Subtitle fontsize="1rem">Rp {numberWithCommas(data.harga)}</Subtitle>
-                                                        <div className="d-flex">
-                                                            {/* <BtnSecondary type="button" bs="px-1 py-0"> */}
-                                                            <BtnSecondary type="button" bs="px-1 py-0" onClick={minJumlahDibeli}>
-                                                                -
-                                                            </BtnSecondary>
-                                                            <Subtitle margin="0 1rem" fontsize="1rem" fontweight="600" color="#111928">
-                                                                {pembelianJumlahBarang}
-                                                            </Subtitle>
-                                                            {/* <BtnSecondary type="button" bs="px-1 py-0"> */}
-                                                            <BtnSecondary type="button" bs="px-1 py-0" onClick={plusJumlahDibeli}>
-                                                                +
-                                                            </BtnSecondary>
-                                                        </div>
+                            {barangMasuk.length === 0 && (
+                                <div className="d-flex justify-content-center align-items-center p-5">
+                                    <P texttransform="uppercase">Belum ada pembelian</P>
+                                </div>
+                            )}
+                            {barangMasuk.map((x) => {
+                                return (
+                                    <div className="card border-0" style={{ backgroundColor: "#f9fafb" }} key={x._id}>
+                                        <div className="p-3 d-flex">
+                                            <div className="align-self-center me-3">
+                                                <img src={`data:image/png;base64, ${x.gambar}`} alt={x.nama} className={styles.product_picture_order} />
+                                            </div>
+                                            <div className="text-uppercase align-self-center w-100">
+                                                <H5 className="mb-1">{x.nama}</H5>
+                                                <div className="d-flex justify-content-between">
+                                                    <Subtitle fontsize="1rem">Rp {numberWithCommas(x.harga)}</Subtitle>
+                                                    <div className="d-flex">
+                                                        <BtnSecondary type="button" bs="px-1 py-0" onClick={() => kurangJumlahBarang(x)}>
+                                                            {" "}
+                                                            -{" "}
+                                                        </BtnSecondary>
+                                                        <Subtitle margin="0 1rem" fontsize="1rem" fontweight="600" color="#111928">
+                                                            {x.jumlahMasuk}
+                                                        </Subtitle>
+                                                        <BtnSecondary type="button" bs="px-1 py-0" onClick={() => tambahJumlahBarang(x)}>
+                                                            {" "}
+                                                            +{" "}
+                                                        </BtnSecondary>
                                                     </div>
                                                 </div>
-                                                {/* <BtnDelete type="button">
-                                                    <HiOutlineTrash />
-                                                </BtnDelete> */}
                                             </div>
                                         </div>
-                                    );
-                                })}
-                            </div>
-                            <label htmlFor="SelectIdMerek">
-                                <Title margin="2rem 0 0.625rem 0">Supplier</Title>
-                            </label>
-                            <SupplierInputSelect data={supplier} bs="mb-3" />
-                            <BtnPrimary type="submit" value={`Bayar Rp ${pembelianTotalHarga}`} bs="w-100" />
+                                    </div>
+                                );
+                            })}
+
+                            {barangMasuk.length !== 0 && (
+                                <>
+                                    <Divider margin="2rem 0" />
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        <P>Total</P>
+                                        <H3>Rp {numberWithCommas(totalHarga)}</H3>
+                                    </div>
+                                </>
+                            )}
+                            <Divider margin="2rem 0" />
+                            <form onSubmit={handleSubmit}>
+                                <label htmlFor="InputNoNota">
+                                    <Title margin="0 0 0.625rem 0.25rem">Nomor Nota</Title>
+                                </label>
+                                {statusNoNota === false ? <InputText required defaultValue={noNota} onChange={(e) => setNoNota(e.target.value)} /> : <DisableForm type="text" />}
+                                <Checkbox label="Isi nomor nota secara otomatis" id="noNota" onClick={() => setStatusNoNota(!statusNoNota)} />
+                                <label htmlFor="SelectIdMerek">
+                                    <Title margin="1rem 0 0.625rem 0">Supplier</Title>
+                                </label>
+                                <SupplierInputSelect data={supplier} bs="mb-1" defaultValue={idSupplier} onChange={(e) => setIdSupplier(e.target.value)} required />
+                                <Subtitle fontsize="0.75rem" margin="0 0 1rem 0.25rem">
+                                    *Jika supplier tidak ditemukan, maka pergi ke halaman 'Supplier' atau klik{" "}
+                                    <LinkSpan fontsize="0.75rem" to="/supplier/tambah-supplier">
+                                        disini
+                                    </LinkSpan>
+                                </Subtitle>
+                                <BtnPrimary type="submit" value="Simpan" bs="w-100 mb-2" disabled={barangMasuk.length === 0 ? true : false} />
+                                <BtnSecondary type="button" bs="w-100" onClick={handleBackToPrevious}>
+                                    Kembali
+                                </BtnSecondary>
+                            </form>
                         </div>
                     </div>
                 </div>

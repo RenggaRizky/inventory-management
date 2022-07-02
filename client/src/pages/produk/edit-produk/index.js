@@ -5,7 +5,7 @@ import styles from "../style.module.css";
 
 import { HiOutlineTrash } from "react-icons/hi";
 
-import BtnLinkError from "../../../components/button/link/error";
+import { BtnLinkError } from "../../../components/button/link/error";
 import BtnPrimary from "../../../components/button/primary";
 import BtnSecondary from "../../../components/button/secondary";
 import { InputGroupBack, InputGroupBackDisabled, InputGroupFront } from "../../../components/form/input-group";

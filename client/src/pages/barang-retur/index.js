@@ -19,6 +19,7 @@ const BarangRetur = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const pathname = location.pathname;
+    const getId = location.pathname.split("/")[2];
 
     const [statusBarangRetur, setStatusBarangRetur] = useState(null);
     const getInfoStatusDataBarangRetur = (id) => {
@@ -31,9 +32,20 @@ const BarangRetur = () => {
             });
     };
 
+    console.log(statusBarangRetur);
+
     useEffect(() => {
-        getInfoStatusDataBarangRetur();
-    }, [statusBarangRetur]);
+        if (
+            getId !== undefined &&
+            pathname !== "/barang-retur" &&
+            pathname !== "/barang-retur/tambah-barang-retur-1" &&
+            pathname !== "/barang-retur/tambah-barang-retur-2" &&
+            pathname !== "/barang-retur/edit-barang-retur-1" &&
+            pathname !== "/barang-retur/edit-barang-retur-2"
+        ) {
+            getInfoStatusDataBarangRetur(getId);
+        }
+    }, [getId]);
 
     return (
         <div className={styles.wrapper}>
@@ -84,7 +96,7 @@ const BarangRetur = () => {
                         pathname !== "/barang-retur/edit-barang-retur-1" &&
                         pathname !== "/barang-retur/edit-barang-retur-2" && (
                             <div className="d-flex justify-content-end align-items-center">
-                                {statusBarangRetur !== "Diproses" && (
+                                {statusBarangRetur === "Diproses" && (
                                     <Link to={"edit-barang-retur-1"} state={{ id: id }} className="text-decoration-none d-flex align-items-center">
                                         <BtnLinkSuccess bs="text-uppercase d-flex border-0 align-items-center">
                                             <HiOutlinePencilAlt className={styles.icon_edit} />

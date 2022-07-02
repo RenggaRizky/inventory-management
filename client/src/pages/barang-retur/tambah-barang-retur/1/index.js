@@ -9,7 +9,7 @@ import { ReturInputSelect } from "../../../../components/form/select";
 import LinkSpan from "../../../../components/typography/link";
 import Subtitle from "../../../../components/typography/subtitle";
 import { Title } from "../../../../components/typography/title";
-import BtnLinkError from "../../../../components/button/link/error";
+import { BtnLinkError } from "../../../../components/button/link/error";
 import BtnSecondary from "../../../../components/button/secondary";
 import BtnPrimary from "../../../../components/button/primary";
 import Spinner from "../../../../components/spinner";

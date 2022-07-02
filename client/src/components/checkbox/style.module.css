@@ -1,0 +1,21 @@
+.check_wrapper {
+    margin-left: 0.25rem !important;
+    margin-top: 0.5rem !important;
+    display: flex;
+    justify-content: start;
+}
+
+.check_wrapper input {
+    margin-right: 0.5rem !important;
+}
+
+.check_wrapper input:checked {
+    background-color: #1f2a37 !important;
+    border-color: #1f2a37 !important;
+}
+
+.check_wrapper input:focus {
+    border: 1px solid #111928 !important;
+    outline: none !important;
+    box-shadow: none !important;
+}

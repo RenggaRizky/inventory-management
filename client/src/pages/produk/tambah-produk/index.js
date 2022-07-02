@@ -6,7 +6,7 @@ import styles from "../style.module.css";
 
 import { HiOutlineTrash } from "react-icons/hi";
 
-import BtnLinkError from "../../../components/button/link/error";
+import { BtnLinkError } from "../../../components/button/link/error";
 import BtnPrimary from "../../../components/button/primary";
 import BtnSecondary from "../../../components/button/secondary";
 import { InputGroupBack, InputGroupBackDisabled, InputGroupFront } from "../../../components/form/input-group";
@@ -32,9 +32,6 @@ const TambahProduk = () => {
         id_satuanbarang: "",
         harga: null,
         stokAwal: null,
-        jumlahMasuk: 0,
-        jumlahKeluar: 0,
-        jumlahRetur: 0,
         batasMinimum: null,
         statusStok: null,
         panjang: null,
@@ -59,10 +56,7 @@ const TambahProduk = () => {
             id_merek: dataProduk.id_merek,
             id_satuanbarang: dataProduk.id_satuanbarang,
             stok: {
-                jumlahMasuk: 0,
-                jumlahKeluar: 0,
-                jumlahRetur: 0,
-                statusStok: setStatusStok(),
+                status: setStatusStok(),
                 total: Number(dataProduk.stokAwal),
                 batasMinimum: Number(dataProduk.batasMinimum),
             },
@@ -184,7 +178,7 @@ const TambahProduk = () => {
     }, []);
 
     const volumeProduk = dataProduk.panjang * dataProduk.lebar * dataProduk.tinggi;
-    const setStatusStok = () => (Number(dataProduk.stokAwal) === 0 ? "Habis" : dataProduk.stokAwal >= dataProduk.batasMinimum ? "Tersedia" : "Hampir Habis");
+    const setStatusStok = () => (Number(dataProduk.stokAwal) <= 0 ? "Habis" : dataProduk.stokAwal >= dataProduk.batasMinimum ? "Tersedia" : "Hampir Habis");
 
     return (
         <form onSubmit={handleSubmit} id="formInputProduk">

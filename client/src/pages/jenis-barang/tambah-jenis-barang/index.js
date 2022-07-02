@@ -9,7 +9,7 @@ import BtnPrimary from "../../../components/button/primary";
 import BtnSecondary from "../../../components/button/secondary";
 import InputText from "../../../components/form/text";
 import { Title } from "../../../components/typography/title";
-import BtnLinkError from "../../../components/button/link/error";
+import { BtnLinkError } from "../../../components/button/link/error";
 
 const TambahJenisBarang = () => {
     const navigate = useNavigate();

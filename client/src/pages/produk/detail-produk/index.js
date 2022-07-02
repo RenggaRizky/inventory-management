@@ -54,6 +54,7 @@ const DetailProduk = () => {
     const handleBackToPrevious = () => {
         navigate(-1);
     };
+
     useEffect(() => {
         getInfoProduk(getId);
     }, [getId]);

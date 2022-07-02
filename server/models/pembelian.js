@@ -14,23 +14,29 @@ const schemaPembelian = new Schema(
             default: `NOTA#${mongoose.Types.ObjectId()}`,
             required: true,
         },
-        jumlahBarang: {
-            type: [Number],
-            required: true,
-        },
-        jumlahHarga: {
-            type: [Number],
-            required: true,
-        },
         totalHarga: {
             type: Number,
             required: true,
         },
-        id_produk: {
-            type: [Schema.Types.ObjectId],
-            ref: "Produk",
-            required: true,
-        },
+        barangMasuk: [
+            {
+                tanggalMasuk: {
+                    type: Date,
+                    default: Date.now(),
+                    required: true,
+                },
+                id_produk: {
+                    type: Schema.Types.ObjectId,
+                    ref: "Produk",
+                    required: true,
+                },
+                jumlahMasuk: {
+                    type: Number,
+                    min: 1,
+                    required: true,
+                },
+            },
+        ],
         id_supplier: {
             type: Schema.Types.ObjectId,
             ref: "Supplier",

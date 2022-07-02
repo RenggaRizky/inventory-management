@@ -4,7 +4,7 @@ import { url } from "../../../api";
 
 import { HiOutlineTrash } from "react-icons/hi";
 
-import BtnLinkError from "../../../components/button/link/error";
+import { BtnLinkError } from "../../../components/button/link/error";
 import BtnPrimary from "../../../components/button/primary";
 import BtnSecondary from "../../../components/button/secondary";
 import InputText from "../../../components/form/text";
