@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
+import dotenv from "dotenv";
 
 import routesProduk from "./routes/produk.js";
 import routesMerek from "./routes/merek.js";
@@ -19,6 +20,7 @@ import routesUser from "./routes/user.js";
 import routesNotifikasi from "./routes/notifikasi.js";
 
 const app = express();
+dotenv.config();
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
@@ -39,7 +41,7 @@ app.use("/barang-keluar", routesBarangKeluar);
 app.use("/user", routesUser);
 app.use("/notifikasi", routesNotifikasi);
 
-const CONNECTION_URL = "mongodb+srv://alyjayaciomas:alyjaya40@cluster0.lecwu.mongodb.net/manajemenInventoryDB?retryWrites=true&w=majority";
+const CONNECTION_URL = process.env.CONNECTION_URL;
 const PORT = process.env.PORT || 5000;
 
 main()
