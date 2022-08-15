@@ -2,6 +2,10 @@
     font-family: "Poppins", sans-serif !important;
 }
 
+.modal {
+    z-index: 999999999 !important;
+}
+
 .btn_modal_delete:focus,
 .modal_header button:focus {
     outline: none !important;
@@ -20,8 +24,16 @@
     border-top: 1px solid transparent !important;
 }
 
+.modal_content {
+    z-index: 999999999 !important;
+}
+
 .icon_delete_primary {
     color: #d84315;
+}
+
+.icon_checked_primary {
+    color: #00c853;
 }
 
 .icon_delete {
@@ -29,13 +41,21 @@
     margin: 0 15px 0 0;
 }
 
-.icon_delete_primary {
+.icon_delete_primary,
+.icon_checked_primary {
     font-size: 4rem;
 }
 
 .icon_wrapper {
-    background-color: #fbe9e7;
     padding: 2rem;
     display: inline-block;
     margin-bottom: 1rem;
+}
+
+.icon_delete_wrapper {
+    background-color: #fbe9e7;
+}
+
+.icon_checked_wrapper {
+    background-color: #b9f6ca;
 }

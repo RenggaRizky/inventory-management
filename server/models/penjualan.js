@@ -4,14 +4,15 @@ const { Schema } = mongoose;
 
 const schemaPenjualan = new Schema(
     {
+        // _id: mongoose.Types.ObjectId(),
         tanggalPenjualan: {
             type: Date,
-            default: Date.now(),
+            default: Date.now,
             required: true,
         },
         noNota: {
             type: String,
-            default: `NOTA#${mongoose.Types.ObjectId()}`,
+            // default: `NOTA#${mongoose.Types.ObjectId()}`,
             required: true,
         },
         totalHarga: {
@@ -22,7 +23,7 @@ const schemaPenjualan = new Schema(
             {
                 tanggalKeluar: {
                     type: Date,
-                    default: Date.now(),
+                    default: Date.now,
                     required: true,
                 },
                 id_produk: {
@@ -43,5 +44,6 @@ const schemaPenjualan = new Schema(
     }
 );
 
+schemaPenjualan.index({ noNota: "text" });
 const Penjualan = mongoose.model("Penjualan", schemaPenjualan);
 export default Penjualan;

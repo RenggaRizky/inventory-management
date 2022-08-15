@@ -6,3 +6,24 @@
     flex: 1 1 auto;
     padding: 35px 28px;
 }
+
+.db_card {
+    background-color: #111928 !important;
+}
+
+.list_wrapper {
+    background-color: #f9fafb !important;
+}
+
+.subtitle_wrapper {
+    display: flex;
+    align-items: center;
+}
+
+/* LAPTOP 1024 */
+@media only screen and (max-width: 1025px) {
+    .subtitle_wrapper {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}

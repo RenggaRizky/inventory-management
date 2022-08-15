@@ -4,13 +4,14 @@ const { Schema } = mongoose;
 
 const schemaBarangRetur = new Schema(
     {
+        // _id: mongoose.Types.ObjectId(),
         jumlah: {
             type: Number,
             required: true,
         },
         tanggalPengembalian: {
             type: Date,
-            default: new Date(),
+            default: Date.now,
             required: true,
         },
         status: {

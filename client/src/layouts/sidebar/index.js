@@ -17,7 +17,7 @@ import { BiNotepad, BiUserCircle } from "react-icons/bi";
 import { FiBox } from "react-icons/fi";
 import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp, MdOutlineInventory, MdOutlineCategory } from "react-icons/md";
 import { RiDashboardLine } from "react-icons/ri";
-import { BsTruck } from "react-icons/bs";
+import { BsTruck, BsHddRack } from "react-icons/bs";
 import { CgRuler } from "react-icons/cg";
 import { TbPackgeImport, TbPackgeExport } from "react-icons/tb";
 
@@ -80,10 +80,10 @@ const Sidebar = (props) => {
                             Jenis Barang
                         </SidebarBtn>
                     </Link>
-                    <Link to="satuan-barang">
-                        <SidebarBtn menu="/satuan-barang">
-                            <CgRuler className={styles.icon} />
-                            Satuan Barang
+                    <Link to="rak">
+                        <SidebarBtn menu="rak">
+                            <BsHddRack className={styles.icon} />
+                            Rak Penyimpanan
                         </SidebarBtn>
                     </Link>
                     <Divider margin="18px 0" />
@@ -113,9 +113,6 @@ const Sidebar = (props) => {
                             <Link to="barang-retur">
                                 <CollapseSidebar menu="/barang-retur">Barang Retur</CollapseSidebar>
                             </Link>
-                            <Link to="rak">
-                                <CollapseSidebar menu="/rak">Rak Penyimpanan</CollapseSidebar>
-                            </Link>
                         </CollapseBox>
                     </CollapseWrapper>
 
@@ -127,7 +124,7 @@ const Sidebar = (props) => {
                     </Link>
 
                     <Link to="laporan">
-                        <SidebarBtn>
+                        <SidebarBtn menu={"laporan"}>
                             <BiNotepad className={styles.icon} />
                             Laporan
                         </SidebarBtn>
@@ -152,14 +149,6 @@ const Sidebar = (props) => {
                         </SidebarBtn>
                     </Link>
                     <Divider margin="18px 0" />
-                </div>
-
-                <div className={styles.nav_wrapper}>
-                    <SidebarTitle style={mb2}>User</SidebarTitle>
-                    <SidebarBtn>
-                        <BiUserCircle className={styles.icon} />
-                        User
-                    </SidebarBtn>
                 </div>
 
                 <div className={styles.nav_wrapper}>

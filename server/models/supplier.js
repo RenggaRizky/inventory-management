@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const schemaSupplier = new Schema(
     {
+        // _id: mongoose.Types.ObjectId(),
         nama: {
             type: String,
             required: true,
@@ -26,5 +27,6 @@ const schemaSupplier = new Schema(
     }
 );
 
+schemaSupplier.index({ nama: "text" });
 const Supplier = mongoose.model("Supplier", schemaSupplier);
 export default Supplier;

@@ -14,7 +14,11 @@ const Subtitle = ({ color = colors.gray_400, fontsize = "0.875rem", fontweight =
         textTransform: texttransform,
     };
 
-    return <p style={subtitle}>{props.children}</p>;
+    return (
+        <p style={subtitle} className={props.bs}>
+            {props.children}
+        </p>
+    );
 };
 
 export default Subtitle;

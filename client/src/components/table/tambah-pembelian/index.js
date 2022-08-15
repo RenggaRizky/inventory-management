@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
 import { url } from "../../../api";
 import { BtnLinkDelete } from "../../button/link/error";
-import InputNumber from "../../form/number";
+import { InputNumber } from "../../form/number";
 import { InputSelect } from "../../form/select";
 import styles from "./style.module.css";
 

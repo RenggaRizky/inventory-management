@@ -1,0 +1,15 @@
+.wrapper {
+    padding: 20px 8px 0 8px;
+}
+
+.hidden {
+    clip-path: inset(0 100% 0 0);
+}
+
+.table {
+    font-size: 0.875rem;
+}
+
+.table th {
+    padding: 1rem;
+}

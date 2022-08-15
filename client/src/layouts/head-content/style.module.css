@@ -1,3 +1,23 @@
 .row {
     --bs-gutter-x: 0 !important;
+    display: flex;
+    width: 100%;
+    justify-content: space-between !important;
+    align-items: center;
+    /* d-flex w-100 justify-content-between align-items-center */
+}
+
+/* TABLET 768 */
+@media only screen and (max-width: 992px) {
+    .row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .children {
+        /* display: flex;
+        flex-direction: column; */
+        width: 100%;
+        margin: 1rem 0;
+    }
 }

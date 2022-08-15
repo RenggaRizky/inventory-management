@@ -19,7 +19,7 @@ const DetailProduk = () => {
         deskripsi: "-",
         id_jenibarang: "",
         id_merek: "",
-        id_satuanbarang: "",
+        // id_satuanbarang: "",
         harga: 0,
         panjang: 0,
         lebar: 0,
@@ -37,11 +37,11 @@ const DetailProduk = () => {
                     deskripsi: response.data[0].deskripsi,
                     id_jenibarang: response.data[0].id_jenisbarang[0].nama,
                     id_merek: response.data[0].id_merek[0].nama,
-                    id_satuanbarang: response.data[0].id_satuanbarang[0].nama,
+                    // id_satuanbarang: response.data[0].id_satuanbarang[0].nama,
                     harga: Number(response.data[0].harga),
-                    panjang: Number(response.data[0].dimensi.panjang.$numberDecimal),
-                    lebar: Number(response.data[0].dimensi.lebar.$numberDecimal),
-                    tinggi: Number(response.data[0].dimensi.tinggi.$numberDecimal),
+                    panjang: Number(response.data[0].dimensiProduk.panjang.$numberDecimal),
+                    lebar: Number(response.data[0].dimensiProduk.lebar.$numberDecimal),
+                    tinggi: Number(response.data[0].dimensiProduk.tinggi.$numberDecimal),
                     volume: Number(response.data[0].volume.$numberDecimal),
                 });
                 setGambarBase64(response.data[0].gambar);
@@ -94,7 +94,7 @@ const DetailProduk = () => {
 
                         <div className="card-body p-4 mb-5">
                             <div className="row">
-                                <div className="col-5">
+                                <div className="col-12 col-xxl-5 col-xl-5 col-lg-5 col-md-12">
                                     <div className="mb-3">
                                         <Overline>Nama Produk</Overline>
                                         <H3>{dataProduk.nama}</H3>
@@ -107,10 +107,10 @@ const DetailProduk = () => {
                                         <Overline>Merek</Overline>
                                         <H3>{dataProduk.id_merek}</H3>
                                     </div>
-                                    <div className="mb-3">
+                                    {/* <div className="mb-3">
                                         <Overline>Satuan Barang</Overline>
                                         <H3>{dataProduk.id_satuanbarang}</H3>
-                                    </div>
+                                    </div> */}
                                     <div className="mb-3">
                                         <Overline>Harga</Overline>
                                         <H3>Rp {numberWithCommas(dataProduk.harga)}</H3>
@@ -144,10 +144,11 @@ const DetailProduk = () => {
                         </div>
                     </div>
                     <div className="mb-5">
-                        <Subtitle>*Data stok awal akan muncul di halaman 'Stok Barang'</Subtitle>
-                        <Subtitle>*Data batas minimum stok akan muncul di halaman 'Stok Barang'</Subtitle>
+                        <Subtitle fontsize="0.75rem">*Data stok awal akan muncul di halaman 'Stok Barang'</Subtitle>
+                        <Subtitle fontsize="0.75rem">*Data batas minimum stok akan muncul di halaman 'Stok Barang'</Subtitle>
+                        <Subtitle fontsize="0.75rem">*Data rak akan muncul di halaman 'Stok Barang'</Subtitle>
                     </div>
-                    <div className="d-flex justify-content-end">
+                    <div className={styles.btn_secondary_wrapper}>
                         <BtnSecondary type="button" onClick={handleBackToPrevious}>
                             Kembali
                         </BtnSecondary>

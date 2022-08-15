@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 
 const schemaProduk = new Schema(
     {
+        // _id: mongoose.Types.ObjectId(),
         nama: {
             type: String,
             required: true,
@@ -18,7 +19,6 @@ const schemaProduk = new Schema(
             type: mongoose.Types.Decimal128,
             required: true,
         },
-        notifikasi: [String],
         id_jenisbarang: {
             type: Schema.Types.ObjectId,
             ref: "JenisBarang",
@@ -29,12 +29,12 @@ const schemaProduk = new Schema(
             ref: "Merek",
             required: true,
         },
-        id_satuanbarang: {
+        id_rak: {
             type: Schema.Types.ObjectId,
-            ref: "SatuanBarang",
+            ref: "Rak",
             required: true,
         },
-        dimensi: {
+        dimensiProduk: {
             panjang: {
                 type: mongoose.Types.Decimal128,
                 required: true,
@@ -49,27 +49,8 @@ const schemaProduk = new Schema(
             },
         },
         stok: {
-            batasMinimum: {
-                type: Number,
-                required: true,
-            },
-            total: {
-                type: Number,
-                required: true,
-                default: 0,
-            },
-            status: {
-                type: String,
-                default: function () {
-                    if (this.stok.total <= 0 || this.stok.total === 0) {
-                        return "Habis";
-                    } else if (this.stok.total >= this.stok.batasMinimum) {
-                        return "Tersedia";
-                    } else {
-                        return "Hampir habis";
-                    }
-                },
-            },
+            total: { type: Number, required: true, default: 0 },
+            status: { type: String, required: true },
         },
     },
     {
@@ -77,5 +58,6 @@ const schemaProduk = new Schema(
     }
 );
 
+schemaProduk.index({ nama: "text" });
 const Produk = mongoose.model("Produk", schemaProduk);
 export default Produk;

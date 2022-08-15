@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../style.module.css";
 import { colors } from "../../../../colors";
 import { url } from "../../../../api";
@@ -10,27 +10,25 @@ import BtnSecondary from "../../secondary";
 
 import { HiOutlineTrash } from "react-icons/hi";
 import { BtnLinkError } from "../../link/error";
+import { BsCheck2 } from "react-icons/bs";
+import { MdClose } from "react-icons/md";
+import Spinner from "../../../spinner";
 
 const ModalDeleteSecondary = ({ currentid, setcurrentid, setdata, deleteurl, ...props }) => {
+    const [responseMessage, setResponseMessage] = useState(null);
     const deleteData = (id) => {
         url.delete(`${deleteurl}/${id}`)
             .then((response) => {
-                setdata(response.data);
+                setdata(response.data.item);
+                setResponseMessage(response.data);
             })
             .catch((error) => {
-                console.log(error.message);
+                setResponseMessage(error.response.data);
             });
-    };
-
-    const handleCloseModal = () => {
-        document.getElementById("closeModalDelete").click();
     };
 
     const handleDelete = (id) => {
         deleteData(id);
-        setTimeout(() => {
-            handleCloseModal();
-        }, 100);
     };
 
     return (
@@ -41,12 +39,12 @@ const ModalDeleteSecondary = ({ currentid, setcurrentid, setdata, deleteurl, ...
             </BtnLinkError>
             <div className={`${styles.modal} modal fade`} id={props.target} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-lg-down">
-                    <div className="modal-content">
+                    <div className={`${styles.modal_content} modal-content`}>
                         <div className={`${styles.modal_header} modal-header`}>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalDelete"></button>
                         </div>
                         <div className={`${styles.modal_body} modal-body text-center mb-5`}>
-                            <div className={`${styles.icon_wrapper} rounded-circle`}>
+                            <div className={`${styles.icon_wrapper} ${styles.icon_delete_wrapper} rounded-circle`}>
                                 <HiOutlineTrash className={styles.icon_delete_primary} />
                             </div>
                             <H3 className="text-uppercase" margin="1rem">
@@ -58,9 +56,46 @@ const ModalDeleteSecondary = ({ currentid, setcurrentid, setdata, deleteurl, ...
                             <BtnSecondary type="button" data-bs-dismiss="modal">
                                 Batal
                             </BtnSecondary>
-                            <BtnPrimary type="button" onClick={() => handleDelete(currentid)}>
+                            <BtnPrimary type="button" onClick={() => handleDelete(currentid)} data-bs-toggle="modal" data-bs-target={`#${props.target}Response`}>
                                 Hapus
                             </BtnPrimary>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className={`${styles.modal} modal fade`} id={`${props.target}Response`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-lg-down">
+                    <div className="modal-content">
+                        <div className={`${styles.modal_header} modal-header`}>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalDelete" onClick={() => setResponseMessage(null)}></button>
+                        </div>
+                        <div className={`${styles.modal_body} modal-body text-center mb-5`}>
+                            {responseMessage === null ? (
+                                <Spinner />
+                            ) : (
+                                <div className="mb-5">
+                                    {responseMessage.message === "Berhasil menghapus" ? (
+                                        <>
+                                            <div className={`${styles.icon_wrapper} ${styles.icon_checked_wrapper} rounded-circle`}>
+                                                <BsCheck2 className={styles.icon_checked_primary} />
+                                            </div>
+                                            <H3 className="text-uppercase" margin="1rem">
+                                                {responseMessage.message} {props.page}
+                                            </H3>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <div className={`${styles.icon_wrapper} ${styles.icon_delete_wrapper} rounded-circle`}>
+                                                <MdClose className={styles.icon_delete_primary} />
+                                            </div>
+                                            <H3 className="text-uppercase" margin="1rem">
+                                                {responseMessage.message} {props.page}
+                                            </H3>
+                                            <P>{props.page} ini masih tertaut dengan data yang lain</P>
+                                        </>
+                                    )}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

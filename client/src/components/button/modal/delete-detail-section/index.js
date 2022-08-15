@@ -12,6 +12,8 @@ import { HiOutlineTrash } from "react-icons/hi";
 import { BtnLinkError } from "../../link/error";
 
 const ModalDelete = ({ selectedid, selectedmenu, ...props }) => {
+    const [refresh, setRefresh] = useState();
+
     const navigate = useNavigate();
     const deleteData = (id) => {
         url.delete(`${id}`)
@@ -25,11 +27,17 @@ const ModalDelete = ({ selectedid, selectedmenu, ...props }) => {
         document.getElementById("closeModalDelete").click();
     };
 
+    const handleRefresh = () => {
+        setRefresh({});
+    };
+
     const handleDelete = (id) => {
         deleteData(id);
         setTimeout(() => {
             handleCloseModal();
+            handleRefresh();
             navigate(selectedmenu);
+            window.location.reload();
         }, 100);
     };
 
@@ -41,12 +49,12 @@ const ModalDelete = ({ selectedid, selectedmenu, ...props }) => {
             </BtnLinkError>
             <div className={`${styles.modal} modal fade`} id={props.target} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-lg-down">
-                    <div className="modal-content">
+                    <div className={`${styles.modal_content} modal-content`}>
                         <div className={`${styles.modal_header} modal-header`}>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" id="closeModalDelete"></button>
                         </div>
                         <div className={`${styles.modal_body} modal-body text-center mb-5`}>
-                            <div className={`${styles.icon_wrapper} rounded-circle`}>
+                            <div className={`${styles.icon_wrapper} ${styles.icon_delete_wrapper} rounded-circle`}>
                                 <HiOutlineTrash className={styles.icon_delete_primary} />
                             </div>
                             <H3 className="text-uppercase" margin="1rem">
@@ -58,7 +66,7 @@ const ModalDelete = ({ selectedid, selectedmenu, ...props }) => {
                             <BtnSecondary type="button" data-bs-dismiss="modal">
                                 Batal
                             </BtnSecondary>
-                            <BtnPrimary type="button" onClick={() => handleDelete(selectedid)}>
+                            <BtnPrimary type="button" onClick={(e) => handleDelete(selectedid)}>
                                 Hapus
                             </BtnPrimary>
                         </div>

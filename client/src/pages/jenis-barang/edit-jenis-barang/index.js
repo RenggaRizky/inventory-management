@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useOutletContext, Navigate } from "react-router-dom";
 import { url } from "../../../api";
 import styles from "../style.module.css";
 
@@ -13,8 +13,10 @@ import { Title } from "../../../components/typography/title";
 
 const EditJenisBarang = () => {
     const navigate = useNavigate();
-    const id = useLocation().state.id;
+    const location = useLocation();
+    const [idJenisBarang, setIdJenisBarang] = useState(location.state === null ? null : location.state.id);
 
+    const [user, setUser] = useOutletContext();
     const [dataJenisBarang, setDataJenisBarang] = useState({
         nama: "",
     });
@@ -56,12 +58,16 @@ const EditJenisBarang = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        patchJenisBarang(id);
+        patchJenisBarang(idJenisBarang);
     };
 
     useEffect(() => {
-        getInfoJenisBarang(id);
-    }, [id]);
+        getInfoJenisBarang(idJenisBarang);
+    }, [idJenisBarang]);
+
+    if (user.user.peran === "Pemilik Toko" || idJenisBarang === null) {
+        return <Navigate to="/jenis-barang" replace />;
+    }
 
     return (
         <form onSubmit={handleSubmit} id="formInputJenisBarang">
@@ -71,13 +77,13 @@ const EditJenisBarang = () => {
                 </label>
                 <InputText id="inputJenisBarang" defaultValue={dataJenisBarang.nama} onChange={(e) => setDataJenisBarang({ ...dataJenisBarang, nama: e.target.value })} maxLength={30} required />
             </div>
-            <div className={`${styles.form_footer} pt-5 d-flex justify-content-between`}>
+            <div className={`${styles.form_footer} pt-5 `}>
                 <BtnLinkError bs="text-uppercase d-flex" onClick={handleClear}>
                     <HiOutlineTrash className={`${styles.icon_delete}`} />
                     Bersihkan
                 </BtnLinkError>
-                <div>
-                    <BtnSecondary type="button" bs="me-3" onClick={handleBackToPrevious}>
+                <div className={styles.footer_btn_wrapper}>
+                    <BtnSecondary type="button" bs="me-0 me-xxl-3 me-xl-3 me-lg-3 me-md-0 my-xxl-0 my-2 my-xl-0 my-lg-0 my-md-2" onClick={handleBackToPrevious}>
                         Kembali
                     </BtnSecondary>
                     <BtnPrimary type="submit" value="Simpan" />

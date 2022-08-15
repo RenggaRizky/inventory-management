@@ -99,55 +99,57 @@ const DetailPembelian = () => {
                                     {dataSupplier} dari {dataPerusahaanSupplier}
                                 </H3>
                             </div>
-                            <table className={`${styles.table} table mb-3`}>
-                                <thead className={styles.table_head}>
-                                    {tableheaddata.map((data) => {
-                                        return (
-                                            <th scope="col" key={data.key} className="text-uppercase" style={{ width: data.width }}>
-                                                <H6 fontsize="0.75rem" color="#6B7280" fontweight="600">
-                                                    {data.title}
-                                                </H6>
-                                            </th>
-                                        );
-                                    })}
-                                </thead>
-                                <tbody className={styles.table_body}>
-                                    {dataBarangMasuk.map((data) => {
-                                        return (
-                                            <tr key={data._id} className="align-middle">
-                                                <td className="text-capitalize">
-                                                    <P color="#616161" fontsize="0.875rem">
-                                                        {data.id_produk.nama}
-                                                    </P>
-                                                </td>
-                                                <td className="text-capitalize">
-                                                    <P color="#616161" fontsize="0.875rem">
-                                                        {data.jumlahMasuk}
-                                                    </P>
-                                                </td>
-                                                <td className="text-capitalize">
-                                                    <P color="#616161" fontsize="0.875rem">
-                                                        Rp {numberWithCommas(data.id_produk.harga)}
-                                                    </P>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                    <tr>
-                                        <td colspan="2">
-                                            <H4>TOTAL</H4>
-                                        </td>
-                                        {dataTotalHarga !== null && (
-                                            <td>
-                                                <H6>Rp {numberWithCommas(dataTotalHarga)}</H6>
+                            <div className="table-responsive">
+                                <table className={`${styles.table} table mb-3`}>
+                                    <thead className={styles.table_head}>
+                                        {tableheaddata.map((data) => {
+                                            return (
+                                                <th scope="col" key={data.key} className="text-uppercase">
+                                                    <H6 fontsize="0.75rem" color="#6B7280" fontweight="600">
+                                                        {data.title}
+                                                    </H6>
+                                                </th>
+                                            );
+                                        })}
+                                    </thead>
+                                    <tbody className={styles.table_body}>
+                                        {dataBarangMasuk.map((data) => {
+                                            return (
+                                                <tr key={data._id} className="align-middle text-nowrap">
+                                                    <td className="text-capitalize">
+                                                        <P color="#616161" fontsize="0.875rem">
+                                                            {data.id_produk.nama}
+                                                        </P>
+                                                    </td>
+                                                    <td className="text-capitalize text-nowrap">
+                                                        <P color="#616161" fontsize="0.875rem">
+                                                            {data.jumlahMasuk}
+                                                        </P>
+                                                    </td>
+                                                    <td className="text-capitalize text-nowrap">
+                                                        <P color="#616161" fontsize="0.875rem">
+                                                            Rp {numberWithCommas(data.id_produk.harga)}
+                                                        </P>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                        <tr>
+                                            <td colspan="2" className="text-nowrap">
+                                                <H4>TOTAL</H4>
                                             </td>
-                                        )}
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            {dataTotalHarga !== null && (
+                                                <td className="text-nowrap">
+                                                    <H6>Rp {numberWithCommas(dataTotalHarga)}</H6>
+                                                </td>
+                                            )}
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <div className="d-flex justify-content-end">
+                    <div className={styles.btn_secondary_wrapper}>
                         <BtnSecondary type="button" onClick={handleBackToPrevious}>
                             Kembali
                         </BtnSecondary>

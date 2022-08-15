@@ -1,18 +1,23 @@
 import React from "react";
 import { colors } from "../../../colors";
 
-const H1 = ({ color = colors.gray_900, fontweight = "700", margin = "0", padding = "0", ...props }) => {
+const H1 = ({ color = colors.gray_900, fontweight = "700", margin = "0", padding = "0", texttransform, fontsize = "2.125rem", ...props }) => {
     const h1 = {
         color: color,
         fontFamily: '"Poppins", sans-serif',
         fontWeight: fontweight,
-        fontSize: "2.125rem",
+        fontSize: fontsize,
         lineHeight: "40px",
         margin: margin,
         padding: padding,
+        textTransform: texttransform,
     };
 
-    return <h1 style={h1}>{props.children}</h1>;
+    return (
+        <h1 style={h1} {...props} className={props.bs}>
+            {props.children}
+        </h1>
+    );
 };
 
 const H2 = ({ color = colors.gray_900, fontweight = "700", margin = "0", padding = "0", texttransform = "none", ...props }) => {
@@ -34,7 +39,7 @@ const H2 = ({ color = colors.gray_900, fontweight = "700", margin = "0", padding
     );
 };
 
-const H3 = ({ color = colors.gray_900, fontweight = "600", margin = "0", padding = "0", ...props }) => {
+const H3 = ({ color = colors.gray_900, fontweight = "600", margin = "0", padding = "0", texttransform, ...props }) => {
     const h3 = {
         color: color,
         fontFamily: '"Poppins", sans-serif',
@@ -43,6 +48,7 @@ const H3 = ({ color = colors.gray_900, fontweight = "600", margin = "0", padding
         lineHeight: "24px",
         margin: margin,
         padding: padding,
+        textTransform: texttransform,
     };
 
     return (
@@ -89,7 +95,7 @@ const H5 = ({ color = colors.gray_900, fontweight = "500", margin = "0", padding
     );
 };
 
-const H6 = ({ color = colors.gray_900, fontweight = "500", fontsize = "0.875rem", lineheight = "20px", margin = "0", padding = "0", ...props }) => {
+const H6 = ({ color = colors.gray_900, fontweight = "500", fontsize = "0.875rem", lineheight = "20px", margin = "0", padding = "0", texttransform, ...props }) => {
     const h6 = {
         color: color,
         fontFamily: '"Poppins", sans-serif',
@@ -98,6 +104,7 @@ const H6 = ({ color = colors.gray_900, fontweight = "500", fontsize = "0.875rem"
         lineHeight: lineheight,
         margin: margin,
         padding: padding,
+        textTransform: texttransform,
     };
     return (
         <h6 style={h6} {...props}>

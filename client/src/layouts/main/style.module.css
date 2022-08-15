@@ -15,3 +15,13 @@
     width: 100%;
     min-height: 100vh;
 }
+
+.container_public {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(../../../public/images/bg_auth.svg);
+}

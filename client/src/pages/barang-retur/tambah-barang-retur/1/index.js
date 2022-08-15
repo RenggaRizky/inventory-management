@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../style.module.css";
 import { url } from "../../../../api";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useOutletContext } from "react-router-dom";
 
 import { HiOutlineTrash } from "react-icons/hi";
 
@@ -17,6 +17,7 @@ import { H2 } from "../../../../components/typography/heading";
 
 const TambahBarangRetur1 = () => {
     const navigate = useNavigate();
+    const [user, setUser] = useOutletContext();
     const [dataBarangRetur, setDataBarangRetur] = useState({
         id_produk: null,
         id_supplier: null,
@@ -63,13 +64,17 @@ const TambahBarangRetur1 = () => {
         getSupplier();
     }, []);
 
+    if (user.user.peran === "Pemilik Toko") {
+        return <Navigate to="/barang-retur" replace />;
+    }
+
     return (
         <>
             {produk === null ? (
                 <Spinner />
             ) : (
                 <form id="formInputBarangRetur1">
-                    <div className="p-5">
+                    <div className="p-xxl-5 p-xl-5 p-lg-5 p-md-5 p-sm-0">
                         <H2>1. Pilih Produk & Supplier</H2>
                         <div>
                             <label htmlFor="selectProdukRetur">
@@ -114,13 +119,13 @@ const TambahBarangRetur1 = () => {
                             </Subtitle>
                         </div>
                     </div>
-                    <div className={`${styles.form_footer} pt-5 d-flex justify-content-between`}>
+                    <div className={`${styles.form_footer} pt-5 `}>
                         <BtnLinkError bs="text-uppercase d-flex" onClick={handleClear}>
                             <HiOutlineTrash className={`${styles.icon_delete}`} />
                             Bersihkan
                         </BtnLinkError>
-                        <div>
-                            <BtnSecondary type="button" bs="me-3" onClick={handleBackToPrevious}>
+                        <div className={styles.footer_btn_wrapper}>
+                            <BtnSecondary type="button" bs="me-0 me-xxl-3 me-xl-3 me-lg-3 me-md-0 my-xxl-0 my-2 my-xl-0 my-lg-0 my-md-2" onClick={handleBackToPrevious}>
                                 Kembali
                             </BtnSecondary>
                             {dataBarangRetur.id_supplier === null || dataBarangRetur.id_produk === null ? (

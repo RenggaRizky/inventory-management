@@ -1,11 +1,11 @@
 import React from "react";
 import Navbar from "../navbar";
 
-const Wrapper = (props) => {
+const Wrapper = ({ user, setuser, children, ...props }) => {
     return (
         <>
-            <Navbar onclick={props.onclick} />
-            {props.children}
+            <Navbar user={user} setuser={setuser} onclick={props.onclick} />
+            {children}
         </>
     );
 };

@@ -14,5 +14,6 @@ const schemaMerek = new Schema(
     }
 );
 
+schemaMerek.index({ nama: "text" });
 const Merek = mongoose.model("Merek", schemaMerek);
 export default Merek;

@@ -1,0 +1,35 @@
+.wrapper {
+    padding: 2rem;
+}
+
+.brand {
+    color: #111928;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.125rem;
+    line-height: 48px;
+    letter-spacing: -0.1em;
+    text-transform: lowercase;
+    text-decoration: none;
+    font-family: "Poppins", sans-serif;
+}
+
+.brand:hover {
+    color: #1f2a37 !important;
+}
+
+.brand span {
+    font-size: 1.125rem;
+}
+
+.brand_wrapper {
+    width: 252px;
+    padding: 0 0.75rem;
+    top: 0;
+}
+
+.register_link {
+    text-decoration: none;
+    color: #111928;
+    font-weight: 500;
+}

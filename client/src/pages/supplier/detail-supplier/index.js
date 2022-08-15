@@ -65,7 +65,7 @@ const DetailSupplier = () => {
 
                         <div className="card-body p-4 mb-5">
                             <div className="row">
-                                <div className="col-5">
+                                <div className="col-12 col-xxl-5 col-xl-5 col-lg-5 col-md-12">
                                     <div className="mb-3">
                                         <Overline>Nama Supplier</Overline>
                                         <H3>{dataSupplier.nama}</H3>
@@ -88,7 +88,7 @@ const DetailSupplier = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="d-flex justify-content-end">
+                    <div className={styles.btn_secondary_wrapper}>
                         <BtnSecondary type="button" onClick={handleBackToPrevious}>
                             Kembali
                         </BtnSecondary>

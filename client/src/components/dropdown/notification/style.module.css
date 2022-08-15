@@ -4,6 +4,7 @@
     display: inline-block;
     background-color: #fff !important;
     border: 1px solid transparent !important;
+    position: relative;
 }
 
 .dropdown:hover {
@@ -19,8 +20,35 @@
     box-shadow: none !important;
 }
 
+.dropdown_item {
+    white-space: normal !important;
+}
+
+.dropdown_menu {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.icon_dropdown_item_error,
+.icon_dropdown_item_warning {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+}
+
+.icon_dropdown_item_warning {
+    color: #ffc107;
+}
+
+.icon_dropdown_item_error {
+    color: #c62828;
+}
+
 .notification_wrapper {
     margin: 0 6px 0 0;
+    width: 400px;
+    display: flex;
+    justify-content: end;
 }
 
 .notification_icon {

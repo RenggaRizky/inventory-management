@@ -3,7 +3,10 @@
 }
 
 .action_wrapper {
-    /* margin: 0 0 2.5rem 0; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* d-flex justify-content-between align-items-center */
 }
 
 .form_footer {
@@ -160,4 +163,132 @@
     background-color: #f9fafb;
     border-radius: 12px;
     padding: 32px 22px;
+}
+
+.modal > * {
+    font-family: "Poppins", sans-serif !important;
+}
+
+.btn_modal_delete:focus,
+.modal_header button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.modal_header {
+    border-bottom: 1px solid transparent !important;
+}
+
+.modal_body {
+    padding: 1.5rem;
+}
+
+.modal_footer {
+    border-top: 1px solid transparent !important;
+}
+
+.icon_warning {
+    color: #ffc107;
+    font-size: 4rem;
+}
+
+.icon_warning_wrapper {
+    background-color: #fbe9e7;
+    padding: 2rem;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.delete_btn {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.btn_secondary_wrapper {
+    display: flex;
+    justify-content: end;
+    /* d-flex justify-content-end */
+}
+
+.product_sales_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* d-flex flex-column justify-content-between */
+}
+
+.detail_action_wrapper {
+    justify-content: end;
+}
+
+@media only screen and (max-width: 992px) {
+    .action_wrapper {
+        flex-direction: column;
+    }
+
+    .search_wrapper {
+        width: 100%;
+    }
+
+    .btn_secondary_wrapper {
+        justify-content: flex-start;
+    }
+
+    .btn_secondary_wrapper button {
+        width: 100%;
+    }
+
+    .product_sales_wrapper {
+        height: 500px;
+        overflow: auto;
+    }
+
+    .product_picture_list {
+        width: 4rem;
+    }
+}
+
+/* MOBILE L 425 */
+@media only screen and (max-width: 426px) {
+    .search_wrapper {
+        margin: 1rem 0;
+    }
+
+    .icon_product {
+        display: none;
+    }
+
+    .icon_product_wrapper {
+        display: none;
+    }
+
+    .detail_action_wrapper {
+        justify-content: flex-start;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .product_sales_container {
+        flex-direction: row !important;
+        align-items: center;
+    }
+
+    .product_sales_description_wrapper {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin-left: 2rem;
+    }
+
+    .product_in_cart {
+        margin-bottom: 1rem;
+    }
+
+    .product_picture_order {
+        display: none;
+    }
+
+    .list_wrapper {
+        padding: 18px 14px;
+    }
 }

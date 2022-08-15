@@ -1,12 +1,13 @@
 import React from "react";
 
-const Divider = ({ bordercolor = "rgb(238, 238, 238)", margin = 0, ...props }) => {
+const Divider = ({ bordercolor = "rgb(238, 238, 238)", margin = 0, padding = 0, ...props }) => {
     const styles = {
         borderStyle: "solid",
         borderColor: bordercolor,
         borderWidth: "0px 0px thin",
         opacity: "1",
         margin: margin,
+        padding: padding,
         // margin : "18px 0"
     };
 

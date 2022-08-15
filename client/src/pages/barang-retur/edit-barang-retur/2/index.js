@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "../../style.module.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import { url } from "../../../../api";
 
 import { HiOutlineTrash } from "react-icons/hi";
@@ -8,7 +8,7 @@ import { HiOutlineTrash } from "react-icons/hi";
 import { BtnLinkError } from "../../../../components/button/link/error";
 import BtnPrimary from "../../../../components/button/primary";
 import BtnSecondary from "../../../../components/button/secondary";
-import InputNumber from "../../../../components/form/number";
+import { InputNumber } from "../../../../components/form/number";
 import Textarea from "../../../../components/form/textarea";
 import Spinner from "../../../../components/spinner";
 import { H2 } from "../../../../components/typography/heading";
@@ -18,31 +18,30 @@ import P from "../../../../components/typography/paragraph";
 
 const EditBarangRetur2 = () => {
     const location = useLocation();
-    const idProduk = location.state.id_produk;
-    const idSupplier = location.state.id_supplier;
-    const idBarangRetur = location.state.id_barangRetur;
+    const [idProduk, setIdProduk] = useState(location.state === null ? null : location.state.id_produk);
+    const [idSupplier, setIdSupplier] = useState(location.state === null ? null : location.state.id_supplier);
+    const [idBarangRetur, setIdBarangRetur] = useState(location.state === null ? null : location.state.id_barangRetur);
     const navigate = useNavigate();
 
+    const [user, setUser] = useOutletContext();
     const [dataBarangRetur, setDataBarangRetur] = useState({
-        status: null,
         alasan: null,
         catatan: "-",
-        jumlah: null,
+        jumlahReturBaru: null,
     });
 
     const [produk, setProduk] = useState(null);
-    const [jumlahDiproses, setJumlahDiproses] = useState(null);
+    const [jumlahReturLama, setJumlahReturLama] = useState(null);
 
     const getInfoDataBarangRetur = (id) => {
         url.get(`/barang-retur/${id}`)
             .then((response) => {
                 setDataBarangRetur({
-                    status: response.data[0].status,
                     alasan: response.data[0].alasan,
                     catatan: response.data[0].catatan,
-                    jumlah: response.data[0].jumlah,
+                    jumlahReturBaru: response.data[0].jumlah,
                 });
-                setJumlahDiproses(response.data[0].jumlah);
+                setJumlahReturLama(response.data[0].jumlah);
             })
             .catch((error) => {
                 console.log(error.message);
@@ -51,11 +50,10 @@ const EditBarangRetur2 = () => {
 
     const patchBarangRetur = (id) => {
         url.patch(`${id}`, {
-            status: dataBarangRetur.status,
             alasan: dataBarangRetur.alasan,
             catatan: dataBarangRetur.catatan,
-            jumlah: dataBarangRetur.jumlah,
-            jumlahDiproses: jumlahDiproses,
+            jumlahReturBaru: dataBarangRetur.jumlahReturBaru,
+            jumlahReturLama: jumlahReturLama,
             id_produk: idProduk,
             id_supplier: idSupplier,
         })
@@ -70,19 +68,6 @@ const EditBarangRetur2 = () => {
             });
     };
 
-    // const patchStokProsesRetur = (id) => {
-    //     url.patch(`/stok-barang/proses-retur/${id}`, {
-    //         stok: {
-    //             total: dataBarangRetur.status === "Diterima" ? Number(produk[0].stok.total) + Number(dataBarangRetur.jumlah) : Number(produk[0].stok.total),
-    //             jumlahRetur: dataBarangRetur.status === "Diproses" ? Number(produk[0].stok.jumlahRetur) : Number(produk[0].stok.jumlahRetur) - Number(dataBarangRetur.jumlah),
-    //         },
-    //     })
-    //         .then((response) => {})
-    //         .catch((error) => {
-    //             console.log(error.message);
-    //         });
-    // };
-
     const getInfoProduk = (id) => {
         url.get(`/produk/${id}`)
             .then((response) => {
@@ -96,9 +81,7 @@ const EditBarangRetur2 = () => {
     const handleClear = () => {
         document.getElementById("inputAlasanRetur").value = "";
         document.getElementById("inputCatatanRetur").value = "";
-        document.getElementById("selectStatusRetur").selectedIndex = 0;
         setDataBarangRetur({
-            status: null,
             alasan: null,
             catatan: "-",
         });
@@ -119,21 +102,21 @@ const EditBarangRetur2 = () => {
         getInfoProduk(idProduk);
     }, []);
 
-    const dataStatus = [
-        { key: 1, nama: "Diterima Ganti Barang", detail: "Diterima ( diganti dengan barang yang sejenis )" },
-        { key: 2, nama: "Diterima Ganti Uang", detail: "Diterima ( diganti dengan uang )" },
-        { key: 3, nama: "Ditolak", detail: "Ditolak" },
-        { key: 4, nama: "Diproses", detail: "Diproses" },
-    ];
+    if (user.user.peran === "Pemilik Toko") {
+        return <Navigate to="/barang-retur" replace />;
+    }
 
-    console.log(produk);
+    if (idProduk === null && idSupplier === null && idBarangRetur === null) {
+        return <Navigate to="/barang-retur/edit-barang-retur-1" replace />;
+    }
+
     return (
         <>
             {produk === null ? (
                 <Spinner />
             ) : (
                 <form onSubmit={handleSubmit} id="inputBarangRetur2">
-                    <div className="p-5">
+                    <div className="p-xxl-5 p-xl-5 p-lg-5 p-md-5 p-sm-0">
                         <H2>2. Isi Keterangan Retur Barang</H2>
                         <label htmlFor="DisableinputJumlahRetur">
                             <Title margin="2rem 0 0.625rem 0.25rem">Jumlah retur</Title>
@@ -141,10 +124,10 @@ const EditBarangRetur2 = () => {
                         {/* <DisableForm id="DisableinputJumlahRetur" defaultValue={dataBarangRetur.jumlah} required /> */}
                         <InputNumber
                             id="inputJumlahRetur"
-                            defaultValue={dataBarangRetur.jumlah}
-                            onChange={(e) => setDataBarangRetur({ ...dataBarangRetur, jumlah: e.target.value })}
+                            defaultValue={dataBarangRetur.jumlahReturBaru}
+                            onChange={(e) => setDataBarangRetur({ ...dataBarangRetur, jumlahReturBaru: e.target.value })}
                             min="1"
-                            max={produk === null ? 9999 : Number(produk[0].stok.total + Number(jumlahDiproses))}
+                            max={produk === null ? 9999 : Number(produk[0].stok.total + Number(jumlahReturLama))}
                             required
                         />
                         <label htmlFor="inputAlasanRetur">
@@ -156,38 +139,14 @@ const EditBarangRetur2 = () => {
                             <Title margin="2rem 0 0.625rem 0.25rem">Catatan</Title>
                         </label>
                         <Textarea id="inputCatatanRetur" defaultValue={dataBarangRetur.catatan} onChange={(e) => setDataBarangRetur({ ...dataBarangRetur, catatan: e.target.value })} rows={8} />
-
-                        <label htmlFor="selectStatusRetur">
-                            <Title margin="2rem 0 0.625rem 0.25rem">Status barang retur</Title>
-                        </label>
-                        <select
-                            id="selectStatusRetur"
-                            className={`${styles.input_select} form-select`}
-                            aria-label="Default select example"
-                            value={dataBarangRetur.status}
-                            onChange={(e) => setDataBarangRetur({ ...dataBarangRetur, status: e.target.value })}
-                        >
-                            <option hidden value=""></option>
-                            {dataStatus === null ? (
-                                <Spinner />
-                            ) : (
-                                dataStatus.map((x) => {
-                                    return (
-                                        <option key={x._id} value={x.nama}>
-                                            {x.detail}
-                                        </option>
-                                    );
-                                })
-                            )}
-                        </select>
                     </div>
-                    <div className={`${styles.form_footer} pt-5 d-flex justify-content-between`}>
+                    <div className={`${styles.form_footer} pt-5 `}>
                         <BtnLinkError bs="text-uppercase d-flex" onClick={handleClear}>
                             <HiOutlineTrash className={`${styles.icon_delete}`} />
                             Bersihkan
                         </BtnLinkError>
-                        <div>
-                            <BtnSecondary type="button" bs="me-3" onClick={handleBackToPrevious}>
+                        <div className={styles.footer_btn_wrapper}>
+                            <BtnSecondary type="button" bs="me-0 me-xxl-3 me-xl-3 me-lg-3 me-md-0 my-xxl-0 my-2 my-xl-0 my-lg-0 my-md-2" onClick={handleBackToPrevious}>
                                 Kembali
                             </BtnSecondary>
                             <BtnPrimary type="submit" value="Simpan"></BtnPrimary>

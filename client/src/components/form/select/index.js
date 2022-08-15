@@ -1,5 +1,6 @@
 import React from "react";
 import Spinner from "../../spinner";
+import { Title } from "../../typography/title";
 import styles from "./style.module.css";
 
 const InputSelect = ({ data, ...props }) => {
@@ -86,4 +87,31 @@ const SupplierInputSelect = ({ data, ...props }) => {
     );
 };
 
-export { InputSelect, DisabledInputSelect, ReturInputSelect, SupplierInputSelect };
+const RakInputSelect = ({ data, ...props }) => {
+    return (
+        <select className={`${styles.input_select} ${props.bs} form-select`} aria-label="Default select example" {...props}>
+            <option hidden value="">
+                {props.itemselected}
+            </option>
+            {data === null ? (
+                <Spinner />
+            ) : (
+                data.map((data) => {
+                    return (
+                        <>
+                            {data.susun.map((datasusun) => {
+                                return (
+                                    <option key={datasusun._id} value={datasusun._id} disabled={datasusun.terpakai.$numberDecimal > 0 ? true : false}>
+                                        {data.nama} {data.lokasi} - {datasusun.nama} ({datasusun.status.toFixed(1)}%)
+                                    </option>
+                                );
+                            })}
+                        </>
+                    );
+                })
+            )}
+        </select>
+    );
+};
+
+export { InputSelect, DisabledInputSelect, ReturInputSelect, SupplierInputSelect, RakInputSelect };

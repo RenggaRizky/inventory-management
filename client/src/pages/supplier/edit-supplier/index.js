@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { url } from "../../../api";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Navigate, useOutletContext } from "react-router-dom";
 import styles from "../style.module.css";
 
 import { HiOutlineTrash } from "react-icons/hi";
@@ -16,7 +16,9 @@ import Spinner from "../../../components/spinner";
 
 const EditSupplier = () => {
     const navigate = useNavigate();
-    const id = useLocation().state.id;
+    const location = useLocation();
+    const [idSupplier, setIdSupplier] = useState(location.state === null ? null : location.state.id);
+    const [user, setUser] = useOutletContext();
     const [dataSupplier, setDataSupplier] = useState({
         nama: "",
         namaPerusahaan: "",
@@ -66,12 +68,20 @@ const EditSupplier = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        patchSupplier(id);
+        patchSupplier(idSupplier);
     };
 
     useEffect(() => {
-        getInfoSupplier(id);
-    }, [id]);
+        getInfoSupplier(idSupplier);
+    }, [idSupplier]);
+
+    if (user.user.peran === "Pemilik Toko") {
+        return <Navigate to="/supplier" replace />;
+    }
+
+    if (idSupplier === null) {
+        return <Navigate to="/supplier" replace />;
+    }
 
     return (
         <>
@@ -94,13 +104,13 @@ const EditSupplier = () => {
                     </label>
                     <Textarea id="inputAlamatSupplier" defaultValue={dataSupplier.alamat} onChange={(e) => setDataSupplier({ ...dataSupplier, alamat: e.target.value })} rows={8} required />
                 </div>
-                <div className={`${styles.form_footer} pt-5 d-flex justify-content-between`}>
+                <div className={`${styles.form_footer} pt-5 `}>
                     <BtnLinkError bs="text-uppercase d-flex" onClick={handleClear}>
                         <HiOutlineTrash className={`${styles.icon_delete}`} />
                         Bersihkan
                     </BtnLinkError>
-                    <div>
-                        <BtnSecondary type="button" bs="me-3" onClick={handleBackToPrevious}>
+                    <div className={styles.footer_btn_wrapper}>
+                        <BtnSecondary type="button" bs="me-0 me-xxl-3 me-xl-3 me-lg-3 me-md-0 my-xxl-0 my-2 my-xl-0 my-lg-0 my-md-2" onClick={handleBackToPrevious}>
                             Kembali
                         </BtnSecondary>
                         <BtnPrimary type="submit" value="Simpan" />

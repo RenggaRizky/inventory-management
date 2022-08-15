@@ -4,14 +4,15 @@ const { Schema } = mongoose;
 
 const schemaPembelian = new Schema(
     {
+        // _id: mongoose.Types.ObjectId(),
         tanggalPembelian: {
             type: Date,
-            default: Date.now(),
+            default: Date.now,
             required: true,
         },
         noNota: {
             type: String,
-            default: `NOTA#${mongoose.Types.ObjectId()}`,
+            // default: `NOTA#${mongoose.Types.ObjectId()}`,
             required: true,
         },
         totalHarga: {
@@ -22,7 +23,7 @@ const schemaPembelian = new Schema(
             {
                 tanggalMasuk: {
                     type: Date,
-                    default: Date.now(),
+                    default: Date.now,
                     required: true,
                 },
                 id_produk: {
@@ -48,5 +49,6 @@ const schemaPembelian = new Schema(
     }
 );
 
+schemaPembelian.index({ noNota: "text" });
 const Pembelian = mongoose.model("Pembelian", schemaPembelian);
 export default Pembelian;

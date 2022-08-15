@@ -39,3 +39,16 @@
     font-size: 1.125rem;
     margin: 0 15px 0 0;
 }
+
+@media only screen and (max-width: 992px) {
+    .search_wrapper {
+        width: 100%;
+    }
+}
+
+/* MOBILE L 425 */
+/* @media only screen and (max-width: 426px) {
+    .search_wrapper {
+        margin: 1rem 0;
+    }
+} */

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import { url } from "../../../../api";
 import styles from "../../style.module.css";
 
@@ -17,31 +17,22 @@ import { H2 } from "../../../../components/typography/heading";
 
 const EditBarangRetur1 = () => {
     const navigate = useNavigate();
-    const id = useLocation().state.id;
+    const location = useLocation();
 
-    console.log(id);
-
+    const [user, setUser] = useOutletContext();
     const [dataBarangRetur, setDataBarangRetur] = useState({
-        // status: null,
-        // alasan: null,
-        // catatan: null,
-        // jumlah: null,
         id_produk: null,
         id_supplier: null,
     });
 
     const [produk, setProduk] = useState(null);
     const [supplier, setSupplier] = useState(null);
-    const [idBarangRetur, setIdBarangRetur] = useState(id);
+    const [idBarangRetur, setIdBarangRetur] = useState(location.state === null ? null : location.state.id);
 
     const getInfoDataBarangRetur = (id) => {
         url.get(`${id}`)
             .then((response) => {
                 setDataBarangRetur({
-                    // status: response.data[0].status,
-                    // alasan: response.data[0].alasan,
-                    // catatan: response.data[0].catatan,
-                    // jumlah: response.data[0].jumlah,
                     id_produk: response.data[0].id_produk[0]._id,
                     id_supplier: response.data[0].id_supplier[0]._id,
                 });
@@ -71,32 +62,9 @@ const EditBarangRetur1 = () => {
             });
     };
 
-    // const patchBarangRetur = (id) => {
-    //     url.patch(`${id}`, dataBarangRetur)
-    //         .then((response) => {})
-    //         .catch((error) => {
-    //             console.log(error.message);
-    //         })
-    //         .finally(() => {
-    //             setTimeout(() => {
-    //                 navigate("/barang-retur");
-    //             }, 100);
-    //         });
-    // };
-
     const handleClear = () => {
-        // document.getElementById("selectProdukRetur").selectedIndex = 0;
-        // document.getElementById("inputJumlahRetur").value = 0;
         document.getElementById("selectSupplierRetur").selectedIndex = 0;
-        // document.getElementById("inputAlasanRetur").value = "";
-        // document.getElementById("inputCatatanRetur").value = "";
-        // document.getElementById("selectStatusRetur").selectedIndex = 0;
         setDataBarangRetur({
-            // status: "",
-            // alasan: "",
-            // catatan: "",
-            // jumlah: 0,
-            // id_produk: "",
             id_supplier: null,
         });
     };
@@ -105,16 +73,15 @@ const EditBarangRetur1 = () => {
         navigate(-1);
     };
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     patchBarangRetur(id);
-    // };
-
     useEffect(() => {
-        getInfoDataBarangRetur(id);
+        getInfoDataBarangRetur(idBarangRetur);
         getProduk();
         getSupplier();
     }, []);
+
+    if (user.user.peran === "Pemilik Toko" || idBarangRetur === null) {
+        return <Navigate to="/barang-retur" replace />;
+    }
 
     // const dataStatus = [
     //     { key: 1, nama: "Diterima", detail: "Diterima ( diganti dengan barang yang sejenis )" },
@@ -230,7 +197,7 @@ const EditBarangRetur1 = () => {
                 <Spinner />
             ) : (
                 <form id="formInputBarangRetur1">
-                    <div className="p-5">
+                    <div className="p-xxl-5 p-xl-5 p-lg-5 p-md-5 p-sm-0">
                         <H2>1. Pilih Produk & Supplier</H2>
                         <div>
                             <label htmlFor="selectProdukRetur">
@@ -275,13 +242,13 @@ const EditBarangRetur1 = () => {
                             </Subtitle>
                         </div>
                     </div>
-                    <div className={`${styles.form_footer} pt-5 d-flex justify-content-between`}>
+                    <div className={`${styles.form_footer} pt-5 `}>
                         <BtnLinkError bs="text-uppercase d-flex" onClick={handleClear}>
                             <HiOutlineTrash className={`${styles.icon_delete}`} />
                             Bersihkan
                         </BtnLinkError>
-                        <div>
-                            <BtnSecondary type="button" bs="me-3" onClick={handleBackToPrevious}>
+                        <div className={styles.footer_btn_wrapper}>
+                            <BtnSecondary type="button" bs="me-0 me-xxl-3 me-xl-3 me-lg-3 me-md-0 my-xxl-0 my-2 my-xl-0 my-lg-0 my-md-2" onClick={handleBackToPrevious}>
                                 Kembali
                             </BtnSecondary>
                             {dataBarangRetur.id_supplier === null || dataBarangRetur.id_produk === null ? (

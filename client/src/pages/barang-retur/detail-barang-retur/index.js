@@ -8,14 +8,18 @@ import { MdOutlineInventory } from "react-icons/md";
 import { H2, H3 } from "../../../components/typography/heading";
 import Subtitle from "../../../components/typography/subtitle";
 import { url } from "../../../api";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useOutletContext } from "react-router-dom";
 import Overline from "../../../components/typography/overline";
 import BtnSecondary from "../../../components/button/secondary";
 import Spinner from "../../../components/spinner";
+import BtnPrimary from "../../../components/button/primary";
+import { ErrorAlert } from "../../../components/alert";
+import P from "../../../components/typography/paragraph";
 
 const DetailBarangRetur = () => {
     const navigate = useNavigate();
     const getId = useLocation().pathname.split("/")[2];
+    const [user, setUser, responseErrorMessage, setResponseErrorMessage] = useOutletContext();
     const [dataBarangRetur, setDataBarangRetur] = useState({
         status: "",
         alasan: "",
@@ -48,6 +52,20 @@ const DetailBarangRetur = () => {
             });
     };
 
+    const patchMasukanReturKeRak = (id) => {
+        url.patch(`/barang-retur/masuk-retur-ke-rak/${id}`)
+            .then((response) => {
+                if (response.status !== 404 || response.status !== 409 || response.status !== 403 || response.status !== 500) {
+                    setTimeout(() => {
+                        navigate("/barang-retur");
+                    }, 50);
+                }
+            })
+            .catch((error) => {
+                setResponseErrorMessage(error.response.data);
+            });
+    };
+
     const handleBackToPrevious = () => {
         navigate(-1);
     };
@@ -61,69 +79,77 @@ const DetailBarangRetur = () => {
             {dataBarangRetur.status === "" ? (
                 <Spinner />
             ) : (
-                <div className="my-2">
-                    <div className="card mb-5">
-                        <div className="card-header p-4 mb-1">
-                            <div className="d-flex align-items-center">
-                                <div className={`${styles.icon_return_product_wrapper} me-4`}>
-                                    <MdOutlineInventory className={styles.icon_return_product} />
-                                </div>
-                                <div>
-                                    <H2 bs="text-uppercase">{dataBarangRetur.namaProduk}</H2>
-                                    <Subtitle>{dataBarangRetur.status}</Subtitle>
+                <>
+                    <div className="my-2">
+                        <div className="card mb-5">
+                            <div className="card-header p-4 mb-1">
+                                <div className="d-flex align-items-center">
+                                    <div className={`${styles.icon_return_product_wrapper} me-4`}>
+                                        <MdOutlineInventory className={styles.icon_return_product} />
+                                    </div>
+                                    <div>
+                                        <H2 bs="text-uppercase">{dataBarangRetur.namaProduk}</H2>
+                                        <Subtitle>{dataBarangRetur.status}</Subtitle>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div className="card-body p-4 mb-5">
-                            <div className="row">
-                                <div className="col-5">
-                                    <div className="mb-3">
-                                        <Overline>Nama Produk</Overline>
-                                        <H3>{dataBarangRetur.namaProduk}</H3>
+                            <div className="card-body p-4 mb-5">
+                                <div className="row">
+                                    <div className="col-12 col-xxl-5 col-xl-5 col-lg-5 col-md-12">
+                                        <div className="mb-3">
+                                            <Overline>Nama Produk</Overline>
+                                            <H3>{dataBarangRetur.namaProduk}</H3>
+                                        </div>
+                                        <div className="mb-3">
+                                            <Overline>Nama Supplier</Overline>
+                                            <H3>{`${dataBarangRetur.namaSupplier} dari ${dataBarangRetur.namaPerusahaanSupplier}`}</H3>
+                                        </div>
+                                        <div className="mb-3">
+                                            <Overline>Tanggal Pengembalian</Overline>
+                                            <H3>{moment(dataBarangRetur.tanggalPengembalian).format("LLLL")}</H3>
+                                        </div>
+                                        <div className="mb-3">
+                                            <Overline>Jumlah yang di retur</Overline>
+                                            <H3>{dataBarangRetur.jumlah}</H3>
+                                        </div>
+                                        <div className="mb-3">
+                                            <Overline>Alasan melakukan retur</Overline>
+                                            <H3>{dataBarangRetur.alasan}</H3>
+                                        </div>
+                                        <div className="mb-3">
+                                            <Overline>Catatan</Overline>
+                                            <H3>{dataBarangRetur.catatan}</H3>
+                                        </div>
                                     </div>
-                                    <div className="mb-3">
-                                        <Overline>Nama Supplier</Overline>
-                                        <H3>{`${dataBarangRetur.namaSupplier} dari ${dataBarangRetur.namaPerusahaanSupplier}`}</H3>
-                                    </div>
-                                    <div className="mb-3">
-                                        <Overline>Tanggal Pengembalian</Overline>
-                                        <H3>{moment(dataBarangRetur.tanggalPengembalian).format("LLLL")}</H3>
-                                    </div>
-                                    <div className="mb-3">
-                                        <Overline>Jumlah yang di retur</Overline>
-                                        <H3>{dataBarangRetur.jumlah}</H3>
-                                    </div>
-                                    <div className="mb-3">
-                                        <Overline>Alasan melakukan retur</Overline>
-                                        <H3>{dataBarangRetur.alasan}</H3>
-                                    </div>
-                                    <div className="mb-3">
-                                        <Overline>Catatan</Overline>
-                                        <H3>{dataBarangRetur.catatan}</H3>
-                                    </div>
-                                </div>
-                                <div className="col">
-                                    <div className="mb-3">
-                                        <Overline>Gambar Produk</Overline>
-                                        <img src={`data:image/png;base64, ${dataBarangRetur.gambarProduk}`} alt={dataBarangRetur.namaProduk} className={styles.product_picture} />
-                                    </div>
-                                    <div className="mb-3">
-                                        <Overline>Status barang retur</Overline>
-                                        {(dataBarangRetur.status === "Diterima Ganti Barang" || dataBarangRetur.status === "Diterima Ganti Uang") && <H3>Diterima</H3>}
-                                        {dataBarangRetur.status === "Ditolak" && <H3>Ditolak</H3>}
-                                        {dataBarangRetur.status === "Diproses" && <H3>Diproses</H3>}
+                                    <div className="col">
+                                        <div className="mb-3">
+                                            <Overline>Gambar Produk</Overline>
+                                            <img src={`data:image/png;base64, ${dataBarangRetur.gambarProduk}`} alt={dataBarangRetur.namaProduk} className={styles.product_picture} />
+                                        </div>
+                                        <div className="mb-3">
+                                            <Overline>Status barang retur</Overline>
+                                            {(dataBarangRetur.status === "Diterima Ganti Barang" || dataBarangRetur.status === "Diterima Ganti Uang") && <H3>Diterima</H3>}
+                                            {dataBarangRetur.status === "Ditolak" && <H3>Ditolak</H3>}
+                                            {dataBarangRetur.status === "Diproses" && <H3>Diproses</H3>}
+                                            {dataBarangRetur.status === "Belum Bisa Masuk Rak (Kapasitas rak sudah penuh)" && <H3>Belum Bisa Masuk Rak (Kapasitas rak sudah penuh)</H3>}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div className={styles.btn_secondary_wrapper}>
+                            <BtnSecondary type="button" onClick={handleBackToPrevious}>
+                                Kembali
+                            </BtnSecondary>
+                            {dataBarangRetur.status === "Belum Bisa Masuk Rak (Kapasitas rak sudah penuh)" && (
+                                <BtnPrimary type="button" bs="ms-3" onClick={() => patchMasukanReturKeRak(getId)}>
+                                    Masukan Ke Rak
+                                </BtnPrimary>
+                            )}
+                        </div>
                     </div>
-                    <div className="d-flex justify-content-end">
-                        <BtnSecondary type="button" onClick={handleBackToPrevious}>
-                            Kembali
-                        </BtnSecondary>
-                    </div>
-                </div>
+                </>
             )}
         </>
     );

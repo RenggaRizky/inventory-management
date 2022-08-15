@@ -1,0 +1,24 @@
+.btn_grey {
+    background-color: #f9fafb !important;
+    border: medium solid transparent !important;
+    border-radius: 4px !important;
+    color: #111928 !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.875rem !important;
+}
+
+.btn_grey:hover {
+    /* background-color: #f9fafb !important; */
+    color: #1f2a37 !important;
+}
+
+.btn_grey:active {
+    /* background-color: #ffffff !important; */
+    color: #111928 !important;
+    /* border: medium solid #111928 !important; */
+}
+
+.btn_grey:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}

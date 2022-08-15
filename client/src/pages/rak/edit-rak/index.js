@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { HiOutlineTrash } from "react-icons/hi";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { url } from "../../../api";
 import { BtnLinkError } from "../../../components/button/link/error";
 import BtnPrimary from "../../../components/button/primary";
@@ -8,6 +8,7 @@ import BtnSecondary from "../../../components/button/secondary";
 import MainCard from "../../../components/card/main";
 import Divider from "../../../components/divider";
 import { InputGroupBack, InputGroupBackDisabled } from "../../../components/form/input-group";
+import { InputSelect } from "../../../components/form/select";
 import InputText from "../../../components/form/text";
 import Spinner from "../../../components/spinner";
 import { H2 } from "../../../components/typography/heading";
@@ -17,14 +18,12 @@ import styles from "../style.module.css";
 
 const EditRak = () => {
     const navigate = useNavigate();
-    const id = useLocation().state.id;
+    const location = useLocation();
+    const [idRak, setIdRak] = useState(location.state === null ? null : location.state.id);
+    const [user, setUser] = useState(localStorage.getItem("profile") !== null ? JSON.parse(localStorage.getItem("profile")) : null);
     const [dataRak, setDataRak] = useState({
         nama: null,
         lokasi: null,
-        panjang: null,
-        lebar: null,
-        tinggi: null,
-        kapasitas: null,
     });
 
     const getInfoRak = (id) => {
@@ -33,10 +32,6 @@ const EditRak = () => {
                 setDataRak({
                     nama: response.data.nama,
                     lokasi: response.data.lokasi,
-                    panjang: response.data.dimensiSusun.panjang.$numberDecimal,
-                    lebar: response.data.dimensiSusun.lebar.$numberDecimal,
-                    tinggi: response.data.dimensiSusun.tinggi.$numberDecimal,
-                    kapasitas: response.data.susun1.kapasitas.$numberDecimal,
                 });
             })
             .catch((error) => {
@@ -45,7 +40,10 @@ const EditRak = () => {
     };
 
     const patchRak = (id) => {
-        url.patch(`/rak/${id}`, dataRak)
+        url.patch(`/rak/${id}`, {
+            nama: dataRak.nama,
+            lokasi: dataRak.lokasi,
+        })
             .then((response) => {})
             .catch((error) => {
                 console.log(error.message);
@@ -57,27 +55,17 @@ const EditRak = () => {
             });
     };
 
-    const kapasitasSusun = dataRak.panjang * dataRak.lebar * dataRak.tinggi;
-
     const handleSubmit = (e) => {
         e.preventDefault();
-        patchRak(id);
+        patchRak(idRak);
     };
 
     const handleClear = () => {
         document.getElementById("inputNamaRak").value = null;
-        document.getElementById("inputLokasiRak").value = null;
-        document.getElementById("inputPanjangSusun").value = null;
-        document.getElementById("inputLebarSusun").value = null;
-        document.getElementById("inputTinggiSusun").value = null;
-        document.getElementById("inputVolumeSetiapSusun").value = null;
+        document.getElementById("selectLokasiRak").selectedIndex = 0;
         setDataRak({
             nama: null,
             lokasi: null,
-            panjang: null,
-            lebar: null,
-            tinggi: null,
-            kapasitas: null,
         });
     };
 
@@ -87,12 +75,21 @@ const EditRak = () => {
     };
 
     useEffect(() => {
-        getInfoRak(id);
-    }, [id]);
+        getInfoRak(idRak);
+    }, [idRak]);
+
+    const dataLokasi = [
+        { id: 1, nama: "Toko" },
+        { id: 2, nama: "Gudang" },
+    ];
+
+    if (user.user.peran === "Pemilik Toko" || idRak === null) {
+        return <Navigate to="/rak" replace />;
+    }
 
     return (
         <>
-            {dataRak.nama === null ? (
+            {dataRak === null ? (
                 <Spinner />
             ) : (
                 <div className={styles.wrapper}>
@@ -100,8 +97,7 @@ const EditRak = () => {
                         <HeadContent title="Edit Rak" subtitle="Perbarui data rak yang dapat dipakai untuk menyimpan barang" />
                         <Divider margin="0 0 24px 0" />
                         <form onSubmit={handleSubmit} id="formInputRak">
-                            <div className="p-5">
-                                <H2>1. Informasi Rak</H2>
+                            <div className="mt-1 mb-5">
                                 <label htmlFor="inputNamaRak">
                                     <Title margin="2rem 0 0.625rem 0.25rem">Nama Rak</Title>
                                 </label>
@@ -109,86 +105,15 @@ const EditRak = () => {
                                 <label htmlFor="inputLokasiRak">
                                     <Title margin="0.875rem 0 0.625rem 0.25rem">Lokasi Rak</Title>
                                 </label>
-                                <InputText id="inputLokasiRak" defaultValue={dataRak.lokasi} onChange={(e) => setDataRak({ ...dataRak, lokasi: e.target.value })} maxLength={30} required />
+                                <InputSelect data={dataLokasi} value={dataRak.lokasi} onChange={(e) => setDataRak({ ...dataRak, lokasi: e.target.value })} required id="selectLokasiRak" />
                             </div>
-
-                            <div className="p-5">
-                                <H2>2. Dimensi Susun yang ada di Rak</H2>
-                                <div className="row">
-                                    <div className="col me-2">
-                                        <label htmlFor="inputPanjangSusun">
-                                            <Title margin="2rem 0 0.625rem 0.25rem">Panjang Susun</Title>
-                                        </label>
-                                        <InputGroupBack
-                                            type="number"
-                                            min="0"
-                                            max="999999"
-                                            step="any"
-                                            wrap="cm"
-                                            id="inputPanjangSusun"
-                                            defaultValue={dataRak.panjang}
-                                            onChange={(e) => setDataRak({ ...dataRak, panjang: e.target.value })}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="col me-2">
-                                        <label htmlFor="inputLebarSusun">
-                                            <Title margin="2rem 0 0.625rem 0.25rem">Lebar Susun</Title>
-                                        </label>
-                                        <InputGroupBack
-                                            type="number"
-                                            min="0"
-                                            max="999999"
-                                            step="any"
-                                            wrap="cm"
-                                            id="inputLebarSusun"
-                                            defaultValue={dataRak.lebar}
-                                            onChange={(e) => setDataRak({ ...dataRak, lebar: e.target.value })}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="col">
-                                        <label htmlFor="inputTinggiSusun">
-                                            <Title margin="2rem 0 0.625rem 0.25rem">Tinggi Susun</Title>
-                                        </label>
-                                        <InputGroupBack
-                                            type="number"
-                                            min="0"
-                                            max="999999"
-                                            step="any"
-                                            wrap="cm"
-                                            id="inputTinggiSusun"
-                                            defaultValue={dataRak.tinggi}
-                                            onChange={(e) => setDataRak({ ...dataRak, tinggi: e.target.value })}
-                                            required
-                                        />
-                                    </div>
-                                </div>
-                                <label htmlFor="inputVolumeSetiapSusun">
-                                    <Title margin="2rem 0 0.625rem 0.25rem">Volume Setiap Susun</Title>
-                                </label>
-                                <InputGroupBackDisabled
-                                    type="number"
-                                    min="0"
-                                    max="999999"
-                                    wrap={
-                                        <>
-                                            cm<sup>3</sup>
-                                        </>
-                                    }
-                                    id="inputVolumeSetiapSusun"
-                                    value={kapasitasSusun}
-                                />
-                                <Divider margin="4rem 0 0 0" bordercolor="#fff" />
-                            </div>
-
-                            <div className={`${styles.form_footer} pt-5 d-flex justify-content-between`}>
+                            <div className={`${styles.form_footer} pt-5 `}>
                                 <BtnLinkError bs="text-uppercase d-flex" onClick={handleClear}>
                                     <HiOutlineTrash className={`${styles.icon_delete}`} />
                                     Bersihkan
                                 </BtnLinkError>
-                                <div>
-                                    <BtnSecondary type="button" bs="me-3" onClick={handleBackToPrevious}>
+                                <div className={styles.footer_btn_wrapper}>
+                                    <BtnSecondary type="button" bs="me-0 me-xxl-3 me-xl-3 me-lg-3 me-md-0 my-xxl-0 my-2 my-xl-0 my-lg-0 my-md-2" onClick={handleBackToPrevious}>
                                         Kembali
                                     </BtnSecondary>
                                     <BtnPrimary type="submit" value="Simpan" />
