@@ -36,35 +36,32 @@ const AccountSetting = () => {
     }, [location]);
 
     if (user === null) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to='/login' replace />;
     }
 
     return (
-        <div className="dropdown">
+        <div className='dropdown'>
             {user !== null && (
                 <>
-                    <a className={`${styles.dropdown_avatar} btn d-flex justify-content-between align-items-center`} href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a className={`${styles.dropdown_avatar} btn d-flex justify-content-between align-items-center`} href='#' role='button' id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>
                         <div className={`${styles.icon_avatar} px-3 py-2`}>
-                            <Title color="#fff" texttransform="uppercase" fontsize="1rem" fontweight="500">
+                            <Title color='#fff' texttransform='uppercase' fontsize='1rem' fontweight='500'>
                                 {user.user.username.charAt(0)}
                             </Title>
                         </div>
 
-                        <span>{user.user.username}</span>
-                        <BsCaretDownFill className="align-items-center" />
+                        <span className='d-none d-md-inline-block'>{user.user.username}</span>
+                        <BsCaretDownFill className='align-items-center ms-3 ms-md-0' />
                     </a>
 
-                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                    <ul className='dropdown-menu dropdown-menu-end' aria-labelledby='dropdownMenuLink'>
                         <li>
-                            {/* <a className="dropdown-item" href="#">
-                                Profil
-                            </a> */}
-                            <Link className="dropdown-item" to="user" state={{ id: idUser }}>
+                            <Link className='dropdown-item' to='user' state={{ id: idUser }}>
                                 Profil
                             </Link>
                         </li>
                         <li>
-                            <p className="dropdown-item m-0" href="#" style={{ color: colors.error }} onClick={logout}>
+                            <p className='dropdown-item m-0' href='#' style={{ color: colors.error }} onClick={logout}>
                                 Keluar
                             </p>
                         </li>

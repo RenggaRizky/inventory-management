@@ -45,13 +45,7 @@ const BarangMasuk = () => {
     return (
         <div className={styles.wrapper}>
             <MainCard>
-                <HeadContent title="Barang Masuk" subtitle="Kumpulan data mengenai barang yang masuk">
-                    {/* <div className={`${styles.action_wrapper} d-flex justify-content-between align-items-center`}>
-                        <div className="flex-grow-1 me-3">
-                            <Search placeholder="Cari Barang" />
-                        </div>
-                    </div> */}
-                </HeadContent>
+                <HeadContent title="Barang Masuk" subtitle="Kumpulan data mengenai barang yang masuk"></HeadContent>
                 <Divider margin="0 0 24px 0" />
 
                 <>{dataBarangMasuk === null ? <Spinner /> : dataBarangMasuk.length === 0 ? <P>Tidak ada data yang ditampilkan</P> : <TableBarangMasuk tableheaddata={tableHead} tablebodydata={dataBarangMasuk} rowsperpage={10} />}</>

@@ -12,7 +12,6 @@ const schemaPembelian = new Schema(
         },
         noNota: {
             type: String,
-            // default: `NOTA#${mongoose.Types.ObjectId()}`,
             required: true,
         },
         totalHarga: {

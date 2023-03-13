@@ -15,7 +15,7 @@
     font-size: 0.875rem !important;
     font-weight: 500 !important;
     text-transform: uppercase !important;
-    margin: 0 1rem !important;
+    /* margin: 0 1rem !important; */
 }
 
 .dropdown_avatar:hover {
@@ -61,4 +61,10 @@
     text-transform: uppercase;
     margin: 0 1rem;
     padding: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .dropdown_avatar {
+        margin: 0 1rem !important;
+    }
 }

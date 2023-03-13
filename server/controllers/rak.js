@@ -42,20 +42,7 @@ export const postRak = async (req, res) => {
 
 export const patchRak = async (req, res) => {
     const { id: _id } = req.params;
-    const {
-        nama,
-        lokasi,
-        // panjang,
-        // lebar,
-        // tinggi,
-        // kapasitas
-    } = req.body;
-
-    // let getRak = await Rak.find({ _id: mongoose.Types.ObjectId(_id) });
-    // let getTerpakaiSusun1 = getRak[0].susun[0].terpakai;
-    // let getTerpakaiSusun2 = getRak[0].susun[1].terpakai;
-    // let getTerpakaiSusun3 = getRak[0].susun[2].terpakai;
-    // let getTerpakaiSusun4 = getRak[0].susun[3].terpakai;
+    const { nama, lokasi } = req.body;
 
     try {
         if (mongoose.Types.ObjectId.isValid(_id)) {
@@ -67,17 +54,6 @@ export const patchRak = async (req, res) => {
                     $set: {
                         nama: nama,
                         lokasi: lokasi,
-                        // "dimensiSusun.panjang": panjang,
-                        // "dimensiSusun.lebar": lebar,
-                        // "dimensiSusun.tinggi": tinggi,
-                        // "susun.0.kapasitas": kapasitas,
-                        // "susun.1.kapasitas": kapasitas,
-                        // "susun.2.kapasitas": kapasitas,
-                        // "susun.3.kapasitas": kapasitas,
-                        // "susun.0.status": (Number(getTerpakaiSusun1) / Number(kapasitas)) * 100,
-                        // "susun.1.status": (Number(getTerpakaiSusun2) / Number(kapasitas)) * 100,
-                        // "susun.2.status": (Number(getTerpakaiSusun3) / Number(kapasitas)) * 100,
-                        // "susun.3.status": (Number(getTerpakaiSusun4) / Number(kapasitas)) * 100,
                     },
                 }
             );

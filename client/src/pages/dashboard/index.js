@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { DashboardCardPrimary, DashboardCardSecondary } from "../../components/card/dashboard";
 import MainCard from "../../components/card/main";
-import { H1, H5, H6 } from "../../components/typography/heading";
+import { H5, H6 } from "../../components/typography/heading";
 import Subtitle from "../../components/typography/subtitle";
 import styles from "./style.module.css";
 import { FiBox } from "react-icons/fi";
@@ -13,9 +13,7 @@ import Spinner from "../../components/spinner";
 import SpinnerWhite from "../../components/spinner-white";
 import moment from "moment";
 import "moment/locale/id";
-import P from "../../components/typography/paragraph";
 import Divider from "../../components/divider";
-import { colors } from "../../colors";
 
 const Dashboard = () => {
     const [user, setUser] = useState(localStorage.getItem("profile") !== null ? JSON.parse(localStorage.getItem("profile")) : null);
@@ -23,7 +21,6 @@ const Dashboard = () => {
     const [barangMasuk, setBarangMasuk] = useState(null);
     const [barangKeluar, setBarangKeluar] = useState(null);
     const [barangRetur, setBarangRetur] = useState(null);
-    const [x, setX] = useState(null);
 
     let currentDate = new Date();
     let getCurrentDay = currentDate.getDate() <= 9 ? "0" + currentDate.getDate() : currentDate.getDate();
@@ -97,18 +94,6 @@ const Dashboard = () => {
         return countData;
     };
 
-    const numberWithCommas = (number) => {
-        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    };
-
-    const decimalNumber = (number) => {
-        if (Number.isInteger(number)) {
-            return parseFloat(number.toFixed(1).toString().replace(".", ","));
-        } else {
-            return number.toFixed(1).toString().replace(".", ",");
-        }
-    };
-
     useEffect(() => {
         getProduk();
         getBarangMasukHariIni();
@@ -117,118 +102,105 @@ const Dashboard = () => {
     }, []);
 
     if (user === null) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to='/login' replace />;
     }
 
     return (
         <div className={styles.wrapper}>
             <MainCard>
-                <div className="row mb-5">
-                    <div className="col-md-6 col-lg-3 col-xl-3 mb-3 mb-md-4 mb-lg-0">
+                <div className='row mb-5'>
+                    <div className='col-md-6 col-lg-3 col-xl-3 mb-3 mb-md-4 mb-lg-0'>
                         {produk === null ? (
-                            <DashboardCardPrimary title="" subtitle="">
-                                <div className="my-5">
+                            <DashboardCardPrimary title='' subtitle=''>
+                                <div className='my-5'>
                                     <SpinnerWhite />
                                 </div>
                             </DashboardCardPrimary>
                         ) : (
-                            <DashboardCardPrimary title={produk.length !== 0 ? produk.reduce((previous, current) => previous + current.stok.total, 0) : "0"} subtitle="Jumlah Stok">
+                            <DashboardCardPrimary title={produk.length !== 0 ? produk.reduce((previous, current) => previous + current.stok.total, 0) : "0"} subtitle='Jumlah Stok'>
                                 <FiBox className={styles.icon_db} />
                             </DashboardCardPrimary>
                         )}
                     </div>
-                    <div className="col-md-6 col-lg-3 col-xl-3 mb-3 mb-md-4 mb-lg-0">
+                    <div className='col-md-6 col-lg-3 col-xl-3 mb-3 mb-md-4 mb-lg-0'>
                         {barangMasuk === null ? (
-                            <DashboardCardPrimary title="" subtitle="">
-                                <div className="my-5">
+                            <DashboardCardPrimary title='' subtitle=''>
+                                <div className='my-5'>
                                     <SpinnerWhite />
                                 </div>
                             </DashboardCardPrimary>
                         ) : (
-                            <DashboardCardPrimary title={countBarangMasukKeluar(barangMasuk)} subtitle="Jumlah Masuk" date={`(${moment(currentDate).format("L")})`}>
+                            <DashboardCardPrimary title={countBarangMasukKeluar(barangMasuk)} subtitle='Jumlah Masuk' date={`(${moment(currentDate).format("L")})`}>
                                 <TbPackgeImport className={styles.icon_db} />
                             </DashboardCardPrimary>
                         )}
                     </div>
-                    <div className="col-md-6 col-lg-3 col-xl-3 mb-3 mb-md-4 mb-lg-0">
+                    <div className='col-md-6 col-lg-3 col-xl-3 mb-3 mb-md-4 mb-lg-0'>
                         {barangKeluar === null ? (
-                            <DashboardCardPrimary title="" subtitle="">
-                                <div className="my-5">
+                            <DashboardCardPrimary title='' subtitle=''>
+                                <div className='my-5'>
                                     <SpinnerWhite />
                                 </div>
                             </DashboardCardPrimary>
                         ) : (
-                            <DashboardCardPrimary title={countBarangMasukKeluar(barangKeluar)} subtitle="Jumlah Keluar" date={`(${moment(currentDate).format("L")})`}>
+                            <DashboardCardPrimary title={countBarangMasukKeluar(barangKeluar)} subtitle='Jumlah Keluar' date={`(${moment(currentDate).format("L")})`}>
                                 <TbPackgeExport className={styles.icon_db} />
                             </DashboardCardPrimary>
                         )}
                     </div>
-                    <div className="col-md-6 col-lg-3 col-xl-3 mb-3 mb-md-4 mb-lg-0">
+                    <div className='col-md-6 col-lg-3 col-xl-3 mb-3 mb-md-4 mb-lg-0'>
                         {barangRetur === null ? (
-                            <DashboardCardPrimary title="" subtitle="">
-                                <div className="my-5">
+                            <DashboardCardPrimary title='' subtitle=''>
+                                <div className='my-5'>
                                     <SpinnerWhite />
                                 </div>
                             </DashboardCardPrimary>
                         ) : (
-                            <DashboardCardPrimary title={countBarangRetur(barangRetur)} subtitle="Jumlah Retur" date={`(${moment(currentDate).format("L")})`}>
+                            <DashboardCardPrimary title={countBarangRetur(barangRetur)} subtitle='Jumlah Retur' date={`(${moment(currentDate).format("L")})`}>
                                 <MdOutlineInventory className={styles.icon_db} />
                             </DashboardCardPrimary>
                         )}
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col-xxl-8 col-lg-7 mb-4 mb-md-5 mb-lg-0 mb-xxl-0">
+                <div className='row'>
+                    <div className='col-xxl-8 col-lg-7 mb-4 mb-md-5 mb-lg-0 mb-xxl-0'>
                         {produk === null ? (
-                            <DashboardCardSecondary title="Pratinjau Jumlah Stok">
+                            <DashboardCardSecondary title='Pratinjau Jumlah Stok'>
                                 <Spinner />
                             </DashboardCardSecondary>
                         ) : (
-                            <DashboardCardSecondary title="Pratinjau Jumlah Stok">
+                            <DashboardCardSecondary title='Pratinjau Jumlah Stok'>
                                 {produk.slice(0, 3).map((x) => {
                                     return (
                                         <>
-                                            <div className={`${styles.content_card_secondary} p-2`}>
-                                                <div className="d-flex align-items-center">
+                                            <div className={`${styles.content_card_secondary} p-2 `}>
+                                                <div className='d-flex align-items-center'>
                                                     <img src={`data:image/png;base64, ${x.gambar}`} alt={x.nama} className={styles.product_picture} />
-                                                    <div className="ms-4">
-                                                        <H6 texttransform="uppercase">{x.nama}</H6>
-                                                        <Subtitle fontsize="0.75rem">
+                                                    <div className='ms-4'>
+                                                        <H6 texttransform='uppercase'>{x.nama}</H6>
+                                                        <Subtitle fontsize='0.75rem'>
                                                             {x.id_rak[0].nama} {x.id_rak[0].susun.nama} - {x.id_rak[0].lokasi}
                                                         </Subtitle>
                                                     </div>
                                                 </div>
 
-                                                <div className="d-flex align-items-center row gx-4 flex-nowrap">
-                                                    <div className="col text-center">
-                                                        <Subtitle fontsize="0.75rem">STOK</Subtitle>
-                                                        <H5 fontweight="600">{x.stok.total}</H5>
+                                                <div className='d-flex align-items-center row gx-4 flex-nowrap'>
+                                                    <div className='col text-nowrap align-self-end'>
+                                                        <span className={[x.stok.status === "Tersedia" ? styles.status_wrapper_accepted : x.stok.status === "Habis" || x.stok.status === "Penuh" ? styles.status_wrapper_rejected : styles.status_wrapper_process, "d-flex align-items-center"].join(" ")}>{x.stok.status}</span>
                                                     </div>
-                                                    <div className="col text-nowrap">
-                                                        <Subtitle fontsize="0.75rem" color={colors.white}>
-                                                            status
-                                                        </Subtitle>
-                                                        <span
-                                                            className={
-                                                                x.stok.status === "Tersedia"
-                                                                    ? styles.status_wrapper_accepted
-                                                                    : x.stok.status === "Habis" || x.stok.status === "Penuh"
-                                                                    ? styles.status_wrapper_rejected
-                                                                    : styles.status_wrapper_process
-                                                            }
-                                                        >
-                                                            {x.stok.status}
-                                                        </span>
+                                                    <div className='col text-center '>
+                                                        <Subtitle fontsize='0.75rem'>STOK</Subtitle>
+                                                        <H5 fontweight='600'>{x.stok.total}</H5>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <Divider margin="0.5rem 0" />
+                                            <Divider margin='0.5rem 0' />
                                         </>
                                     );
                                 })}
-                                <div className="text-center p-4">
-                                    <Link className="link-dark" to="/stok-barang">
+                                <div className='text-center p-4'>
+                                    <Link className='link-dark' to='/stok-barang'>
                                         Lihat Semua
                                     </Link>
                                 </div>
@@ -236,13 +208,13 @@ const Dashboard = () => {
                         )}
                     </div>
 
-                    <div className="col-xxl-4 col-lg-5 mb-4 mb-md-5 mb-lg-0 mb-xxl-0">
+                    <div className='col-xxl-4 col-lg-5 mb-4 mb-md-5 mb-lg-0 mb-xxl-0'>
                         {barangRetur === null ? (
-                            <DashboardCardSecondary title="Barang Retur Yang Masih Diproses">
+                            <DashboardCardSecondary title='Barang Retur Yang Masih Diproses'>
                                 <Spinner />
                             </DashboardCardSecondary>
                         ) : (
-                            <DashboardCardSecondary title="Barang Retur Yang Masih Diproses">
+                            <DashboardCardSecondary title='Barang Retur Yang Masih Diproses'>
                                 {barangRetur
                                     .slice(0, 3)
                                     .filter((x) => x.status === "Diproses")
@@ -252,19 +224,19 @@ const Dashboard = () => {
                                                 <div className={`${styles.content_card_secondary_2} p-2 `}>
                                                     <div className={styles.content_card_secondary_3}>
                                                         <img src={`data:image/png;base64, ${y.id_produk[0].gambar}`} alt={y.id_produk[0].nama} className={styles.product_picture} />
-                                                        <div className="ms-xl-4 ms-lg-4 ms-md-4 ms-0">
-                                                            <H6 texttransform="uppercase">{y.id_produk[0].nama}</H6>
-                                                            <Subtitle fontsize="0.75rem">{y.id_supplier[0].namaPerusahaan}</Subtitle>
+                                                        <div className='ms-xl-4 ms-lg-4 ms-md-4 ms-0'>
+                                                            <H6 texttransform='uppercase'>{y.id_produk[0].nama}</H6>
+                                                            <Subtitle fontsize='0.75rem'>{y.id_supplier[0].namaPerusahaan}</Subtitle>
                                                         </div>
                                                     </div>
                                                     <H5>{y.jumlah} PCS</H5>
                                                 </div>
-                                                <Divider margin="0.5rem 0" />
+                                                <Divider margin='0.5rem 0' />
                                             </>
                                         );
                                     })}
-                                <div className="text-center p-4">
-                                    <Link className="link-dark" to="/barang-retur">
+                                <div className='text-center p-4'>
+                                    <Link className='link-dark' to='/barang-retur'>
                                         Lihat Semua
                                     </Link>
                                 </div>

@@ -65,11 +65,6 @@ const TableProduk = ({ tableheaddata, tablebodydata, setproduk, rowsperpage, ...
                                             {data.id_merek[0].nama}
                                         </P>
                                     </td>
-                                    {/* <td className="text-capitalize text-nowrap">
-                                <P color="#616161" fontsize="0.875rem">
-                                    {data.id_satuanbarang[0].nama}
-                                </P>
-                            </td> */}
                                     <td className="text-nowrap">
                                         <P color="#616161" fontsize="0.875rem">
                                             {numberWithCommas(decimalNumber(Number(data.volume.$numberDecimal)))} cm<sup>3</sup>

@@ -37,20 +37,14 @@ const BarangKeluar = () => {
     const [user, setUser] = useState(localStorage.getItem("profile") !== null ? JSON.parse(localStorage.getItem("profile")) : null);
 
     if (user === null) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to='/login' replace />;
     }
 
     return (
         <div className={styles.wrapper}>
             <MainCard>
-                <HeadContent title="Barang Keluar" subtitle="Kumpulan data mengenai barang yang keluar">
-                    {/* <div className={`${styles.action_wrapper} d-flex justify-content-between align-items-center`}>
-                        <div className="flex-grow-1 me-3">
-                            <Search placeholder="Cari Barang" />
-                        </div>
-                    </div> */}
-                </HeadContent>
-                <Divider margin="0 0 24px 0" />
+                <HeadContent title='Barang Keluar' subtitle='Kumpulan data mengenai barang yang keluar'></HeadContent>
+                <Divider margin='0 0 24px 0' />
 
                 <>{dataBarangKeluar === null ? <Spinner /> : dataBarangKeluar.length === 0 ? <P>Tidak ada data yang ditampilkan</P> : <TableBarangKeluar tableheaddata={tableHead} tablebodydata={dataBarangKeluar} rowsperpage={10} />}</>
             </MainCard>

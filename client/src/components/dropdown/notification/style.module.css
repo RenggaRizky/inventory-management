@@ -36,6 +36,12 @@
     margin-left: 1rem;
 }
 
+/* .dropdown-menu[data-bs-popper] {
+    top: 100%;
+    left: -250% !important;
+    margin-top: 0.125rem;
+} */
+
 .icon_dropdown_item_warning {
     color: #ffc107;
 }
@@ -45,10 +51,9 @@
 }
 
 .notification_wrapper {
-    margin: 0 6px 0 0;
-    width: 400px;
     display: flex;
     justify-content: end;
+    /* width: 350px; */
 }
 
 .notification_icon {
@@ -67,4 +72,11 @@
 .notification_icon:focus {
     outline: none !important;
     box-shadow: none !important;
+}
+
+@media screen and (min-width: 768px) {
+    .notification_wrapper {
+        margin: 0 6px 0 0;
+        width: 400px;
+    }
 }

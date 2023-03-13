@@ -83,26 +83,6 @@ export const getInfoStokBarang = async (req, res) => {
     }
 };
 
-// export const patchStokBarang = async (req, res) => {
-//     const { id: _id } = req.params;
-//     const {
-//         stok: { batasMinimum },
-//     } = req.body;
-
-//     try {
-//         if (mongoose.Types.ObjectId.isValid(_id)) {
-//             const batasStokDiperbarui = await Produk.findByIdAndUpdate(_id, { stok: { batasMinimum } });
-//             res.status(200).json(batasStokDiperbarui);
-//         } else {
-//             res.status(404).send("ID tidak ditemukan");
-//         }
-//     } catch (error) {
-//         res.status(409).json({
-//             message: error.message,
-//         });
-//     }
-// };
-
 export const patchStokBarangMasuk = async (req, res) => {
     const { id: _id } = req.params;
     const { jumlahMasuk } = req.body;

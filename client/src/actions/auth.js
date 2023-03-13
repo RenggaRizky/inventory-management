@@ -14,7 +14,6 @@ export const login = (formLogin, navigate) => async (dispatch) => {
 export const register = (formRegister, navigate) => async (dispatch) => {
     try {
         const { data } = await url.post("/user/register", formRegister);
-        // dispatch({ type: "AUTH", data });
         console.log(data.message);
         navigate("/login");
     } catch (error) {
